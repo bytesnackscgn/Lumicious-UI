@@ -1,0 +1,1 @@
+export { default as LBreadcrumbs } from './LBreadcrumbs.vue';

@@ -1,0 +1,37 @@
+@import "tailwindcss";
+
+/**
+ * Tailwind CSS 4 Base Configuration
+ * 
+ * This file uses the new CSS-first configuration approach in Tailwind 4.
+ * Custom theme values, utilities, and variants can be defined using CSS variables
+ * and @theme directive below.
+ */
+
+@theme {
+  --color-glass-white: rgba(255, 255, 255, 0.1);
+  --color-glass-white-border: rgba(255, 255, 255, 0.2);
+  --color-glass-black: rgba(0, 0, 0, 0.2);
+  --color-glass-black-border: rgba(255, 255, 255, 0.1);
+  
+  --glass-blur: 12px;
+  --glass-border-width: 1px;
+  
+  --shadow-glass: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+}
+
+@utility glass {
+  background: var(--color-glass-white);
+  backdrop-filter: blur(var(--glass-blur));
+  -webkit-backdrop-filter: blur(var(--glass-blur));
+  border: var(--glass-border-width) solid var(--color-glass-white-border);
+  box-shadow: var(--shadow-glass);
+}
+
+@utility glass-dark {
+  background: var(--color-glass-black);
+  backdrop-filter: blur(var(--glass-blur));
+  -webkit-backdrop-filter: blur(var(--glass-blur));
+  border: var(--glass-border-width) solid var(--color-glass-black-border);
+  box-shadow: var(--shadow-glass);
+}

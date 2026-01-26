@@ -1,0 +1,12 @@
+import type { BtnProps } from '../Btn/types';
+
+export interface BtnDropdownProps extends BtnProps {
+  modelValue?: boolean;
+  split?: boolean;
+  contentClass?: string;
+  persistent?: boolean;
+  autoClose?: boolean;
+  menuAnchor?: any;
+  menuSelf?: any;
+  noCaret?: boolean;
+}
