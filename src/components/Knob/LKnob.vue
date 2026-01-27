@@ -4,8 +4,7 @@ import { cn } from '../../utils/cn';
 import { 
   knobContainerStyles, 
   knobTrackStyles, 
-  knobProgressStyles, 
-  knobKnobStyles, 
+  knobProgressStyles,
   knobValueStyles, 
   knobIndicatorStyles 
 } from './styles';
@@ -47,9 +46,11 @@ const displayValue = computed(() => {
 
 const trackSize = computed(() => {
   switch (props.size) {
-    case 'sm': return 80;
+    case 'xs': return 40;
+    case 's': return 70;
     case 'md': return 100;
     case 'lg': return 120;
+    case 'xl': return 140;
     default: return 100;
   }
 });
@@ -204,12 +205,14 @@ onUnmounted(() => {
 </script>
 
 <template>
+  <div class="flex flex-col items-center">
   <div
     ref="containerRef"
     :class="cn(knobContainerStyles({ size, disabled }))"
     @mousedown="handleMouseDown"
     @touchstart="handleTouchStart"
     @click="handleClick"
+    class="relative inline-block"
   >
     <!-- Track -->
     <div
@@ -218,6 +221,7 @@ onUnmounted(() => {
         width: `${trackSize}px`,
         height: `${trackSize}px`,
       }"
+      class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2"
     />
     
     <!-- Progress arc -->
@@ -226,46 +230,39 @@ onUnmounted(() => {
       :style="{
         width: `${progressSize}px`,
         height: `${progressSize}px`,
+        borderRadius: '50%',
         background: `conic-gradient(
           rgba(255, 255, 255, 0.3) 0deg,
           rgba(255, 255, 255, 0.3) ${normalizedValue}deg,
           transparent ${normalizedValue}deg
         )`,
-        borderRadius: '50%',
-        top: `${(trackSize - progressSize) / 2}px`,
-        left: `${(trackSize - progressSize) / 2}px`,
       }"
+      class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2"
     />
     
     <!-- Knob -->
     <div
       ref="knobRef"
-      :class="cn(knobKnobStyles({ variant, color: color as any }))"
       :style="{
         width: `${knobSizePx}px`,
         height: `${knobSizePx}px`,
-        transform: `rotate(${normalizedValue}deg)`,
-        top: `${(trackSize - knobSizePx) / 2}px`,
-        left: `${(trackSize - knobSizePx) / 2}px`,
+        transform: `translate(-50%, -50%) rotate(${normalizedValue}deg) translateY(${-((trackSize - knobSizePx) / 2)}px)`,
       }"
+      class="absolute top-1/2 left-1/2 origin-center"
     >
       <!-- Indicator -->
       <div
         :class="cn(knobIndicatorStyles())"
-        :style="{
-          top: '2px',
-          left: '50%',
-          transform: 'translateX(-50%)',
-        }"
+        class="absolute top-0 left-1/2 transform -translate-x-1/2 -translate-y-1/2"
       />
     </div>
     
-    <!-- Value display -->
+    
+  </div>
+  <!-- Value display -->
     <div
       :class="cn(knobValueStyles({ size, showValue }))"
-      :style="{
-        top: `${trackSize + 8}px`,
-      }"
+      class="block"
     >
       {{ displayValue }}
     </div>

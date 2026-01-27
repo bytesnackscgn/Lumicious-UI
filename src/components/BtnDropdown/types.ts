@@ -9,4 +9,5 @@ export interface BtnDropdownProps extends BtnProps {
   menuAnchor?: any;
   menuSelf?: any;
   noCaret?: boolean;
+  class?: string;
 }

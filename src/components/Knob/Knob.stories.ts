@@ -10,7 +10,7 @@ const meta = {
     min: { control: 'number' },
     max: { control: 'number' },
     step: { control: 'number' },
-    size: { control: 'select', options: ['sm', 'md', 'lg'] },
+    size: { control: 'select', options: ['xs', 's', 'md', 'lg', 'xl'] },
     variant: { control: 'select', options: ['glass', 'solid', 'outline'] },
     color: { control: 'select', options: ['primary', 'secondary', 'positive', 'negative', 'info', 'warning', 'white'] },
     disabled: { control: 'boolean' },
@@ -72,9 +72,16 @@ export const Temperature: Story = {
   },
 };
 
+export const ExtraSmall: Story = {
+  args: {
+    size: 'xs',
+    modelValue: 25,
+  },
+};
+
 export const Small: Story = {
   args: {
-    size: 'sm',
+    size: 's',
     modelValue: 30,
   },
 };
@@ -83,6 +90,13 @@ export const Large: Story = {
   args: {
     size: 'lg',
     modelValue: 70,
+  },
+};
+
+export const ExtraLarge: Story = {
+  args: {
+    size: 'xl',
+    modelValue: 85,
   },
 };
 

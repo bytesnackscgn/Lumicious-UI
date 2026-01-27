@@ -13,6 +13,8 @@ export * from './BtnGroup';
 export * from './Checkbox';
 export * from './Chip';
 export * from './CircularProgress';
+export * from './ColorPicker';
+export * from './DatePicker';
 export * from './Dialog';
 export * from './ExpansionPanel';
 export * from './Fab';
@@ -39,4 +41,7 @@ export * from './Tabs';
 export * from './Toggle';
 export * from './Toolbar';
 export * from './Tooltip';
+export * from './Carousel';
+export * from './ChatMessage';
+export * from './Knob';
 // Add other exports as they are implemented

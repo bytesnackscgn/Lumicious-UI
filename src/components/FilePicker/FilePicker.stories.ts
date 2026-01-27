@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/vue3-vite';
+import { fn } from '@storybook/test';
 import LFilePicker from './LFilePicker.vue';
 
 const meta = {
@@ -6,25 +7,37 @@ const meta = {
   component: LFilePicker,
   tags: ['autodocs'],
   argTypes: {
-    accept: { control: 'text' },
-    multiple: { control: 'boolean' },
+    size: { control: 'select', options: ['sm', 'md', 'lg'] },
+    variant: { control: 'select', options: ['glass', 'solid', 'outline'] },
     disabled: { control: 'boolean' },
-    placeholder: { control: 'text' },
-    maxFiles: { control: 'number' },
+    readonly: { control: 'boolean' },
+    multiple: { control: 'boolean' },
+    accept: { control: 'text' },
     maxSize: { control: 'number' },
+    minSize: { control: 'number' },
+    dragDrop: { control: 'boolean' },
+    clearable: { control: 'boolean' },
   },
   args: {
-    accept: '*',
-    multiple: false,
+    modelValue: undefined,
+    size: 'md',
+    variant: 'glass',
     disabled: false,
-    placeholder: 'Choose files...',
-    maxFiles: 10,
-    maxSize: 10 * 1024 * 1024, // 10MB
+    readonly: false,
+    multiple: false,
+    accept: undefined,
+    maxSize: undefined,
+    minSize: undefined,
+    placeholder: 'Drop files here or click to browse',
+    buttonText: 'Choose Files',
+    dragDrop: true,
+    clearable: true,
+    'update:modelValue': fn(),
   },
   decorators: [
     (story) => ({
       components: { story },
-      template: '<div class="p-8 bg-slate-900 flex items-center justify-center w-full"><div class="w-full max-w-md"><story /></div></div>',
+      template: '<div class="p-8 bg-slate-900 flex items-center justify-center min-h-[400px]"><story /></div>',
     }),
   ],
 } satisfies Meta<typeof LFilePicker>;
@@ -34,43 +47,125 @@ type Story = StoryObj<typeof meta>;
 
 export const Basic: Story = {
   args: {
-    placeholder: 'Choose files...',
+    modelValue: undefined,
   },
 };
 
-export const Multiple: Story = {
+export const MultipleFiles: Story = {
   args: {
     multiple: true,
-    placeholder: 'Choose multiple files...',
+    placeholder: 'Select multiple files',
   },
 };
 
-export const ImageOnly: Story = {
+export const ImageFiles: Story = {
   args: {
     accept: 'image/*',
-    placeholder: 'Choose images...',
+    placeholder: 'Select images only',
   },
 };
 
-export const DocumentOnly: Story = {
+export const DocumentFiles: Story = {
   args: {
     accept: '.pdf,.doc,.docx',
-    placeholder: 'Choose documents...',
+    placeholder: 'Select documents only',
+  },
+};
+
+export const Small: Story = {
+  args: {
+    size: 'sm',
+    modelValue: undefined,
+  },
+};
+
+export const Large: Story = {
+  args: {
+    size: 'lg',
+    modelValue: undefined,
+  },
+};
+
+export const SolidVariant: Story = {
+  args: {
+    variant: 'solid',
+    modelValue: undefined,
+  },
+};
+
+export const OutlineVariant: Story = {
+  args: {
+    variant: 'outline',
+    modelValue: undefined,
   },
 };
 
 export const Disabled: Story = {
   args: {
     disabled: true,
-    placeholder: 'File picker disabled',
+    modelValue: undefined,
   },
 };
 
-export const WithLimits: Story = {
+export const Readonly: Story = {
   args: {
-    multiple: true,
-    maxFiles: 3,
+    readonly: true,
+    modelValue: undefined,
+  },
+};
+
+export const WithSizeRestrictions: Story = {
+  args: {
     maxSize: 5 * 1024 * 1024, // 5MB
-    placeholder: 'Max 3 files, 5MB each',
+    minSize: 1024, // 1KB
+    placeholder: 'Files between 1KB and 5MB',
+  },
+};
+
+export const NoDragDrop: Story = {
+  args: {
+    dragDrop: false,
+    placeholder: 'Click to browse files',
+  },
+};
+
+export const NotClearable: Story = {
+  args: {
+    clearable: false,
+    placeholder: 'Files cannot be cleared',
+  },
+};
+
+export const DifferentFileTypes: Story = {
+  render: (args) => ({
+    components: { LFilePicker },
+    setup() { return { args }; },
+    template: `
+      <div class="space-y-6">
+        <div class="text-white text-sm mb-2">Images Only</div>
+        <LFilePicker 
+          v-model="args.modelValue"
+          accept="image/*"
+          placeholder="Select images"
+        />
+        
+        <div class="text-white text-sm mb-2 mt-4">Documents Only</div>
+        <LFilePicker 
+          v-model="args.modelValue"
+          accept=".pdf,.doc,.docx"
+          placeholder="Select documents"
+        />
+        
+        <div class="text-white text-sm mb-2 mt-4">Multiple Files</div>
+        <LFilePicker 
+          v-model="args.modelValue"
+          multiple
+          placeholder="Select multiple files"
+        />
+      </div>
+    `,
+  }),
+  args: {
+    modelValue: undefined,
   },
 };

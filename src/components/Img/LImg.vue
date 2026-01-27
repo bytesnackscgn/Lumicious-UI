@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, onMounted } from 'vue';
+import { ref, watch } from 'vue';
 import { cn } from '../../utils/cn';
 import { imgStyles, imgContainerStyles } from './styles';
 import type { ImgProps } from './types';
@@ -39,10 +39,13 @@ const retryLoad = () => {
   imageSrc.value = props.src + '?retry=' + Date.now();
 };
 
-onMounted(() => {
-  // Reset loading state when props change
-  isLoading.value = true;
-  hasError.value = false;
+
+watch(() => props.src, (newSrc, oldSrc) => {
+  if (newSrc !== oldSrc) {
+    isLoading.value = true;
+    hasError.value = false;
+    imageSrc.value = newSrc;
+  }
 });
 </script>
 
@@ -50,7 +53,7 @@ onMounted(() => {
   <div :class="cn(imgContainerStyles({ size }), props.class)">
     <!-- Loading State -->
     <div
-      v-if="isLoading"
+      v-if="isLoading && !hasError"
       :class="cn(
         'absolute inset-0 flex items-center justify-center',
         'bg-white/10 animate-pulse'
@@ -61,7 +64,7 @@ onMounted(() => {
 
     <!-- Error State -->
     <div
-      v-else-if="hasError"
+      v-if="hasError && !isLoading"
       :class="cn(
         'absolute inset-0 flex flex-col items-center justify-center',
         'bg-red-500/20 text-red-300'
@@ -79,7 +82,7 @@ onMounted(() => {
 
     <!-- Image -->
     <img
-      v-else
+      v-show="!isLoading && !hasError" 
       :src="imageSrc"
       :alt="alt"
       :width="width"

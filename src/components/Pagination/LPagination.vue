@@ -1,193 +1,249 @@
 <script setup lang="ts">
 import { computed } from 'vue';
 import { cn } from '../../utils/cn';
-import { paginationStyles, pageButtonStyles } from './styles';
+import { paginationStyles, paginationButtonStyles, paginationEllipsisStyles, paginationInputStyles, paginationSelectStyles } from './styles';
 import type { PaginationProps } from './types';
 import { LIcon } from '../Icon';
 
 const props = withDefaults(defineProps<PaginationProps>(), {
-  modelValue: 1,
-  max: 1,
-  maxPages: 7,
-  boundaryNumbers: true,
-  directionLinks: true,
-  boundaryLinks: true,
-  disable: false,
-  input: false,
+  pageSize: 10,
+  showSizeChanger: false,
+  showQuickJumper: false,
+  showTotal: true,
   size: 'md',
+  color: 'primary',
+  shape: 'rounded',
+  disabled: false,
+  hideOnSinglePage: false,
+  ellipsis: true,
 });
 
 const emit = defineEmits<{
-  (e: 'update:modelValue', value: number): void;
-  (e: 'change', value: number): void;
+  (e: 'change', page: number): void;
+  (e: 'pageSizeChange', size: number): void;
 }>();
 
-const currentPage = computed({
-  get: () => props.modelValue,
-  set: (value) => {
-    emit('update:modelValue', value);
-    emit('change', value);
-  },
-});
+const totalPages = computed(() => Math.ceil(props.total / props.pageSize));
+const shouldHide = computed(() => props.hideOnSinglePage && totalPages.value <= 1);
 
-const totalPages = computed(() => Math.max(1, props.max));
+const getVisiblePages = () => {
+  if (!props.ellipsis || totalPages.value <= 7) {
+    return Array.from({ length: totalPages.value }, (_, i) => i + 1);
+  }
 
-const canGoPrevious = computed(() => currentPage.value > 1);
-const canGoNext = computed(() => currentPage.value < totalPages.value);
-
-const getPageNumbers = () => {
   const pages: number[] = [];
-  const current = currentPage.value;
-  const total = totalPages.value;
-  const maxVisible = props.maxPages!;
+  const current = props.current;
 
-  if (total <= maxVisible) {
-    // Show all pages if total is less than max visible
-    for (let i = 1; i <= total; i++) {
-      pages.push(i);
+  // Always show first page
+  pages.push(1);
+
+  // Show pages around current page
+  if (current <= 3) {
+    for (let i = 2; i <= 4; i++) {
+      if (i < totalPages.value - 1) pages.push(i);
+    }
+  } else if (current >= totalPages.value - 2) {
+    for (let i = totalPages.value - 3; i <= totalPages.value - 1; i++) {
+      if (i > 1) pages.push(i);
     }
   } else {
-    // Always show first and last pages
-    if (props.boundaryLinks) {
-      pages.push(1);
-    }
-
-    // Calculate range around current page
-    let start = Math.max(2, current - Math.floor(maxVisible / 2));
-    let end = Math.min(total - 1, start + maxVisible - 2);
-
-    // Adjust if we're near the beginning or end
-    if (end - start < maxVisible - 2) {
-      if (start === 2) {
-        end = Math.min(total - 1, start + maxVisible - 2);
-      } else if (end === total - 1) {
-        start = Math.max(2, end - maxVisible + 2);
-      }
-    }
-
-    // Add ellipsis if needed
-    if (start > 2) {
-      pages.push(-1); // Ellipsis
-    }
-
-    // Add page numbers
-    for (let i = start; i <= end; i++) {
-      pages.push(i);
-    }
-
-    // Add ellipsis if needed
-    if (end < total - 1) {
-      pages.push(-2); // Ellipsis
-    }
-
-    if (props.boundaryLinks) {
-      pages.push(total);
+    for (let i = current - 1; i <= current + 1; i++) {
+      if (i > 1 && i < totalPages.value - 1) pages.push(i);
     }
   }
 
-  return pages;
+  // Always show last page
+  if (totalPages.value > 1) {
+    pages.push(totalPages.value);
+  }
+
+  // Remove duplicates and sort
+  return [...new Set(pages)].sort((a, b) => a - b);
 };
 
-const handlePageClick = (page: number) => {
-  if (page > 0 && page <= totalPages.value && !props.disable) {
-    currentPage.value = page;
+const handlePageChange = (page: number) => {
+  if (page >= 1 && page <= totalPages.value && page !== props.current && !props.disabled) {
+    emit('change', page);
   }
 };
 
-const goToPrevious = () => {
-  if (canGoPrevious.value && !props.disable) {
-    currentPage.value--;
+const handlePrev = () => {
+  if (props.current > 1 && !props.disabled) {
+    emit('change', props.current - 1);
   }
 };
 
-const goToNext = () => {
-  if (canGoNext.value && !props.disable) {
-    currentPage.value++;
+const handleNext = () => {
+  if (props.current < totalPages.value && !props.disabled) {
+    emit('change', props.current + 1);
   }
 };
 
-const handleInputChange = (event: Event) => {
+const handleFirst = () => {
+  if (props.current > 1 && !props.disabled) {
+    emit('change', 1);
+  }
+};
+
+const handleLast = () => {
+  if (props.current < totalPages.value && !props.disabled) {
+    emit('change', totalPages.value);
+  }
+};
+
+const handlePageSizeChange = (event: Event) => {
+  const select = event.target as HTMLSelectElement;
+  const newSize = parseInt(select.value);
+  if (newSize !== props.pageSize && !props.disabled) {
+    emit('pageSizeChange', newSize);
+  }
+};
+
+const handleQuickJump = (event: Event) => {
   const input = event.target as HTMLInputElement;
   const page = parseInt(input.value);
-  
-  if (!isNaN(page) && page >= 1 && page <= totalPages.value) {
-    currentPage.value = page;
-  } else {
-    input.value = currentPage.value.toString();
+  if (page >= 1 && page <= totalPages.value && !props.disabled) {
+    emit('change', page);
   }
+};
+
+const getRangeText = () => {
+  const start = (props.current - 1) * props.pageSize + 1;
+  const end = Math.min(props.current * props.pageSize, props.total);
+  return `${start}-${end} of ${props.total}`;
 };
 </script>
 
 <template>
-  <nav :class="cn(paginationStyles({ size }), props.class)">
-    <!-- Previous Button -->
+  <div v-if="!shouldHide" :class="cn(paginationStyles({ size, color, shape, disabled }))">
+    <!-- Total count -->
+    <div v-if="showTotal" class="text-sm text-gray-400">
+      {{ getRangeText() }}
+    </div>
+
+    <!-- First page button -->
     <button
-      v-if="directionLinks"
-      :class="cn(pageButtonStyles({ 
-        active: false, 
-        size, 
-        disable: !canGoPrevious || disable 
-      }))"
-      @click="goToPrevious"
-      :disabled="!canGoPrevious || disable"
+      v-if="totalPages > 7 && current > 3"
+      :class="cn(paginationButtonStyles({ size, color, shape, disabled }))"
+      @click="handleFirst"
+      :disabled="disabled || current === 1"
     >
-      <LIcon name="chevron-left" :size="size === 'sm' ? 'xs' : 'sm'" />
+      <LIcon name="chevrons-left" size="xs" />
     </button>
 
-    <!-- Page Numbers -->
-    <template v-for="page in getPageNumbers()" :key="page">
+    <!-- Previous page button -->
+    <button
+      :class="cn(paginationButtonStyles({ size, color, shape, disabled }))"
+      @click="handlePrev"
+      :disabled="disabled || current === 1"
+    >
+      <LIcon name="chevron-left" size="xs" />
+    </button>
+
+    <!-- Page numbers -->
+    <template v-for="page in getVisiblePages()" :key="page">
       <button
-        v-if="page > 0"
-        :class="cn(pageButtonStyles({ 
-          active: page === currentPage, 
+        v-if="page === '...'"
+        :class="cn(paginationEllipsisStyles({ size }))"
+      >
+        ...
+      </button>
+      <button
+        v-else
+        :class="cn(paginationButtonStyles({ 
           size, 
-          disable 
+          color, 
+          shape, 
+          active: page === current, 
+          disabled 
         }))"
-        @click="handlePageClick(page)"
-        :disabled="disable"
+        @click="handlePageChange(Number(page))"
+        :disabled="disabled"
       >
         {{ page }}
       </button>
-      
-      <!-- Ellipsis -->
-      <span
-        v-else-if="page === -1 || page === -2"
-        class="text-white/40 px-2"
-      >
-        {{ page === -1 ? '...' : '...' }}
-      </span>
     </template>
 
-    <!-- Next Button -->
+    <!-- Next page button -->
     <button
-      v-if="directionLinks"
-      :class="cn(pageButtonStyles({ 
-        active: false, 
-        size, 
-        disable: !canGoNext || disable 
-      }))"
-      @click="goToNext"
-      :disabled="!canGoNext || disable"
+      :class="cn(paginationButtonStyles({ size, color, shape, disabled }))"
+      @click="handleNext"
+      :disabled="disabled || current === totalPages"
     >
-      <LIcon name="chevron-right" :size="size === 'sm' ? 'xs' : 'sm'" />
+      <LIcon name="chevron-right" size="xs" />
     </button>
 
-    <!-- Page Input -->
-    <div v-if="input" class="flex items-center gap-2 ml-4">
-      <span class="text-white/60 text-sm">Page</span>
+    <!-- Last page button -->
+    <button
+      v-if="totalPages > 7 && current < totalPages - 2"
+      :class="cn(paginationButtonStyles({ size, color, shape, disabled }))"
+      @click="handleLast"
+      :disabled="disabled || current === totalPages"
+    >
+      <LIcon name="chevrons-right" size="xs" />
+    </button>
+
+    <!-- Page size changer -->
+    <div v-if="showSizeChanger" class="flex items-center gap-2">
+      <select
+        :class="cn(paginationSelectStyles({ size }))"
+        @change="handlePageSizeChange"
+        :disabled="disabled"
+      >
+        <option v-for="size in [10, 20, 50, 100]" :key="size" :value="size" :selected="pageSize === size">
+          {{ size }} / page
+        </option>
+      </select>
+    </div>
+
+    <!-- Quick jumper -->
+    <div v-if="showQuickJumper" class="flex items-center gap-2">
+      <span class="text-sm text-gray-400">Go to</span>
       <input
+        :class="cn(paginationInputStyles({ size }))"
         type="number"
-        :value="currentPage"
-        @input="handleInputChange"
-        :class="cn(
-          'w-16 px-2 py-1 rounded-lg bg-white/10 text-white text-sm text-center',
-          'border border-white/20 focus:border-white/40 focus:outline-none'
-        )"
         :min="1"
         :max="totalPages"
-        :disabled="disable"
+        :value="current"
+        @change="handleQuickJump"
+        :disabled="disabled"
       />
-      <span class="text-white/60 text-sm">of {{ totalPages }}</span>
     </div>
-  </nav>
+  </div>
 </template>
+
+<style scoped>
+.l-pagination {
+  backdrop-filter: blur(12px);
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 0.75rem;
+  padding: 0.75rem 1rem;
+}
+
+.l-pagination-button {
+  position: relative;
+  overflow: hidden;
+}
+
+.l-pagination-button::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(135deg, transparent 30%, rgba(255, 255, 255, 0.1) 50%, transparent 70%);
+  transform: translateX(-100%);
+  transition: transform 0.3s ease;
+}
+
+.l-pagination-button:hover::before {
+  transform: translateX(100%);
+}
+
+.l-pagination-button.active {
+  background: rgba(59, 130, 246, 0.2);
+  border: 1px solid rgba(59, 130, 246, 0.3);
+}
+</style>

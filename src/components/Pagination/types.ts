@@ -1,13 +1,18 @@
+export type PaginationSize = 'sm' | 'md' | 'lg';
+export type PaginationColor = 'primary' | 'secondary' | 'white';
+export type PaginationShape = 'rounded' | 'square';
+
 export interface PaginationProps {
-  modelValue: number; // Current page (1-indexed)
-  max: number; // Total pages
-  maxPages?: number; // Max page buttons to show
-  boundaryNumbers?: boolean;
-  directionLinks?: boolean;
-  boundaryLinks?: boolean;
-  disable?: boolean;
-  input?: boolean;
-  size?: 'sm' | 'md' | 'lg';
-  color?: string;
-  class?: string;
+  total: number;
+  current: number;
+  pageSize?: number;
+  showSizeChanger?: boolean;
+  showQuickJumper?: boolean;
+  showTotal?: boolean;
+  size?: PaginationSize;
+  color?: PaginationColor;
+  shape?: PaginationShape;
+  disabled?: boolean;
+  hideOnSinglePage?: boolean;
+  ellipsis?: boolean;
 }

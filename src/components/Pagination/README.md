@@ -1,112 +1,157 @@
 # LPagination
 
-A versatile pagination component with glassmorphism styling that supports various navigation patterns.
+A glassmorphism pagination component for navigating through large datasets.
+
+## Features
+
+- Glassmorphism design with blur effects
+- Smart page number display with ellipsis
+- Configurable page size changer
+- Quick jumper for direct page navigation
+- Total count display
+- Multiple size and color options
+- Rounded or square button shapes
+- Disabled state support
+- Hide on single page option
 
 ## Props
 
-| Name              | Type                   | Default | Description                            |
-| :---------------- | :--------------------- | :------ | :------------------------------------- |
-| `modelValue`      | `number`               | `1`     | Current page (1-indexed).              |
-| `max`             | `number`               | -       | Total pages.                           |
-| `maxPages`        | `number`               | `7`     | Maximum page buttons to show.          |
-| `boundaryNumbers` | `boolean`              | `true`  | Show first and last page numbers.      |
-| `directionLinks`  | `boolean`              | `true`  | Show previous/next navigation buttons. |
-| `boundaryLinks`   | `boolean`              | `true`  | Show first/last page buttons.          |
-| `disable`         | `boolean`              | `false` | Disable all pagination controls.       |
-| `input`           | `boolean`              | `false` | Show page number input field.          |
-| `size`            | `'sm' \| 'md' \| 'lg'` | `'md'`  | Size variant.                          |
-| `class`           | `string`               | -       | Additional CSS classes.                |
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `total` | `number` | Required | Total number of items |
+| `current` | `number` | Required | Current page number (1-based) |
+| `pageSize` | `number` | `10` | Number of items per page |
+| `showSizeChanger` | `boolean` | `false` | Show page size selector |
+| `showQuickJumper` | `boolean` | `false` | Show quick jump input |
+| `showTotal` | `boolean` | `true` | Show total count |
+| `size` | `'sm' \| 'md' \| 'lg'` | `'md'` | Component size |
+| `color` | `'primary' \| 'secondary' \| 'white'` | `'primary'` | Text color |
+| `shape` | `'rounded' \| 'square'` | `'rounded'` | Button shape |
+| `disabled` | `boolean` | `false` | Disable all interactions |
+| `hideOnSinglePage` | `boolean` | `false` | Hide when only one page |
+| `ellipsis` | `boolean` | `true` | Show ellipsis for many pages |
 
 ## Events
 
-| Event               | Payload  | Description                |
-| :------------------ | :------- | :------------------------- |
-| `update:modelValue` | `number` | Emitted when page changes. |
-| `change`            | `number` | Emitted when page changes. |
+| Event | Payload | Description |
+|-------|---------|-------------|
+| `change` | `(page: number)` | Emitted when page changes |
+| `pageSizeChange` | `(size: number)` | Emitted when page size changes |
 
 ## Usage
 
 ```vue
 <template>
-  <!-- Basic pagination -->
   <LPagination
-    v-model="currentPage"
-    :max="totalPages"
+    :total="100"
+    :current="currentPage"
+    :page-size="10"
     @change="handlePageChange"
+    @page-size-change="handlePageSizeChange"
   />
-
-  <!-- With page input -->
-  <LPagination v-model="currentPage" :max="totalPages" :input="true" />
-
-  <!-- Small size -->
-  <LPagination v-model="currentPage" :max="totalPages" size="sm" />
-
-  <!-- Disabled state -->
-  <LPagination v-model="currentPage" :max="totalPages" :disable="true" />
 </template>
 
 <script setup lang="ts">
+import { ref } from 'vue';
+
 const currentPage = ref(1);
-const totalPages = ref(20);
 
 const handlePageChange = (page: number) => {
-  console.log("Navigating to page:", page);
-  // Fetch data for the new page
+  currentPage.value = page;
+  // Load data for new page
+};
+
+const handlePageSizeChange = (size: number) => {
+  // Update page size and reload data
 };
 </script>
 ```
-
-## Features
-
-- **Smart Page Display**: Automatically shows ellipsis when there are many pages
-- **Responsive Sizes**: Three size variants (sm, md, lg)
-- **Input Support**: Optional page number input for direct navigation
-- **Glassmorphism Design**: Beautiful glass-effect styling that matches the theme
-- **Accessibility**: Proper ARIA labels and keyboard navigation support
-- **Flexible Configuration**: Toggle various navigation elements as needed
 
 ## Examples
 
 ### Basic Usage
 
 ```vue
-<LPagination :model-value="5" :max="20" />
+<LPagination :total="100" :current="1" />
 ```
 
 ### With All Features
 
 ```vue
 <LPagination
-  v-model="page"
-  :max="100"
-  :max-pages="5"
-  :boundary-numbers="true"
-  :direction-links="true"
-  :boundary-links="true"
-  :input="true"
+  :total="1000"
+  :current="5"
+  :page-size="20"
+  show-size-changer
+  show-quick-jumper
+  show-total
   size="lg"
+  color="white"
+/>
+```
+
+### Custom Configuration
+
+```vue
+<LPagination
+  :total="500"
+  :current="3"
+  :page-size="25"
+  show-size-changer
+  show-quick-jumper
+  shape="square"
+  color="secondary"
 />
 ```
 
 ### Disabled State
 
 ```vue
-<LPagination :model-value="5" :max="20" :disable="true" />
+<LPagination
+  :total="100"
+  :current="1"
+  disabled
+/>
+```
+
+### Hide on Single Page
+
+```vue
+<LPagination
+  :total="5"
+  :current="1"
+  hide-on-single-page
+/>
 ```
 
 ## Styling
 
-The component uses glassmorphism styling with:
+The component uses Tailwind CSS classes with glassmorphism effects:
 
-- Glass effect background with blur
-- Semi-transparent borders
-- Smooth hover transitions
-- Active state highlighting
-- Consistent spacing and sizing
+- **Background**: Semi-transparent with backdrop blur
+- **Border**: Thin semi-transparent border
+- **Buttons**: Hover effects with smooth transitions
+- **Active State**: Highlighted current page
+- **Reflex Effects**: Subtle gradient animations on hover
+
+## Smart Page Display
+
+The pagination intelligently displays page numbers:
+
+- **≤ 7 pages**: Shows all page numbers
+- **> 7 pages**: Shows first page, current page ± 1, last page, with ellipsis for gaps
+- **Ellipsis**: Can be disabled with `ellipsis="false"`
+
+## Accessibility
+
+- Semantic HTML structure
+- Keyboard navigation support
+- Proper ARIA labels and roles
+- Screen reader friendly
+- Focus management
 
 ## Performance
 
-- Efficient page calculation algorithm
-- Minimal re-renders
-- Optimized for large page counts
-- Lightweight implementation
+- Efficient rendering with computed properties
+- Minimal re-renders on state changes
+- Optimized page number calculation

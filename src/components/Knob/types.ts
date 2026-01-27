@@ -1,4 +1,4 @@
-export type KnobSize = 'sm' | 'md' | 'lg';
+export type KnobSize = 'xs' | 's' | 'md' | 'lg' | 'xl';
 export type KnobVariant = 'glass' | 'solid' | 'outline';
 export type KnobColor = 'primary' | 'secondary' | 'positive' | 'negative' | 'info' | 'warning' | 'white';
 

@@ -6,7 +6,9 @@ import type { HeadlineProps, HeadlineSize } from './types';
 
 const props = withDefaults(defineProps<HeadlineProps>(), {
   level: 2,
-  gradient: false
+  gradient: false,
+  color: 'white',
+  gradientDirection: 'to-r'
 });
 
 const sizeMap: Record<number, HeadlineSize> = {
@@ -24,7 +26,12 @@ const defaultSize = computed(() => props.size || sizeMap[props.level]);
 <template>
   <component
     :is="`h${level}`"
-    :class="cn(headlineStyles({ size: defaultSize, gradient }))"
+    :class="cn(headlineStyles({
+      size: defaultSize,
+      color: props.color,
+      gradient: props.gradient,
+      gradientDirection: props.gradientDirection
+    }))"
   >
     <slot />
   </component>

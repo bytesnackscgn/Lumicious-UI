@@ -33,6 +33,22 @@ export const Default: Story = {
     template: `
       <LBtnDropdown v-bind="args">
         <LList dense padding class="w-40">
+            <LItem clickable label="Save" icon="save" />
+            <LItem clickable label="Update" icon="edit" />
+            <LItem clickable label="Delete" icon="delete" class="text-red-400" />
+        </LList>
+      </LBtnDropdown>
+    `,
+  }),
+};
+
+export const LabelOnly: Story = {
+  render: (args) => ({
+    components: { LBtnDropdown, LList, LItem },
+    setup() { return { args }; },
+    template: `
+      <LBtnDropdown v-bind="args">
+        <LList dense padding class="w-40">
             <LItem clickable label="Save" />
             <LItem clickable label="Update" />
             <LItem clickable label="Delete" class="text-red-400" />
@@ -42,23 +58,19 @@ export const Default: Story = {
   }),
 };
 
-export const Split: Story = {
-  args: {
-    split: true,
-    label: 'Apply Filter',
-    variant: 'solid',
-    color: 'primary',
-  },
+export const WithCaption: Story = {
   render: (args) => ({
     components: { LBtnDropdown, LList, LItem },
     setup() { return { args }; },
     template: `
       <LBtnDropdown v-bind="args">
         <LList dense padding class="w-48">
-            <LItem clickable label="Filter by Name" />
-            <LItem clickable label="Filter by Date" />
+            <LItem clickable label="Profile" icon="user" caption="Manage your account settings" />
+            <LItem clickable label="Settings" icon="cog" caption="Configure application preferences" />
+            <LItem clickable label="Logout" icon="log-out" caption="Sign out of your account" class="text-red-400" />
         </LList>
       </LBtnDropdown>
     `,
   }),
 };
+

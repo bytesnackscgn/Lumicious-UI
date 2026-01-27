@@ -1,34 +1,111 @@
 <script setup lang="ts">
+import { ref } from 'vue';
 import { cn } from '../../utils/cn';
-import { fabStyles } from './styles';
+import { fabStyles, fabRippleStyles } from './styles';
 import type { FabProps } from './types';
-import { LBtn } from '../Btn';
+import { FAB_POSITIONS } from './constants';
+import { LIcon } from '../Icon';
 
 const props = withDefaults(defineProps<FabProps>(), {
-  position: 'bottom-right',
-  extended: false,
+  icon: 'plus',
+  size: 'md',
+  variant: 'glass',
   color: 'primary',
-  size: 'lg'
+  position: 'bottom-right',
+  disabled: false,
+  loading: false,
+  ripple: true,
+  mini: false,
+  extended: false,
 });
 
 const emit = defineEmits<{
-  (e: 'click', event: MouseEvent): void;
+  click: [event: MouseEvent];
 }>();
 
+const rippleElements = ref<HTMLElement[]>([]);
+
 const handleClick = (event: MouseEvent) => {
+  if (props.disabled || props.loading) return;
+  
   emit('click', event);
+  
+  if (props.ripple) {
+    createRipple(event);
+  }
+};
+
+const createRipple = (event: MouseEvent) => {
+  const button = event.currentTarget as HTMLElement;
+  const rect = button.getBoundingClientRect();
+  const size = Math.max(rect.width, rect.height);
+  
+  const ripple = document.createElement('span');
+  ripple.className = 'absolute rounded-full bg-white/30 animate-ping';
+  ripple.style.width = `${size}px`;
+  ripple.style.height = `${size}px`;
+  ripple.style.left = `${event.clientX - rect.left - size / 2}px`;
+  ripple.style.top = `${event.clientY - rect.top - size / 2}px`;
+  
+  button.style.position = 'relative';
+  button.style.overflow = 'hidden';
+  button.appendChild(ripple);
+  
+  setTimeout(() => {
+    ripple.remove();
+  }, 600);
 };
 </script>
 
 <template>
-  <div :class="cn(fabStyles({ position, extended }), props.class)">
-    <LBtn
-      v-bind="props"
-      variant="solid"
-      :class="extended ? 'w-full justify-center' : 'w-14 h-14 p-0 justify-center'"
-      @click="handleClick"
-    >
-      <slot />
-    </LBtn>
-  </div>
+  <button
+    :class="cn(
+      fabStyles({ 
+        size, 
+        variant, 
+        color, 
+        extended, 
+        mini,
+        disabled: disabled || loading
+      }),
+      FAB_POSITIONS[position]
+    )"
+    :disabled="disabled || loading"
+    @click="handleClick"
+  >
+    <!-- Loading state -->
+    <div v-if="loading" class="animate-spin">
+      <LIcon name="loader-2" :size="size === 'sm' ? 'xs' : 'sm'" />
+    </div>
+    
+    <!-- Icon or content -->
+    <template v-else>
+      <LIcon 
+        v-if="icon && !extended" 
+        :name="icon" 
+        :size="size === 'sm' ? 'xs' : 'sm'" 
+      />
+      
+      <div v-if="extended" class="flex items-center gap-2">
+        <LIcon 
+          v-if="icon" 
+          :name="icon" 
+          :size="size === 'sm' ? 'xs' : 'sm'" 
+        />
+        <span v-if="label" class="font-medium">{{ label }}</span>
+      </div>
+    </template>
+    
+    <!-- Reflex effect for glass variant -->
+    <div 
+      v-if="variant === 'glass' && !loading"
+      class="absolute inset-0 bg-gradient-to-tr from-white/10 to-transparent pointer-events-none opacity-50" 
+    />
+  </button>
 </template>
+
+<style scoped>
+.l-fab {
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+</style>

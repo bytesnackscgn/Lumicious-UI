@@ -1,182 +1,261 @@
 <script setup lang="ts">
 import { ref, computed, watch } from 'vue';
 import { cn } from '../../utils/cn';
-import { filePickerStyles, fileInputStyles, fileDisplayStyles, fileListStyles, fileItemStyles, fileNameStyles, fileSizeStyles, removeButtonStyles } from './styles';
-import type { FilePickerProps, FilePickerEmits, FileItem } from './types';
+import { 
+  filePickerStyles, 
+  fileDropZoneStyles, 
+  fileItemStyles, 
+  fileButtonStyles 
+} from './styles';
+import type { FilePickerProps, FileItem } from './types';
+import { 
+  formatFileSize, 
+  getFileIcon, 
+  validateFile, 
+  getFileItems,
+  revokeFileUrls 
+} from './utils';
+import { LIcon } from '../Icon';
 
 const props = withDefaults(defineProps<FilePickerProps>(), {
-  accept: '*',
-  multiple: false,
+  modelValue: undefined,
+  size: 'md',
+  variant: 'glass',
   disabled: false,
-  placeholder: 'Choose files...',
-  maxFiles: 10,
-  maxSize: 10 * 1024 * 1024, // 10MB
+  readonly: false,
+  multiple: false,
+  accept: undefined,
+  maxSize: undefined,
+  minSize: undefined,
+  placeholder: 'Drop files here or click to browse',
+  buttonText: 'Choose Files',
+  dragDrop: true,
+  clearable: true,
 });
 
-const emit = defineEmits<FilePickerEmits>();
+const emit = defineEmits<{
+  'update:modelValue': [value: File | File[]];
+}>();
 
 const inputRef = ref<HTMLInputElement>();
-const selectedFiles = ref<FileItem[]>([]);
+const fileItems = ref<FileItem[]>([]);
+const isDragOver = ref(false);
+const isFocused = ref(false);
 
-const acceptString = computed(() => {
-  if (Array.isArray(props.accept)) {
-    return props.accept.join(',');
+const displayValue = computed(() => {
+  if (!fileItems.value.length) return props.placeholder;
+  
+  if (props.multiple) {
+    return `${fileItems.value.length} file${fileItems.value.length > 1 ? 's' : ''} selected`;
   }
-  return props.accept;
+  
+  return fileItems.value[0]?.name || props.placeholder;
 });
 
-const hasFiles = computed(() => selectedFiles.value.length > 0);
-
-const formatFileSize = (bytes: number): string => {
-  if (bytes === 0) return '0 Bytes';
-  const k = 1024;
-  const sizes = ['Bytes', 'KB', 'MB', 'GB'];
-  const i = Math.floor(Math.log(bytes) / Math.log(k));
-  return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
-};
-
-const generateFileId = (file: File): string => {
-  return `${file.name}-${file.size}-${file.lastModified}-${Date.now()}`;
-};
-
-const handleFileSelect = (event: Event) => {
-  const target = event.target as HTMLInputElement;
-  const files = Array.from(target.files || []);
-
-  if (props.disabled) return;
-
-  // Validate file count
-  if (props.multiple && selectedFiles.value.length + files.length > props.maxFiles) {
-    alert(`Maximum ${props.maxFiles} files allowed`);
-    return;
-  }
-
-  // Validate file size
-  const oversizedFiles = files.filter(file => file.size > props.maxSize);
-  if (oversizedFiles.length > 0) {
-    alert(`Some files exceed the maximum size of ${formatFileSize(props.maxSize)}`);
-    return;
-  }
-
-  // Process files
-  const newFiles: FileItem[] = files.map(file => ({
-    file,
-    id: generateFileId(file),
-    name: file.name,
-    size: file.size,
-    type: file.type,
-    url: URL.createObjectURL(file),
-  }));
-
+const handleFileSelect = (files: FileList | File[]) => {
+  if (props.disabled || props.readonly) return;
+  
+  const newFiles = Array.isArray(files) ? files : Array.from(files);
+  const validFiles = newFiles.filter(file => 
+    validateFile(file, props.accept, props.maxSize, props.minSize)
+  );
+  
+  if (validFiles.length === 0) return;
+  
+  const newFileItems = getFileItems(validFiles);
+  
   if (props.multiple) {
-    selectedFiles.value = [...selectedFiles.value, ...newFiles];
+    fileItems.value = [...fileItems.value, ...newFileItems];
   } else {
-    // Clear previous files and add new one
-    selectedFiles.value.forEach(f => f.url && URL.revokeObjectURL(f.url));
-    selectedFiles.value = newFiles.slice(0, 1);
+    fileItems.value = newFileItems.slice(0, 1);
   }
-
-  emit('update:modelValue', files);
-  emit('change', files);
-  emit('select', files);
-
-  // Reset input
-  target.value = '';
+  
+  emitFiles();
 };
 
-const removeFile = (fileId: string) => {
-  const fileIndex = selectedFiles.value.findIndex(f => f.id === fileId);
-  if (fileIndex > -1) {
-    const removedFile = selectedFiles.value[fileIndex];
-    if (removedFile?.url) {
-      URL.revokeObjectURL(removedFile.url);
-    }
-    selectedFiles.value.splice(fileIndex, 1);
-    emit('update:modelValue', selectedFiles.value.map(f => f.file));
+const emitFiles = () => {
+  if (props.multiple) {
+    emit('update:modelValue', fileItems.value.map(item => item.file));
+  } else {
+    emit('update:modelValue', fileItems.value[0]?.file || undefined);
   }
+};
+
+const handleInputChange = (event: Event) => {
+  const target = event.target as HTMLInputElement;
+  if (target.files) {
+    handleFileSelect(target.files);
+  }
+  target.value = ''; // Reset input
+};
+
+const handleDrop = (event: DragEvent) => {
+  event.preventDefault();
+  isDragOver.value = false;
+  
+  if (props.disabled || props.readonly || !event.dataTransfer?.files) return;
+  
+  handleFileSelect(event.dataTransfer.files);
+};
+
+const handleDragOver = (event: DragEvent) => {
+  event.preventDefault();
+  if (!props.disabled && !props.readonly) {
+    isDragOver.value = true;
+  }
+};
+
+const handleDragLeave = () => {
+  isDragOver.value = false;
+};
+
+const removeFile = (index: number) => {
+  if (props.disabled || props.readonly) return;
+  
+  const removedItem = fileItems.value[index];
+  fileItems.value.splice(index, 1);
+  
+  if (removedItem.url) {
+    URL.revokeObjectURL(removedItem.url);
+  }
+  
+  emitFiles();
+};
+
+const clearFiles = () => {
+  if (props.disabled || props.readonly || !props.clearable) return;
+  
+  revokeFileUrls(fileItems.value);
+  fileItems.value = [];
+  emitFiles();
 };
 
 const triggerFileInput = () => {
-  if (!props.disabled && inputRef.value) {
+  if (!props.disabled && !props.readonly && inputRef.value) {
     inputRef.value.click();
   }
 };
 
-// Clean up object URLs when component unmounts
-watch(() => selectedFiles.value, (newFiles, oldFiles) => {
-  // Clean up URLs from removed files
-  const removedIds = new Set(oldFiles.map(f => f.id).filter(id => !newFiles.find(f => f.id === id)));
-  removedIds.forEach(id => {
-    const file = oldFiles.find(f => f.id === id);
-    if (file?.url) {
-      URL.revokeObjectURL(file.url);
-    }
-  });
+const handleClick = () => {
+  triggerFileInput();
+};
+
+watch(() => props.modelValue, (newValue) => {
+  if (!newValue) {
+    revokeFileUrls(fileItems.value);
+    fileItems.value = [];
+  }
+}, { immediate: true });
+
+// Cleanup on unmount
+watch(() => fileItems.value, (newItems, oldItems) => {
+  // Revoke URLs from removed items
+  const removedItems = oldItems.filter(oldItem => 
+    !newItems.some(newItem => newItem.id === oldItem.id)
+  );
+  revokeFileUrls(removedItems);
 }, { deep: true });
 </script>
 
 <template>
-  <div :class="cn(filePickerStyles({ disabled, size: 'md' }))">
+  <div class="relative">
+    <!-- Hidden file input -->
     <input
       ref="inputRef"
       type="file"
-      :accept="acceptString"
+      :accept="accept"
       :multiple="multiple"
       :disabled="disabled"
-      @change="handleFileSelect"
-      :class="cn(fileInputStyles())"
+      @change="handleInputChange"
+      class="hidden"
     />
 
-    <div
-      :class="cn(fileDisplayStyles({ hasFiles }))"
-      @click="triggerFileInput"
+    <!-- File picker trigger -->
+    <div 
+      :class="cn(filePickerStyles({ size, variant, disabled }))"
+      @click="handleClick"
+      @drop="handleDrop"
+      @dragover="handleDragOver"
+      @dragleave="handleDragLeave"
+      :data-drag-over="isDragOver"
     >
-      <div class="flex items-center justify-center">
-        <svg
-          v-if="!hasFiles"
-          class="w-8 h-8 text-white/40 mr-3"
-          fill="none"
-          stroke="currentColor"
-          viewBox="0 0 24 24"
-        >
-          <path
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            stroke-width="2"
-            d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"
-          />
-        </svg>
-        <span class="text-white/80 font-medium">
-          {{ hasFiles ? `${selectedFiles.length} file${selectedFiles.length > 1 ? 's' : ''} selected` : placeholder }}
-        </span>
+      <div class="flex items-center gap-3">
+        <div class="flex-1">
+          <div class="text-sm font-medium text-white/90">{{ displayValue }}</div>
+          <div class="text-xs text-white/60">
+            {{ props.accept ? `Accepted: ${Array.isArray(props.accept) ? props.accept.join(', ') : props.accept}` : 'All files supported' }}
+          </div>
+        </div>
+        <LIcon 
+          name="upload" 
+          class="text-white/60"
+        />
+        <LIcon 
+          name="chevron-down" 
+          class="text-white/60 transition-transform duration-200"
+          :class="{ 'rotate-180': isFocused }"
+        />
       </div>
     </div>
 
-    <div v-if="hasFiles" :class="cn(fileListStyles())">
+    <!-- File list -->
+    <div v-if="fileItems.length > 0" class="mt-2 space-y-2">
       <div
-        v-for="fileItem in selectedFiles"
-        :key="fileItem.id"
-        :class="cn(fileItemStyles())"
+        v-for="(item, index) in fileItems"
+        :key="item.id"
+        :class="cn(fileItemStyles({ size }))"
       >
-        <div class="flex-1 min-w-0">
-          <div :class="cn(fileNameStyles())">{{ fileItem.name }}</div>
-          <div :class="cn(fileSizeStyles())">{{ formatFileSize(fileItem.size) }}</div>
+        <div class="flex items-center gap-3 flex-1">
+          <LIcon 
+            :name="getFileIcon(item.type)" 
+            class="text-white/60 flex-shrink-0"
+          />
+          <div class="flex-1 min-w-0">
+            <div class="font-medium text-white/90 truncate">{{ item.name }}</div>
+            <div class="text-xs text-white/60">{{ formatFileSize(item.size) }}</div>
+          </div>
+          <button
+            v-if="!disabled && !readonly && clearable"
+            @click.stop="removeFile(index)"
+            class="p-1 rounded-lg hover:bg-white/10 transition-colors"
+          >
+            <LIcon name="x" class="w-4 h-4 text-white/60" />
+          </button>
         </div>
+      </div>
+      
+      <div v-if="clearable && !disabled && !readonly" class="flex justify-end">
         <button
-          type="button"
-          :class="cn(removeButtonStyles())"
-          @click.stop="removeFile(fileItem.id)"
+          @click="clearFiles"
+          :class="cn(fileButtonStyles({ size }))"
         >
-          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="2"
-              d="M6 18L18 6M6 6l12 12"
-            />
-          </svg>
+          Clear All
         </button>
       </div>
     </div>
+
+    <!-- Drag drop overlay -->
+    <div
+      v-if="dragDrop && isDragOver"
+      :class="cn(fileDropZoneStyles({ isDragOver, size }))"
+      @click="triggerFileInput"
+    >
+      <LIcon name="upload-cloud" class="w-8 h-8 text-white/60 mx-auto mb-2" />
+      <div class="text-sm font-medium text-white/90">Drop files here</div>
+      <div class="text-xs text-white/60 mt-1">Click to browse or drag and drop</div>
+    </div>
   </div>
 </template>
+
+<style scoped>
+.file-picker-enter-active,
+.file-picker-leave-active {
+  transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+.file-picker-enter-from,
+.file-picker-leave-to {
+  opacity: 0;
+  transform: translateY(-10px);
+}
+</style>

@@ -42,6 +42,14 @@ const handleButtonClick = (event: MouseEvent) => {
 const handleCaretClick = () => {
     if (props.split) toggle();
 };
+
+const handleMenuClick = (event: MouseEvent) => {
+    // Only close if clicking directly on the menu container, not on interactive elements
+    if (props.autoClose && event.target === event.currentTarget) {
+        isOpen.value = false;
+        emit('update:modelValue', false);
+    }
+};
 </script>
 
 <template>
@@ -74,13 +82,16 @@ const handleCaretClick = () => {
         </div>
     </LBtn>
 
-    <LMenu 
-        v-model="isOpen" 
-        :persistent="persistent" 
+    <LMenu
+        v-model="isOpen"
+        :persistent="persistent"
         class="min-w-full mt-1"
         @update:model-value="val => emit('update:modelValue', val)"
     >
-        <div @click="autoClose && (isOpen = false)">
+        <div
+            @click="handleMenuClick"
+            class="outline-none"
+        >
             <slot />
         </div>
     </LMenu>

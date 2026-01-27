@@ -1,63 +1,74 @@
 import { cva } from 'class-variance-authority';
 
 export const formStyles = cva(
-  'l-form space-y-6',
+  'glass border-white/20 rounded-xl p-6 transition-all duration-300',
   {
     variants: {
-      variant: {
-        glass: 'glass border-white/20',
-        solid: 'bg-white/10',
-        outline: 'border-2 border-white/40',
-      },
       size: {
-        sm: 'text-sm',
-        md: 'text-base',
-        lg: 'text-lg',
+        sm: 'p-4',
+        md: 'p-6',
+        lg: 'p-8',
+      },
+      variant: {
+        glass: 'bg-white/10 backdrop-blur-lg',
+        solid: 'bg-white/90 text-gray-900',
+        outline: 'bg-transparent',
       },
       layout: {
-        vertical: 'space-y-6',
-        horizontal: 'space-y-0 space-x-6',
-        inline: 'space-y-0 space-x-4',
+        vertical: 'flex flex-col space-y-6',
+        horizontal: 'flex flex-row flex-wrap items-center gap-6',
+        inline: 'flex flex-row flex-wrap items-center gap-4',
+      },
+      disabled: {
+        true: 'opacity-50 cursor-not-allowed',
+        false: '',
       },
     },
     defaultVariants: {
-      variant: 'glass',
       size: 'md',
+      variant: 'glass',
       layout: 'vertical',
+      disabled: false,
     },
   }
 );
 
 export const formFieldStyles = cva(
-  'l-form-field space-y-2',
+  'flex gap-4 transition-all duration-200',
   {
     variants: {
       size: {
-        sm: 'text-sm',
-        md: 'text-base',
-        lg: 'text-lg',
+        sm: 'text-xs',
+        md: 'text-sm',
+        lg: 'text-base',
       },
-      layout: {
-        vertical: 'space-y-2',
-        horizontal: 'flex items-center space-y-0 space-x-4',
-        inline: 'flex items-center space-y-0 space-x-2',
+      labelPosition: {
+        top: 'flex-col',
+        left: 'flex-row items-start',
+        right: 'flex-row items-start flex-row-reverse',
+      },
+      spacing: {
+        sm: 'space-y-2',
+        md: 'space-y-4',
+        lg: 'space-y-6',
       },
     },
     defaultVariants: {
       size: 'md',
-      layout: 'vertical',
+      labelPosition: 'top',
+      spacing: 'md',
     },
   }
 );
 
 export const formLabelStyles = cva(
-  'l-form-label font-medium text-white/90',
+  'font-medium text-white/90 transition-all duration-200',
   {
     variants: {
       size: {
-        sm: 'text-sm',
-        md: 'text-base',
-        lg: 'text-lg',
+        sm: 'text-xs',
+        md: 'text-sm',
+        lg: 'text-base',
       },
       required: {
         true: 'after:content-[\'*\'] after:ml-1 after:text-red-400',
@@ -72,7 +83,7 @@ export const formLabelStyles = cva(
 );
 
 export const formErrorStyles = cva(
-  'l-form-error text-red-400 text-sm mt-1',
+  'text-sm text-red-400 mt-1 transition-all duration-200',
   {
     variants: {
       size: {
@@ -83,6 +94,29 @@ export const formErrorStyles = cva(
     },
     defaultVariants: {
       size: 'md',
+    },
+  }
+);
+
+export const formButtonStyles = cva(
+  'glass border-white/20 rounded-lg px-6 py-2 text-sm font-medium transition-all duration-200 hover:bg-white/10 active:scale-95',
+  {
+    variants: {
+      size: {
+        sm: 'text-xs px-4 py-1.5',
+        md: 'text-sm px-6 py-2',
+        lg: 'text-base px-8 py-3',
+      },
+      variant: {
+        primary: 'bg-blue-600/80 hover:bg-blue-500',
+        secondary: 'bg-gray-600/80 hover:bg-gray-500',
+        success: 'bg-green-600/80 hover:bg-green-500',
+        danger: 'bg-red-600/80 hover:bg-red-500',
+      },
+    },
+    defaultVariants: {
+      size: 'md',
+      variant: 'primary',
     },
   }
 );

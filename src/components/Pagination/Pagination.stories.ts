@@ -3,31 +3,40 @@ import { fn } from '@storybook/test';
 import LPagination from './LPagination.vue';
 
 const meta = {
-  title: 'Lumodo/Navigation/Pagination',
+  title: 'Lumodo/Pagination',
   component: LPagination,
   tags: ['autodocs'],
   argTypes: {
-    modelValue: { control: 'number' },
-    max: { control: 'number' },
-    maxPages: { control: 'number' },
     size: { control: 'select', options: ['sm', 'md', 'lg'] },
-    disable: { control: 'boolean' },
-    input: { control: 'boolean' },
+    color: { control: 'select', options: ['primary', 'secondary', 'white'] },
+    shape: { control: 'select', options: ['rounded', 'square'] },
+    disabled: { control: 'boolean' },
+    showSizeChanger: { control: 'boolean' },
+    showQuickJumper: { control: 'boolean' },
+    showTotal: { control: 'boolean' },
+    hideOnSinglePage: { control: 'boolean' },
+    ellipsis: { control: 'boolean' },
   },
   args: {
-    modelValue: 1,
-    max: 20,
-    maxPages: 7,
+    total: 100,
+    current: 1,
+    pageSize: 10,
+    showSizeChanger: false,
+    showQuickJumper: false,
+    showTotal: true,
     size: 'md',
-    disable: false,
-    input: false,
+    color: 'primary',
+    shape: 'rounded',
+    disabled: false,
+    hideOnSinglePage: false,
+    ellipsis: true,
     onChange: fn(),
-    'onUpdate:modelValue': fn(),
+    onPageSizeChange: fn(),
   },
   decorators: [
     (story) => ({
       components: { story },
-      template: '<div class="bg-slate-900 p-6 min-h-[200px] flex justify-center"><story /></div>',
+      template: '<div class="p-8 bg-slate-900 flex items-center justify-center"><story /></div>',
     }),
   ],
 } satisfies Meta<typeof LPagination>;
@@ -35,70 +44,121 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-export const Default: Story = {
+export const Basic: Story = {
   args: {
-    modelValue: 5,
-    max: 20,
+    total: 100,
+    current: 1,
   },
 };
 
 export const Small: Story = {
   args: {
-    modelValue: 3,
-    max: 10,
     size: 'sm',
+    total: 50,
+    current: 1,
   },
 };
 
 export const Large: Story = {
   args: {
-    modelValue: 8,
-    max: 50,
     size: 'lg',
+    total: 200,
+    current: 1,
   },
 };
 
-export const WithInput: Story = {
+export const SecondaryColor: Story = {
   args: {
-    modelValue: 5,
-    max: 20,
-    input: true,
+    color: 'secondary',
+    total: 75,
+    current: 1,
   },
 };
 
-export const ManyPages: Story = {
+export const WhiteColor: Story = {
   args: {
-    modelValue: 15,
-    max: 100,
-    maxPages: 5,
+    color: 'white',
+    total: 100,
+    current: 1,
+  },
+};
+
+export const SquareShape: Story = {
+  args: {
+    shape: 'square',
+    total: 100,
+    current: 1,
+  },
+};
+
+export const WithSizeChanger: Story = {
+  args: {
+    showSizeChanger: true,
+    total: 100,
+    current: 1,
+  },
+};
+
+export const WithQuickJumper: Story = {
+  args: {
+    showQuickJumper: true,
+    total: 100,
+    current: 1,
+  },
+};
+
+export const WithAllFeatures: Story = {
+  args: {
+    showSizeChanger: true,
+    showQuickJumper: true,
+    showTotal: true,
+    total: 100,
+    current: 1,
   },
 };
 
 export const Disabled: Story = {
   args: {
-    modelValue: 5,
-    max: 20,
-    disable: true,
+    disabled: true,
+    total: 100,
+    current: 1,
   },
 };
 
-export const FirstPage: Story = {
+export const ManyPages: Story = {
   args: {
-    modelValue: 1,
-    max: 20,
-  },
-};
-
-export const LastPage: Story = {
-  args: {
-    modelValue: 20,
-    max: 20,
+    total: 1000,
+    current: 5,
+    pageSize: 10,
   },
 };
 
 export const FewPages: Story = {
   args: {
-    modelValue: 2,
-    max: 5,
+    total: 5,
+    current: 1,
+    hideOnSinglePage: true,
+  },
+};
+
+export const NoEllipsis: Story = {
+  args: {
+    total: 100,
+    current: 1,
+    ellipsis: false,
+  },
+};
+
+export const CurrentPageMiddle: Story = {
+  args: {
+    total: 100,
+    current: 5,
+  },
+};
+
+export const CurrentPageEnd: Story = {
+  args: {
+    total: 100,
+    current: 10,
   },
 };

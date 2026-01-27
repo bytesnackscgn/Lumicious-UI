@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/vue3-vite';
 import { fn } from '@storybook/test';
 import LImg from './LImg.vue';
 
-const meta = {
+const meta: Meta<typeof LImg> = {
   title: 'Lumodo/Media/Img',
   component: LImg,
   tags: ['autodocs'],
@@ -30,7 +30,7 @@ const meta = {
       template: '<div class="bg-slate-900 p-6 min-h-[400px] flex items-center justify-center"><story /></div>',
     }),
   ],
-} satisfies Meta<typeof LImg>;
+};
 
 export default meta;
 type Story = StoryObj<typeof meta>;

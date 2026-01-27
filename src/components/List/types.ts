@@ -14,6 +14,9 @@ export interface ItemProps {
   to?: string;
   tag?: string;
   class?: string;
+  label?: string;
+  icon?: string;
+  caption?: string;
 }
 
 export interface ItemSectionProps {

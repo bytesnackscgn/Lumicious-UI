@@ -18,7 +18,9 @@
     "lint": "eslint . --fix",
     "format": "prettier --write .",
     "storybook": "storybook dev -p 6006",
-    "storybook:build": "storybook build"
+    "storybook:build": "storybook build",
+    "kill:vite": "lsof -ti:5173 | xargs kill -9",
+    "kill:storybook": "lsof -ti:6006 | xargs kill -9"
   },
   "dependencies": {
     "lucide-vue-next": "^0.563.0",

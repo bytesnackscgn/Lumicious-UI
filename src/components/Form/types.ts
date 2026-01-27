@@ -1,35 +1,45 @@
-export type FormVariant = 'glass' | 'solid' | 'outline';
 export type FormSize = 'sm' | 'md' | 'lg';
 export type FormLayout = 'vertical' | 'horizontal' | 'inline';
+export type FormVariant = 'glass' | 'solid' | 'outline';
+export type FormValidationMode = 'onBlur' | 'onChange' | 'onSubmit' | 'onTouched';
+
+export interface FormProps {
+  modelValue?: Record<string, any>;
+  size?: FormSize;
+  layout?: FormLayout;
+  variant?: FormVariant;
+  disabled?: boolean;
+  readonly?: boolean;
+  validateOn?: FormValidationMode;
+  labelPosition?: 'top' | 'left' | 'right';
+  spacing?: 'sm' | 'md' | 'lg';
+  showErrors?: boolean;
+  loading?: boolean;
+  submitText?: string;
+  cancelText?: string;
+  validateOnChange?: boolean;
+  validateOnBlur?: boolean;
+}
 
 export interface FormField {
   name: string;
   label?: string;
+  type?: string;
   required?: boolean;
   disabled?: boolean;
   readonly?: boolean;
-  value?: any;
+  placeholder?: string;
+  rules?: any[];
   error?: string;
-  rules?: Array<(value: any) => true | string>;
+  value?: any;
 }
 
-export interface FormProps {
-  modelValue?: Record<string, any>;
-  variant?: FormVariant;
-  size?: FormSize;
-  layout?: FormLayout;
-  loading?: boolean;
-  disabled?: boolean;
-  validateOnChange?: boolean;
-  class?: string;
+export interface FormState {
+  values: Record<string, any>;
+  errors: Record<string, string>;
+  touched: Record<string, boolean>;
+  isValid: boolean;
+  isDirty: boolean;
 }
 
-export interface FormEmits {
-  (e: 'update:modelValue', value: Record<string, any>): void;
-  (e: 'submit', data: Record<string, any>): void;
-  (e: 'change', field: string, value: any): void;
-  (e: 'error', field: string, error: string): void;
-  (e: 'valid', field: string, isValid: boolean): void;
-}
-
-export type FormPropsType = FormProps;
+export type FormProps = FormProps;

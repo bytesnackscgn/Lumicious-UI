@@ -1,3 +1,6 @@
+export type BreadcrumbSize = 'sm' | 'md' | 'lg';
+export type BreadcrumbColor = 'primary' | 'secondary' | 'white';
+
 export interface BreadcrumbItem {
   label: string;
   href?: string;
@@ -6,8 +9,9 @@ export interface BreadcrumbItem {
 
 export interface BreadcrumbsProps {
   items: BreadcrumbItem[];
+  size?: BreadcrumbSize;
+  color?: BreadcrumbColor;
   separator?: string;
-  class?: string;
+  maxItems?: number;
+  ellipsis?: boolean;
 }
-
-export type BreadcrumbProps = BreadcrumbsProps;

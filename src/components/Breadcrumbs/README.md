@@ -1,62 +1,95 @@
 # LBreadcrumbs
 
-A navigation breadcrumb component that shows the current page location in a hierarchical structure.
+A glassmorphism breadcrumbs component for navigation paths.
+
+## Features
+
+- Glassmorphism design with blur effects
+- Customizable sizes and colors
+- Ellipsis support for long paths
+- Disabled items support
+- Custom separators
+- Clickable navigation items
 
 ## Props
 
-| Name        | Type     | Default | Description                         |
-| :---------- | :------- | :------ | :---------------------------------- |
-| `items`     | `Array`  | -       | Array of breadcrumb items.          |
-| `separator` | `string` | `'/'`   | Separator between breadcrumb items. |
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `items` | `BreadcrumbItem[]` | Required | Array of breadcrumb items |
+| `size` | `'sm' \| 'md' \| 'lg'` | `'md'` | Component size |
+| `color` | `'primary' \| 'secondary' \| 'white'` | `'primary'` | Text color |
+| `separator` | `string` | `'/'` | Separator between items |
+| `maxItems` | `number` | `0` | Maximum number of items to show (0 = no limit) |
+| `ellipsis` | `boolean` | `true` | Show ellipsis when maxItems is exceeded |
 
-## Breadcrumb Item
+## BreadcrumbItem Interface
 
-Each item in the `items` array can have the following properties:
+```typescript
+interface BreadcrumbItem {
+  label: string;
+  href?: string;
+  disabled?: boolean;
+}
+```
 
-| Name       | Type      | Default | Description                      |
-| :--------- | :-------- | :------ | :------------------------------- |
-| `label`    | `string`  | -       | Display text for the breadcrumb. |
-| `href`     | `string`  | -       | URL for navigation (optional).   |
-| `disabled` | `boolean` | `false` | Whether the item is disabled.    |
+## Events
+
+| Event | Payload | Description |
+|-------|---------|-------------|
+| `click` | `(item: BreadcrumbItem, index: number)` | Emitted when a clickable item is clicked |
 
 ## Usage
 
 ```vue
 <template>
-  <!-- Basic breadcrumbs -->
   <LBreadcrumbs
-    :items="[
-      { label: 'Home', href: '/' },
-      { label: 'Products', href: '/products' },
-      { label: 'Smartphones' },
-    ]"
+    :items="breadcrumbs"
+    size="md"
+    color="primary"
+    separator="/"
+    maxItems="5"
     @click="handleBreadcrumbClick"
   />
-
-  <!-- Custom separator -->
-  <LBreadcrumbs :items="breadcrumbs" separator="→" />
 </template>
 
 <script setup lang="ts">
-const breadcrumbs = [
-  { label: "Dashboard", href: "/dashboard" },
-  { label: "Analytics", href: "/dashboard/analytics" },
-  { label: "Reports" },
-];
+import { ref } from 'vue';
+
+const breadcrumbs = ref([
+  { label: 'Home', href: '/' },
+  { label: 'Components', href: '/components' },
+  { label: 'Breadcrumbs', href: '/components/breadcrumbs' },
+]);
 
 const handleBreadcrumbClick = (item, index) => {
-  console.log("Clicked breadcrumb:", item, "at index:", index);
+  console.log('Clicked:', item, index);
 };
 </script>
 ```
 
-## Events
-
-| Event   | Payload         | Description                                |
-| :------ | :-------------- | :----------------------------------------- |
-| `click` | `(item, index)` | Emitted when a breadcrumb item is clicked. |
-
 ## Examples
+
+### Basic Usage
+
+```vue
+<LBreadcrumbs
+  :items="[
+    { label: 'Home', href: '/' },
+    { label: 'Dashboard', href: '/dashboard' },
+    { label: 'Analytics', href: '/dashboard/analytics' }
+  ]"
+/>
+```
+
+### With Ellipsis
+
+```vue
+<LBreadcrumbs
+  :items="longBreadcrumbList"
+  maxItems="3"
+  ellipsis="true"
+/>
+```
 
 ### Disabled Items
 
@@ -64,14 +97,33 @@ const handleBreadcrumbClick = (item, index) => {
 <LBreadcrumbs
   :items="[
     { label: 'Home', href: '/' },
-    { label: 'Restricted', disabled: true },
-    { label: 'Final' },
+    { label: 'Disabled', disabled: true },
+    { label: 'Active', href: '/active' }
   ]"
 />
 ```
 
-### Single Item
+### Custom Separator
 
 ```vue
-<LBreadcrumbs :items="[{ label: 'Only Page' }]" />
+<LBreadcrumbs
+  :items="breadcrumbs"
+  separator="→"
+/>
 ```
+
+## Styling
+
+The component uses Tailwind CSS classes with glassmorphism effects:
+
+- **Background**: Semi-transparent with backdrop blur
+- **Border**: Thin semi-transparent border
+- **Hover Effects**: Smooth transitions and underline animations
+- **Responsive**: Adapts to different screen sizes
+
+## Accessibility
+
+- Uses semantic `<nav>` and `<ol>` elements
+- Proper ARIA labels (`aria-label="Breadcrumbs"`)
+- Keyboard navigation support
+- Screen reader friendly

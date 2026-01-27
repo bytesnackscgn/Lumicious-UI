@@ -1,18 +1,21 @@
-export type FilePickerAccept = string | string[];
+export type FilePickerSize = 'sm' | 'md' | 'lg';
+export type FilePickerVariant = 'glass' | 'solid' | 'outline';
+export type FileAccept = string | string[];
 
 export interface FilePickerProps {
-  accept?: FilePickerAccept;
-  multiple?: boolean;
+  modelValue?: File | File[];
+  size?: FilePickerSize;
+  variant?: FilePickerVariant;
   disabled?: boolean;
-  placeholder?: string;
-  maxFiles?: number;
+  readonly?: boolean;
+  multiple?: boolean;
+  accept?: FileAccept;
   maxSize?: number; // in bytes
-}
-
-export interface FilePickerEmits {
-  (e: 'update:modelValue', files: File[]): void;
-  (e: 'change', files: File[]): void;
-  (e: 'select', files: File[]): void;
+  minSize?: number; // in bytes
+  placeholder?: string;
+  buttonText?: string;
+  dragDrop?: boolean;
+  clearable?: boolean;
 }
 
 export interface FileItem {
