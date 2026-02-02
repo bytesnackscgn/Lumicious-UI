@@ -3,7 +3,7 @@ import { ref, watch } from 'vue';
 import LNumberInput from './LNumberInput.vue';
 
 const meta: Meta<typeof LNumberInput> = {
-  title: 'Components/LNumberInput',
+  title: 'Lumicious/Form/NumberInput',
   component: LNumberInput,
   tags: ['autodocs'],
   argTypes: {
