@@ -51,20 +51,9 @@ watch(() => props.src, (newSrc, oldSrc) => {
 
 <template>
   <div :class="cn(imgContainerStyles({ size }), props.class)">
-    <!-- Loading State -->
-    <div
-      v-if="isLoading && !hasError"
-      :class="cn(
-        'absolute inset-0 flex items-center justify-center',
-        'bg-white/10 animate-pulse'
-      )"
-    >
-      <div class="w-8 h-8 border-2 border-white/30 border-t-white rounded-full animate-spin"></div>
-    </div>
-
     <!-- Error State -->
     <div
-      v-if="hasError && !isLoading"
+      v-if="hasError"
       :class="cn(
         'absolute inset-0 flex flex-col items-center justify-center',
         'bg-red-500/20 text-red-300'
@@ -79,10 +68,19 @@ watch(() => props.src, (newSrc, oldSrc) => {
         Retry
       </button>
     </div>
+    <!-- Loading State -->
+    <div
+      v-if="isLoading"
+      :class="cn(
+        'absolute inset-0 flex items-center justify-center',
+        'bg-white/10 animate-pulse'
+      )"
+    >
+      <div class="w-8 h-8 border-2 border-white/30 border-t-white rounded-full animate-spin"></div>
+    </div>
 
     <!-- Image -->
     <img
-      v-show="!isLoading && !hasError" 
       :src="imageSrc"
       :alt="alt"
       :width="width"
@@ -95,7 +93,8 @@ watch(() => props.src, (newSrc, oldSrc) => {
           fit, 
           rounded 
         }),
-        'block w-full h-full'
+        'block w-full h-full',
+        (isLoading || hasError) && 'opacity-0'
       )"
       @load="handleLoad"
       @error="handleError"
