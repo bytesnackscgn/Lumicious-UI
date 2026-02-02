@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/vue3-vite';
 import LLinearProgress from './LLinearProgress.vue';
 
 const meta: Meta<any> = {
-  title: 'Lumodo/Progress/LinearProgress',
+  title: 'Lumicious/Progress/LinearProgress',
   component: LLinearProgress,
   tags: ['autodocs'],
   argTypes: {

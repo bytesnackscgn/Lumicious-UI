@@ -3,7 +3,7 @@ import { fn } from '@storybook/test';
 import LFilePicker from './LFilePicker.vue';
 
 const meta: Meta<any> = {
-  title: 'Lumodo/FilePicker',
+  title: 'Lumicious/FilePicker',
   component: LFilePicker,
   tags: ['autodocs'],
   argTypes: {

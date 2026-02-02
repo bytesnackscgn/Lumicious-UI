@@ -4,7 +4,7 @@ import { LBtn } from '../Btn';
 import { LHeadline } from '../Headline';
 
 const meta: Meta<any> = {
-  title: 'Lumodo/Layout/Toolbar',
+  title: 'Lumicious/Layout/Toolbar',
   component: LToolbar,
   tags: ['autodocs'],
   argTypes: {
@@ -33,7 +33,7 @@ export const Default: Story = {
     template: `
       <LToolbar v-bind="args" class="glass rounded-lg">
         <LBtn icon="menu" variant="ghost" />
-        <LHeadline :level="6" class="m-0">Lumodo UI</LHeadline>
+        <LHeadline :level="6" class="m-0">Lumicious UI</LHeadline>
         <div class="flex-grow" />
         <LBtn icon="search" variant="ghost" />
         <LBtn icon="user" variant="ghost" />

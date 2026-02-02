@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/vue3-vite';
 import LKnob from './LKnob.vue';
 
 const meta: Meta<any> = {
-  title: 'Lumodo/Knob',
+  title: 'Lumicious/Knob',
   component: LKnob,
   tags: ['autodocs'],
   argTypes: {

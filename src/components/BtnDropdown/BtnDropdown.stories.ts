@@ -4,7 +4,7 @@ import LBtnDropdown from './LBtnDropdown.vue';
 import { LList, LItem } from '../List';
 
 const meta: Meta<any> = {
-  title: 'Lumodo/Actions/BtnDropdown',
+  title: 'Lumicious/Actions/BtnDropdown',
   component: LBtnDropdown,
   tags: ['autodocs'],
   argTypes: {

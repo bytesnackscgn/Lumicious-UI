@@ -5,7 +5,7 @@ import { LBtn } from '../Btn';
 import { LText } from '../Text';
 
 const meta: Meta<any> = {
-  title: 'Lumodo/Overlays/Dialog',
+  title: 'Lumicious/Overlays/Dialog',
   component: LDialog,
   tags: ['autodocs'],
   argTypes: {

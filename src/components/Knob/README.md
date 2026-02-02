@@ -16,7 +16,7 @@ A glassmorphism knob component for Vue 3 that provides an elegant rotary control
 ## Installation
 
 ```bash
-npm install lumodo-ui
+npm install Lumicious-ui
 ```
 
 ## Usage
@@ -38,7 +38,7 @@ npm install lumodo-ui
 
 <script setup lang="ts">
 import { ref } from "vue";
-import LKnob from "lumodo-ui/components/Knob/LKnob.vue";
+import LKnob from "Lumicious-ui/components/Knob/LKnob.vue";
 
 const volume = ref(50);
 

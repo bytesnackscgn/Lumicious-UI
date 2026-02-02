@@ -3,7 +3,7 @@ import { fn } from '@storybook/test';
 import LRadio from './LRadio.vue';
 
 const meta: Meta<any> = {
-  title: 'Lumodo/Form/Radio',
+  title: 'Lumicious/Form/Radio',
   component: LRadio,
   tags: ['autodocs'],
   argTypes: {

@@ -3,7 +3,7 @@ import { fn } from '@storybook/test';
 import LBreadcrumbs from './LBreadcrumbs.vue';
 
 const meta: Meta<any> = {
-  title: 'Lumodo/Breadcrumbs',
+  title: 'Lumicious/Breadcrumbs',
   component: LBreadcrumbs,
   tags: ['autodocs'],
   argTypes: {

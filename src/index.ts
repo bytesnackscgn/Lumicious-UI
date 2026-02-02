@@ -9,7 +9,7 @@ export * from './plugins';
 export * from './composables';
 export * from './utils';
 
-export const Lumodo = {
+export const Lumicious = {
   install(app: App) {
     // Install Components
     Object.entries(components).forEach(([name, component]) => {
@@ -30,4 +30,4 @@ export const Lumodo = {
   }
 };
 
-export default Lumodo;
+export default Lumicious;

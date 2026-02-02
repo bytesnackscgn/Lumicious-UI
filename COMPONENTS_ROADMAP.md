@@ -1,6 +1,6 @@
 # Components Roadmap & Status
 
-This file tracks the implementation status of all requested components in the Lumodo UI framework.
+This file tracks the implementation status of all requested components in the Lumicious UI framework.
 
 | Component             | Status     | Category    |
 | :-------------------- | :--------- | :---------- |

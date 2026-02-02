@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/vue3-vite';
 import LIcon from './LIcon.vue';
 
 const meta: Meta<any> = {
-  title: 'Lumodo/Icon',
+  title: 'Lumicious/Icon',
   component: LIcon,
   tags: ['autodocs'],
   argTypes: {

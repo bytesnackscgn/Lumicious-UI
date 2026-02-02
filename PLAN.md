@@ -1,6 +1,6 @@
-# Lumodo UI Framework Implementation Plan
+# Lumicious UI Framework Implementation Plan
 
-This document outlines the phased implementation strategy for the Lumodo UI Glassmorphism framework.
+This document outlines the phased implementation strategy for the Lumicious UI Glassmorphism framework.
 
 ## 🎨 Core Design System (Foundation) - [IN PROGRESS]
 

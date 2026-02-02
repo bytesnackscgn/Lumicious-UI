@@ -4,7 +4,7 @@ import LExpansionPanel from './LExpansionPanel.vue';
 import { LText } from '../Text';
 
 const meta: Meta<any> = {
-  title: 'Lumodo/Layout/ExpansionPanel',
+  title: 'Lumicious/Layout/ExpansionPanel',
   component: LExpansionPanel,
   tags: ['autodocs'],
   argTypes: {

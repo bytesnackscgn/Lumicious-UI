@@ -3,7 +3,7 @@ import LBtnGroup from './LBtnGroup.vue';
 import { LBtn } from '../Btn';
 
 const meta: Meta<any> = {
-  title: 'Lumodo/Actions/ButtonGroup',
+  title: 'Lumicious/Actions/ButtonGroup',
   component: LBtnGroup,
   tags: ['autodocs'],
   argTypes: {

@@ -3,7 +3,7 @@ import LInnerLoading from './LInnerLoading.vue';
 import { LCard } from '../Card';
 
 const meta: Meta<any> = {
-  title: 'Lumodo/Progress/InnerLoading',
+  title: 'Lumicious/Progress/InnerLoading',
   component: LInnerLoading,
   tags: ['autodocs'],
   argTypes: {

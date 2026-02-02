@@ -3,7 +3,7 @@ import { fn } from '@storybook/test';
 import LPagination from './LPagination.vue';
 
 const meta: Meta<any> = {
-  title: 'Lumodo/Pagination',
+  title: 'Lumicious/Pagination',
   component: LPagination,
   tags: ['autodocs'],
   argTypes: {

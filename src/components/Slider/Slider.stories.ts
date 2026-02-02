@@ -3,7 +3,7 @@ import { fn } from '@storybook/test';
 import LSlider from './LSlider.vue';
 
 const meta: Meta<any> = {
-  title: 'Lumodo/Form/Slider',
+  title: 'Lumicious/Form/Slider',
   component: LSlider,
   tags: ['autodocs'],
   argTypes: {

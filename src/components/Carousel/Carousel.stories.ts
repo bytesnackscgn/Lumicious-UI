@@ -4,7 +4,7 @@ import LCarousel from './LCarousel.vue';
 import LCard from '../Card/LCard.vue';
 
 const meta: Meta<any> = {
-  title: 'Lumodo/Carousel',
+  title: 'Lumicious/Carousel',
   component: LCarousel,
   tags: ['autodocs'],
   argTypes: {

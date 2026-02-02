@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/vue3-vite';
 import LText from './LText.vue';
 
 const meta: Meta<any> = {
-  title: 'Lumodo/Typography/Text',
+  title: 'Lumicious/Typography/Text',
   component: LText,
   tags: ['autodocs'],
   argTypes: {
@@ -19,7 +19,7 @@ const meta: Meta<any> = {
   decorators: [
     (story) => ({
       components: { story },
-      template: '<div class="p-8 bg-slate-900 flex items-center justify-center text-white"><story>Lumodo UI Text Content</story></div>',
+      template: '<div class="p-8 bg-slate-900 flex items-center justify-center text-white"><story>Lumicious UI Text Content</story></div>',
     }),
   ],
 } satisfies Meta<typeof LText>;

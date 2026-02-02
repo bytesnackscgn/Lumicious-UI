@@ -1,6 +1,6 @@
 # LDatePicker
 
-A beautiful glassmorphism date picker component for Lumodo UI. Supports single date, date range, and multiple date selection modes.
+A beautiful glassmorphism date picker component for Lumicious UI. Supports single date, date range, and multiple date selection modes.
 
 ## Props
 

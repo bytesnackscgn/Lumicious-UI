@@ -3,7 +3,7 @@ import LCard from './LCard.vue';
 import { LBtn } from '../Btn';
 
 const meta: Meta<any> = {
-  title: 'Lumodo/Card',
+  title: 'Lumicious/Card',
   component: LCard,
   tags: ['autodocs'],
   argTypes: {

@@ -5,7 +5,7 @@ import { LList, LItem, LItemSection, LItemLabel } from '../List';
 import { LIcon } from '../Icon';
 
 const meta: Meta<any> = {
-  title: 'Lumodo/Overlays/Menu',
+  title: 'Lumicious/Overlays/Menu',
   component: LMenu,
   tags: ['autodocs'],
   decorators: [

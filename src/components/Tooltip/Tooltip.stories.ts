@@ -3,7 +3,7 @@ import LTooltip from './LTooltip.vue';
 import { LBtn } from '../Btn';
 
 const meta: Meta<any> = {
-  title: 'Lumodo/Overlays/Tooltip',
+  title: 'Lumicious/Overlays/Tooltip',
   component: LTooltip,
   tags: ['autodocs'],
   argTypes: {
