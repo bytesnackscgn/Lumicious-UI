@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ref } from 'vue';
 import { cn } from '../../utils/cn';
-import { fabStyles } from './styles';
+import { fabStyles, fabRippleStyles} from './styles';
 import type { FabProps } from './types';
 import { FAB_POSITIONS } from './constants';
 import { LIcon } from '../Icon';
@@ -41,13 +41,12 @@ const createRipple = (event: MouseEvent) => {
   const size = Math.max(rect.width, rect.height);
   
   const ripple = document.createElement('span');
-  ripple.className = 'absolute rounded-full bg-white/30 animate-ping';
+  ripple.className = fabRippleStyles();
   ripple.style.width = `${size}px`;
   ripple.style.height = `${size}px`;
   ripple.style.left = `${event.clientX - rect.left - size / 2}px`;
   ripple.style.top = `${event.clientY - rect.top - size / 2}px`;
   
-  button.style.position = 'relative';
   button.style.overflow = 'hidden';
   button.appendChild(ripple);
   

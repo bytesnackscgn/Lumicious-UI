@@ -169,25 +169,3 @@ export const NoRipple: Story = {
     icon: 'plus',
   },
 };
-
-export const CustomIcons: Story = {
-  render: (args) => ({
-    components: { LFab },
-    setup() { return { args }; },
-    template: `
-      <div class="space-y-4">
-        <div class="text-white text-sm mb-2">Add Item</div>
-        <LFab icon="plus" label="Add" />
-
-        <div class="text-white text-sm mb-2 mt-4">Edit Item</div>
-        <LFab icon="edit" label="Edit" />
-
-        <div class="text-white text-sm mb-2 mt-4">Delete Item</div>
-        <LFab icon="trash-2" label="Delete" color="negative" />
-
-        <div class="text-white text-sm mb-2 mt-4">Save Changes</div>
-        <LFab icon="save" label="Save" color="positive" />
-      </div>
-    `,
-  }),
-};
