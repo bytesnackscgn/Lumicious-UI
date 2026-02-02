@@ -3,7 +3,7 @@ import { fn } from '@storybook/test';
 import LFab from './LFab.vue';
 
 const meta: Meta<any> = {
-  title: 'Lumodo/Fab',
+  title: 'Lumicious/Fab',
   component: LFab,
   tags: ['autodocs'],
   argTypes: {

@@ -1,10 +1,10 @@
-# Lumodo UI Documentation
+# Lumicious UI Documentation
 
-Lumodo is a high-scalable Glassmorphism UI framework for Vue 3. It is designed to be highly extendable, similar to Quasar.js, but with a hard-coded focus on premium aesthetics.
+Lumicious is a high-scalable Glassmorphism UI framework for Vue 3. It is designed to be highly extendable, similar to Quasar.js, but with a hard-coded focus on premium aesthetics.
 
 ## 🎨 Design Philosophy: Glassmorphism
 
-The core of Lumodo is the "frosted glass" look. Every component should follow these three rules:
+The core of Lumicious is the "frosted glass" look. Every component should follow these three rules:
 
 1.  **Transparency & Blur**: Use `backdrop-filter: blur(12px)` and semi-transparent backgrounds.
 2.  **Edge Definition**: Every glass element should have a thin, semi-transparent border (`1px solid rgba(255,255,255,0.2)`) to define its geometry against busy backgrounds.
@@ -43,7 +43,7 @@ To maintain consistency, follow the **L-Prefix** convention.
 
 ## 🔌 Plugins & Services
 
-Lumodo features global plugins accessible via `this.$lNotify`, `this.$lDark`, etc.
+Lumicious features global plugins accessible via `this.$lNotify`, `this.$lDark`, etc.
 
 - **Notify**: Toast system.
 - **DarkMode**: Global theme switching.

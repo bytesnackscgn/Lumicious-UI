@@ -3,7 +3,7 @@ import { fn } from '@storybook/test';
 import LCheckbox from './LCheckbox.vue';
 
 const meta: Meta<any> = {
-  title: 'Lumodo/Form/Checkbox',
+  title: 'Lumicious/Form/Checkbox',
   component: LCheckbox,
   tags: ['autodocs'],
   argTypes: {

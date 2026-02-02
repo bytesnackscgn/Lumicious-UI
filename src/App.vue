@@ -12,7 +12,7 @@ import bgImage from './assets/bg.webp'
       <!-- Header -->
       <div class="text-center space-y-2">
         <LHeadline :level="1" size="4xl" gradient class="uppercase !tracking-[0.2em]">
-          Lumodo UI
+          Lumicious UI
         </LHeadline>
         <LText size="xl" weight="medium" class="opacity-80">
           A Glassmorphism Foundation UI Framework
@@ -28,7 +28,7 @@ import bgImage from './assets/bg.webp'
           </template>
           
           <LText size="md" class="leading-relaxed">
-            Lumodo provides a solid, testable, and highly scalable component system designed with the principles of Glassmorphism. 
+            Lumicious provides a solid, testable, and highly scalable component system designed with the principles of Glassmorphism. 
             It reflects light, depth, and clarity in every interaction.
           </LText>
           

@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/vue3-vite';
 import LSeparator from './LSeparator.vue';
 
 const meta: Meta<any> = {
-  title: 'Lumodo/Separator',
+  title: 'Lumicious/Separator',
   component: LSeparator,
   tags: ['autodocs'],
   argTypes: {

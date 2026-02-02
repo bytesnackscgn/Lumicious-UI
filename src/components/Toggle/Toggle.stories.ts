@@ -3,7 +3,7 @@ import { fn } from '@storybook/test';
 import LToggle from './LToggle.vue';
 
 const meta: Meta<any> = {
-  title: 'Lumodo/Form/Toggle',
+  title: 'Lumicious/Form/Toggle',
   component: LToggle,
   tags: ['autodocs'],
   argTypes: {

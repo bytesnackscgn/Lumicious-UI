@@ -4,7 +4,7 @@ import LInput from './LInput.vue';
 import { LIcon } from '../Icon';
 
 const meta: Meta<any> = {
-  title: 'Lumodo/Form/Input',
+  title: 'Lumicious/Form/Input',
   component: LInput,
   tags: ['autodocs'],
   argTypes: {

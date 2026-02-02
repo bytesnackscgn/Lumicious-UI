@@ -3,7 +3,7 @@ import { fn } from '@storybook/test';
 import LChip from './LChip.vue';
 
 const meta: Meta<any> = {
-  title: 'Lumodo/Chip',
+  title: 'Lumicious/Chip',
   component: LChip,
   tags: ['autodocs'],
   argTypes: {

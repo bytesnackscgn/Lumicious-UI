@@ -3,7 +3,7 @@ import LBanner from './LBanner.vue';
 import { LBtn } from '../Btn';
 
 const meta: Meta<any> = {
-  title: 'Lumodo/Feedback/Banner',
+  title: 'Lumicious/Feedback/Banner',
   component: LBanner,
   tags: ['autodocs'],
   argTypes: {
@@ -12,7 +12,7 @@ const meta: Meta<any> = {
     dense: { control: 'boolean' },
   },
   args: {
-    label: 'Welcome to the Lumodo UI documentation. Exploring glassmorphism foundations.',
+    label: 'Welcome to the Lumicious UI documentation. Exploring glassmorphism foundations.',
     variant: 'glass',
     color: 'primary',
     dense: false,

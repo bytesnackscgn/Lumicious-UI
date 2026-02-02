@@ -3,7 +3,7 @@ import { fn } from '@storybook/test';
 import LSelect from './LSelect.vue';
 
 const meta: Meta<any> = {
-  title: 'Lumodo/Form/Select',
+  title: 'Lumicious/Form/Select',
   component: LSelect,
   tags: ['autodocs'],
   argTypes: {

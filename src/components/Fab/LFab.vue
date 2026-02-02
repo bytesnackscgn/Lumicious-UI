@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ref } from 'vue';
 import { cn } from '../../utils/cn';
-import { fabStyles, fabRippleStyles } from './styles';
+import { fabStyles } from './styles';
 import type { FabProps } from './types';
 import { FAB_POSITIONS } from './constants';
 import { LIcon } from '../Icon';

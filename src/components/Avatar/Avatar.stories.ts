@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/vue3-vite';
 import LAvatar from './LAvatar.vue';
 
 const meta: Meta<any> = {
-  title: 'Lumodo/Avatar',
+  title: 'Lumicious/Avatar',
   component: LAvatar,
   tags: ['autodocs'],
   argTypes: {

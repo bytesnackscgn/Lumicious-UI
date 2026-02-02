@@ -1,6 +1,6 @@
 # LColorPicker
 
-A beautiful glassmorphism color picker component for Lumodo UI. Supports multiple color formats, preset colors, and custom color selection.
+A beautiful glassmorphism color picker component for Lumicious UI. Supports multiple color formats, preset colors, and custom color selection.
 
 ## Props
 

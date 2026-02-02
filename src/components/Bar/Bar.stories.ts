@@ -5,7 +5,7 @@ import { LBtn } from '../Btn';
 import { LHeadline } from '../Headline';
 
 const meta: Meta<any> = {
-  title: 'Lumodo/Layout/Bar',
+  title: 'Lumicious/Layout/Bar',
   component: LBar,
   tags: ['autodocs'],
   argTypes: {

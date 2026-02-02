@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/vue3-vite';
 import LSkeleton from './LSkeleton.vue';
 
 const meta: Meta<any> = {
-  title: 'Lumodo/Progress/Skeleton',
+  title: 'Lumicious/Progress/Skeleton',
   component: LSkeleton,
   tags: ['autodocs'],
   argTypes: {

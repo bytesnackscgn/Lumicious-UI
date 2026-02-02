@@ -3,7 +3,7 @@ import { fn } from '@storybook/test';
 import LParallax from './LParallax.vue';
 
 const meta: Meta<typeof LParallax> = {
-  title: 'Lumodo/Parallax',
+  title: 'Lumicious/Parallax',
   component: LParallax,
   tags: ['autodocs'],
   argTypes: {

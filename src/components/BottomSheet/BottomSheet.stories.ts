@@ -3,7 +3,7 @@ import { ref } from 'vue';
 import LBottomSheet from './LBottomSheet.vue';
 
 const meta: Meta<any> = {
-  title: 'Lumodo/BottomSheet',
+  title: 'Lumicious/BottomSheet',
   component: LBottomSheet,
   tags: ['autodocs'],
   argTypes: {

@@ -3,7 +3,7 @@ import { fn } from '@storybook/test';
 import LImg from './LImg.vue';
 
 const meta: Meta<typeof LImg> = {
-  title: 'Lumodo/Media/Img',
+  title: 'Lumicious/Media/Img',
   component: LImg,
   tags: ['autodocs'],
   argTypes: {

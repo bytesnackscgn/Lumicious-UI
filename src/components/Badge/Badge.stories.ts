@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/vue3-vite';
 import LBadge from './LBadge.vue';
 
 const meta: Meta<any> = {
-  title: 'Lumodo/Badge',
+  title: 'Lumicious/Badge',
   component: LBadge,
   tags: ['autodocs'],
   argTypes: {

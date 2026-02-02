@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/vue3-vite';
 import LHeadline from './LHeadline.vue';
 
 const meta: Meta<any> = {
-  title: 'Lumodo/Typography/Headline',
+  title: 'Lumicious/Typography/Headline',
   component: LHeadline,
   tags: ['autodocs'],
   argTypes: {
@@ -21,7 +21,7 @@ const meta: Meta<any> = {
   decorators: [
     (story) => ({
       components: { story },
-      template: '<div class="p-8 bg-slate-900 flex flex-col items-center justify-center text-white"><story>Lumodo UI Headline</story></div>',
+      template: '<div class="p-8 bg-slate-900 flex flex-col items-center justify-center text-white"><story>Lumicious UI Headline</story></div>',
     }),
   ],
 } satisfies Meta<typeof LHeadline>;

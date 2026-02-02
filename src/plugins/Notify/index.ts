@@ -10,7 +10,7 @@ export interface NotifyOptions {
 export const Notify = {
   create(options: NotifyOptions | string) {
     const message = typeof options === 'string' ? options : options.message;
-    console.log(`[Lumodo Notify] ${message}`);
+    console.log(`[Lumicious Notify] ${message}`);
     // Real implementation would mount a component or use a store
   },
   

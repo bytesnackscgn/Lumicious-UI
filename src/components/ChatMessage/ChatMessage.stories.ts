@@ -3,7 +3,7 @@ import { fn } from '@storybook/test';
 import LChatMessage from './LChatMessage.vue';
 
 const meta: Meta<any> = {
-  title: 'Lumodo/ChatMessage',
+  title: 'Lumicious/ChatMessage',
   component: LChatMessage,
   tags: ['autodocs'],
   argTypes: {

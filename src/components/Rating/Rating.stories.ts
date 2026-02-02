@@ -3,7 +3,7 @@ import { fn } from '@storybook/test';
 import LRating from './LRating.vue';
 
 const meta: Meta<any> = {
-  title: 'Lumodo/Form/Rating',
+  title: 'Lumicious/Form/Rating',
   component: LRating,
   tags: ['autodocs'],
   argTypes: {

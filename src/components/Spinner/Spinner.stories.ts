@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/vue3-vite';
 import LSpinner from './LSpinner.vue';
 
 const meta: Meta<any> = {
-  title: 'Lumodo/Progress/Spinner',
+  title: 'Lumicious/Progress/Spinner',
   component: LSpinner,
   tags: ['autodocs'],
   argTypes: {

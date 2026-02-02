@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/vue3-vite';
 import LRange from './LRange.vue';
 
 const meta: Meta<any> = {
-  title: 'Lumodo/Form/Range',
+  title: 'Lumicious/Form/Range',
   component: LRange,
   tags: ['autodocs'],
   argTypes: {

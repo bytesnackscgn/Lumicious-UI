@@ -3,7 +3,7 @@ import { fn } from '@storybook/test';
 import LColorPicker from './LColorPicker.vue';
 
 const meta: Meta<any> = {
-  title: 'Lumodo/ColorPicker',
+  title: 'Lumicious/ColorPicker',
   component: LColorPicker,
   tags: ['autodocs'],
   argTypes: {

@@ -3,7 +3,7 @@ import { fn } from '@storybook/test';
 import LBtn from './LBtn.vue';
 
 const meta: Meta<any> = {
-  title: 'Lumodo/Button',
+  title: 'Lumicious/Button',
   component: LBtn,
   tags: ['autodocs'],
   argTypes: {

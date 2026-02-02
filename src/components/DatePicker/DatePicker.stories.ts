@@ -3,7 +3,7 @@ import { fn } from '@storybook/test';
 import LDatePicker from './LDatePicker.vue';
 
 const meta: Meta<any> = {
-  title: 'Lumodo/DatePicker',
+  title: 'Lumicious/DatePicker',
   component: LDatePicker,
   tags: ['autodocs'],
   argTypes: {

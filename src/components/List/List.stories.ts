@@ -4,7 +4,7 @@ import { LIcon } from '../Icon';
 import { LAvatar } from '../Avatar';
 
 const meta: Meta<any> = {
-  title: 'Lumodo/Layout/List',
+  title: 'Lumicious/Layout/List',
   component: LList,
   tags: ['autodocs'],
   decorators: [

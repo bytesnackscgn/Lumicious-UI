@@ -3,7 +3,7 @@ import { fn } from '@storybook/test';
 import LForm from './LForm.vue';
 
 const meta: Meta<any> = {
-  title: 'Lumodo/Form/Form',
+  title: 'Lumicious/Form/Form',
   component: LForm,
   tags: ['autodocs'],
   argTypes: {

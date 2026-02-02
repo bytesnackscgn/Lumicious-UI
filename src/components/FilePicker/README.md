@@ -1,6 +1,6 @@
 # LFilePicker
 
-A beautiful glassmorphism file picker component for Lumodo UI. Supports drag-and-drop, file validation, and multiple selection modes.
+A beautiful glassmorphism file picker component for Lumicious UI. Supports drag-and-drop, file validation, and multiple selection modes.
 
 ## Props
 

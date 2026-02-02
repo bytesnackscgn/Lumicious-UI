@@ -4,7 +4,7 @@ import { ref } from 'vue';
 import LIntersection from './LIntersection.vue';
 
 const meta: Meta<typeof LIntersection> = {
-  title: 'Lumodo/Intersection',
+  title: 'Lumicious/Intersection',
   component: LIntersection,
   tags: ['autodocs'],
   argTypes: {

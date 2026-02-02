@@ -1,6 +1,6 @@
 # LBtn
 
-The primary action component for Lumodo UI. Highly customizable with glass and solid variants.
+The primary action component for Lumicious UI. Highly customizable with glass and solid variants.
 
 ## Props
 

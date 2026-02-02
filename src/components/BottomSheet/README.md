@@ -16,7 +16,7 @@ A glassmorphism bottom sheet component for Vue 3 that provides an elegant modal 
 ## Installation
 
 ```bash
-npm install lumodo-ui
+npm install Lumicious-ui
 ```
 
 ## Usage
@@ -56,9 +56,9 @@ npm install lumodo-ui
 
 <script setup lang="ts">
 import { ref } from "vue";
-import LBottomSheet from "lumodo-ui/components/BottomSheet/LBottomSheet.vue";
-import LInput from "lumodo-ui/components/Input/LInput.vue";
-import LToggle from "lumodo-ui/components/LToggle.vue";
+import LBottomSheet from "Lumicious-ui/components/BottomSheet/LBottomSheet.vue";
+import LInput from "Lumicious-ui/components/Input/LInput.vue";
+import LToggle from "Lumicious-ui/components/LToggle.vue";
 
 const isOpen = ref(false);
 const name = ref("");

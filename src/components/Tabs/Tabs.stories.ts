@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/vue3-vite';
 import { LTabs, LTab, LTabPanels, LTabPanel } from './index';
 
 const meta: Meta<any> = {
-  title: 'Lumodo/Layout/Tabs',
+  title: 'Lumicious/Layout/Tabs',
   component: LTabs,
   tags: ['autodocs'],
   argTypes: {

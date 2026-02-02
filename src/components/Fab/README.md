@@ -1,6 +1,6 @@
 # LFab
 
-A beautiful glassmorphism Floating Action Button component for Lumodo UI. Perfect for primary actions that should be easily accessible.
+A beautiful glassmorphism Floating Action Button component for Lumicious UI. Perfect for primary actions that should be easily accessible.
 
 ## Props
 
