@@ -5,7 +5,7 @@ It is a kind of glassy/glasmorphism ui component library.
 Packagemanager: pnpm
 Use `nvm use` for setting up node
 
-Style: Tailwindcss
+Style Library: Taild 4
 
 Main Framework: Vue 3
 
@@ -18,3 +18,7 @@ Component Structure:
   - constants.ts
   - index.ts
   - utils.ts
+
+Testing current healthstate of project:
+- pnpm type-check
+- pnpm compile
