@@ -10,6 +10,7 @@
   },
   "scripts": {
     "dev": "vite",
+    "compile": "vue-tsc -b",
     "build": "vue-tsc -b && vite build",
     "type-check": "vue-tsc --noEmit",
     "preview": "vite preview",
