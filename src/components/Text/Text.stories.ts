@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/vue3-vite';
 import LText from './LText.vue';
 
-const meta = {
+const meta: Meta<any> = {
   title: 'Lumodo/Typography/Text',
   component: LText,
   tags: ['autodocs'],

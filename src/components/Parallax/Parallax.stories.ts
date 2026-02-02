@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/vue3-vite';
 import { fn } from '@storybook/test';
 import LParallax from './LParallax.vue';
 
-const meta = {
+const meta: Meta<typeof LParallax> = {
   title: 'Lumodo/Parallax',
   component: LParallax,
   tags: ['autodocs'],
@@ -49,43 +49,51 @@ const meta = {
       `,
     }),
   ],
-} satisfies Meta<typeof LParallax>;
+};
 
 export default meta;
 type Story = StoryObj<typeof meta>;
 
 export const Basic: Story = {
   args: {},
-  template: `
-    <div class="h-64">
-      <LParallax class="h-full">
-        <div class="h-full glass border-white/20 rounded-xl flex items-center justify-center">
-          <div class="text-center">
-            <div class="text-2xl font-bold mb-2">Parallax Content</div>
-            <div class="text-white/60">Scroll to see the effect</div>
+  render: (args) => ({
+    components: { LParallax },
+    setup() { return { args }; },
+    template: `
+      <div class="h-64">
+        <LParallax v-bind="args" class="h-full">
+          <div class="h-full glass border-white/20 rounded-xl flex items-center justify-center">
+            <div class="text-center">
+              <div class="text-2xl font-bold mb-2">Parallax Content</div>
+              <div class="text-white/60">Scroll to see the effect</div>
+            </div>
           </div>
-        </div>
-      </LParallax>
-    </div>
-  `,
+        </LParallax>
+      </div>
+    `,
+  }),
 };
 
 export const WithSpeed: Story = {
   args: {
     speed: 1.2,
   },
-  template: `
-    <div class="h-64">
-      <LParallax :speed="1.2" class="h-full">
-        <div class="h-full bg-gradient-to-br from-blue-500/30 to-purple-500/30 glass border-white/20 rounded-xl flex items-center justify-center">
-          <div class="text-center">
-            <div class="text-2xl font-bold mb-2">Fast Parallax</div>
-            <div class="text-white/60">Speed: 1.2x</div>
+  render: (args) => ({
+    components: { LParallax },
+    setup() { return { args }; },
+    template: `
+      <div class="h-64">
+        <LParallax v-bind="args" class="h-full">
+          <div class="h-full bg-gradient-to-br from-blue-500/30 to-purple-500/30 glass border-white/20 rounded-xl flex items-center justify-center">
+            <div class="text-center">
+              <div class="text-2xl font-bold mb-2">Fast Parallax</div>
+              <div class="text-white/60">Speed: 1.2x</div>
+            </div>
           </div>
-        </div>
-      </LParallax>
-    </div>
-  `,
+        </LParallax>
+      </div>
+    `,
+  }),
 };
 
 export const Directions: Story = {
@@ -142,46 +150,53 @@ export const Disabled: Story = {
   args: {
     disabled: true,
   },
-  template: `
-    <div class="h-64">
-      <LParallax :disabled="true" class="h-full">
-        <div class="h-full bg-gray-500/30 glass border-gray-400/30 rounded-xl flex items-center justify-center">
-          <div class="text-center">
-            <div class="text-2xl font-bold mb-2">Disabled Parallax</div>
-            <div class="text-white/60">No movement on scroll</div>
+  render: (args) => ({
+    components: { LParallax },
+    setup() { return { args }; },
+    template: `
+      <div class="h-64">
+        <LParallax v-bind="args" class="h-full">
+          <div class="h-full bg-gray-500/30 glass border-gray-400/30 rounded-xl flex items-center justify-center">
+            <div class="text-center">
+              <div class="text-2xl font-bold mb-2">Disabled Parallax</div>
+              <div class="text-white/60">No movement on scroll</div>
+            </div>
           </div>
-        </div>
-      </LParallax>
-    </div>
-  `,
+        </LParallax>
+      </div>
+    `,
+  }),
 };
 
 export const WithScrollProgress: Story = {
   args: {
     speed: 0.8,
   },
-  template: `
-    <div class="h-64">
-      <LParallax 
-        :speed="0.8" 
-        @scroll="onScroll"
-        class="h-full"
-      >
-        <div class="h-full bg-gradient-to-br from-indigo-500/30 to-pink-500/30 glass border-white/20 rounded-xl flex items-center justify-center">
-          <div class="text-center">
-            <div class="text-2xl font-bold mb-2">Scroll Progress</div>
-            <div class="text-white/60">Check console for scroll progress</div>
+  render: (args) => ({
+    components: { LParallax },
+    setup() {
+      const onScroll = (progress: number) => {
+        console.log('Scroll progress:', progress);
+      };
+      return { args, onScroll };
+    },
+    template: `
+      <div class="h-64">
+        <LParallax 
+          v-bind="args"
+          @scroll="onScroll"
+          class="h-full"
+        >
+          <div class="h-full bg-gradient-to-br from-indigo-500/30 to-pink-500/30 glass border-white/20 rounded-xl flex items-center justify-center">
+            <div class="text-center">
+              <div class="text-2xl font-bold mb-2">Scroll Progress</div>
+              <div class="text-white/60">Check console for scroll progress</div>
+            </div>
           </div>
-        </div>
-      </LParallax>
-    </div>
-  `,
-  setup() {
-    const onScroll = (progress: number) => {
-      console.log('Scroll progress:', progress);
-    };
-    return { onScroll };
-  },
+        </LParallax>
+      </div>
+    `,
+  }),
 };
 
 export const MultipleLayers: Story = {

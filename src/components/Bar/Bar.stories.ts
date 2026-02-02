@@ -4,7 +4,7 @@ import { LToolbar } from '../Toolbar';
 import { LBtn } from '../Btn';
 import { LHeadline } from '../Headline';
 
-const meta = {
+const meta: Meta<any> = {
   title: 'Lumodo/Layout/Bar',
   component: LBar,
   tags: ['autodocs'],

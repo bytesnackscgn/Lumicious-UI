@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/vue3-vite';
 import { fn } from '@storybook/test';
 import LRadio from './LRadio.vue';
 
-const meta = {
+const meta: Meta<any> = {
   title: 'Lumodo/Form/Radio',
   component: LRadio,
   tags: ['autodocs'],
@@ -17,7 +17,7 @@ const meta = {
     val: 'option1',
     label: 'Select me',
     size: 'md',
-    onUpdateValue: fn(),
+    'onUpdate:modelValue': fn(),
   },
   decorators: [
     (story) => ({

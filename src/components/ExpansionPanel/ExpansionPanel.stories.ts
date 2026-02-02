@@ -3,7 +3,7 @@ import { fn } from '@storybook/test';
 import LExpansionPanel from './LExpansionPanel.vue';
 import { LText } from '../Text';
 
-const meta = {
+const meta: Meta<any> = {
   title: 'Lumodo/Layout/ExpansionPanel',
   component: LExpansionPanel,
   tags: ['autodocs'],

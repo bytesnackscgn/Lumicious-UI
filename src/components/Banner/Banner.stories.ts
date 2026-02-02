@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/vue3-vite';
 import LBanner from './LBanner.vue';
 import { LBtn } from '../Btn';
 
-const meta = {
+const meta: Meta<any> = {
   title: 'Lumodo/Feedback/Banner',
   component: LBanner,
   tags: ['autodocs'],

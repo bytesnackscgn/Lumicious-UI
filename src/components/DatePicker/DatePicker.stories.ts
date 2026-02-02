@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/vue3-vite';
 import { fn } from '@storybook/test';
 import LDatePicker from './LDatePicker.vue';
 
-const meta = {
+const meta: Meta<any> = {
   title: 'Lumodo/DatePicker',
   component: LDatePicker,
   tags: ['autodocs'],
@@ -29,7 +29,6 @@ const meta = {
     weekStartsOn: 1,
     showTimePicker: false,
     timeFormat: '24h',
-    'update:modelValue': fn(),
   },
   decorators: [
     (story) => ({

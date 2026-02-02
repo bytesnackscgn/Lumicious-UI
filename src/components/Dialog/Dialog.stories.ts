@@ -4,7 +4,7 @@ import { LCard } from '../Card';
 import { LBtn } from '../Btn';
 import { LText } from '../Text';
 
-const meta = {
+const meta: Meta<any> = {
   title: 'Lumodo/Overlays/Dialog',
   component: LDialog,
   tags: ['autodocs'],

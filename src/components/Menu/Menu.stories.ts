@@ -4,7 +4,7 @@ import { LBtn } from '../Btn';
 import { LList, LItem, LItemSection, LItemLabel } from '../List';
 import { LIcon } from '../Icon';
 
-const meta = {
+const meta: Meta<any> = {
   title: 'Lumodo/Overlays/Menu',
   component: LMenu,
   tags: ['autodocs'],

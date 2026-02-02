@@ -60,13 +60,12 @@ const createRipple = (event: MouseEvent) => {
 <template>
   <button
     :class="cn(
-      fabStyles({ 
-        size, 
-        variant, 
-        color, 
-        extended, 
-        mini,
-        disabled: disabled || loading
+      fabStyles({
+        size,
+        variant,
+        color,
+        extended,
+        mini
       }),
       FAB_POSITIONS[position]
     )"

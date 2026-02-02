@@ -1,8 +1,9 @@
 import type { Meta, StoryObj } from '@storybook/vue3-vite';
 import { fn } from '@storybook/test';
+import { ref } from 'vue';
 import LIntersection from './LIntersection.vue';
 
-const meta = {
+const meta: Meta<typeof LIntersection> = {
   title: 'Lumodo/Intersection',
   component: LIntersection,
   tags: ['autodocs'],
@@ -55,90 +56,106 @@ const meta = {
       `,
     }),
   ],
-} satisfies Meta<typeof LIntersection>;
+};
 
 export default meta;
 type Story = StoryObj<typeof meta>;
 
 export const Basic: Story = {
   args: {},
-  template: `
-    <div class="p-8 bg-white/10 glass border-white/20 rounded-xl">
-      <div class="text-center">
-        <div class="text-2xl font-bold mb-2">Intersection Component</div>
-        <div class="text-white/60">
-          Status: {{ isVisible ? 'Visible' : 'Hidden' }}
+  render: (args) => ({
+    components: { LIntersection },
+    setup() {
+      return { args };
+    },
+    template: `
+      <LIntersection v-bind="args" v-slot="{ isVisible: visible }">
+        <div class="p-8 bg-white/10 glass border-white/20 rounded-xl">
+          <div class="text-center">
+            <div class="text-2xl font-bold mb-2">Intersection Component</div>
+            <div class="text-white/60">
+              Status: {{ visible ? 'Visible' : 'Hidden' }}
+            </div>
+          </div>
         </div>
-      </div>
-    </div>
-  `,
-  setup() {
-    const isVisible = ref(false);
-    return { isVisible };
-  },
+      </LIntersection>
+    `,
+  }),
 };
 
 export const WithThreshold: Story = {
   args: {
     threshold: 0.5,
   },
-  template: `
-    <div class="p-8 bg-blue-500/20 glass border-blue-400/30 rounded-xl">
-      <div class="text-center">
-        <div class="text-xl font-bold mb-2">50% Threshold</div>
-        <div class="text-blue-100">
-          Status: {{ isVisible ? 'Visible (50%+)' : 'Hidden' }}
+  render: (args) => ({
+    components: { LIntersection },
+    setup() {
+      return { args };
+    },
+    template: `
+      <LIntersection v-bind="args" v-slot="{ isVisible }">
+        <div class="p-8 bg-blue-500/20 glass border-blue-400/30 rounded-xl">
+          <div class="text-center">
+            <div class="text-xl font-bold mb-2">50% Threshold</div>
+            <div class="text-blue-100">
+              Status: {{ isVisible ? 'Visible (50%+)' : 'Hidden' }}
+            </div>
+          </div>
         </div>
-      </div>
-    </div>
-  `,
-  setup() {
-    const isVisible = ref(false);
-    return { isVisible };
-  },
+      </LIntersection>
+    `,
+  }),
 };
 
 export const Continuous: Story = {
   args: {
     once: false,
   },
-  template: `
-    <div class="p-8 bg-green-500/20 glass border-green-400/30 rounded-xl">
-      <div class="text-center">
-        <div class="text-xl font-bold mb-2">Continuous Tracking</div>
-        <div class="text-green-100">
-          Status: {{ isVisible ? 'Visible' : 'Hidden' }}
+  render: (args) => ({
+    components: { LIntersection },
+    setup() {
+      return { args };
+    },
+    template: `
+      <LIntersection v-bind="args" v-slot="{ isVisible }">
+        <div class="p-8 bg-green-500/20 glass border-green-400/30 rounded-xl">
+          <div class="text-center">
+            <div class="text-xl font-bold mb-2">Continuous Tracking</div>
+            <div class="text-green-100">
+              Status: {{ isVisible ? 'Visible' : 'Hidden' }}
+            </div>
+            <div class="text-sm text-green-200 mt-2">
+              Watch the status change as you scroll
+            </div>
+          </div>
         </div>
-        <div class="text-sm text-green-200 mt-2">
-          Watch the status change as you scroll
-        </div>
-      </div>
-    </div>
-  `,
-  setup() {
-    const isVisible = ref(false);
-    return { isVisible };
-  },
+      </LIntersection>
+    `,
+  }),
 };
 
 export const WithFallback: Story = {
   args: {
     fallback: true,
   },
-  template: `
-    <div class="p-8 bg-purple-500/20 glass border-purple-400/30 rounded-xl">
-      <div class="text-center">
-        <div class="text-xl font-bold mb-2">With Fallback</div>
-        <div class="text-purple-100">
-          Status: {{ isVisible ? 'Visible' : 'Loading...' }}
+  render: (args) => ({
+    components: { LIntersection },
+    setup() {
+      return { args };
+    },
+    template: `
+      <LIntersection v-bind="args" v-slot="{ isVisible }">
+        <div class="p-8 bg-purple-500/20 glass border-purple-400/30 rounded-xl">
+          <div class="text-center">
+            <div class="text-xl font-bold mb-2">With Fallback</div>
+            <div class="text-purple-100">
+              Status: {{ isVisible ? 'Visible' : 'Loading...' }}
+            </div>
+          </div>
         </div>
-      </div>
-    </div>
-  `,
-  setup() {
-    const isVisible = ref(false);
-    return { isVisible };
-  },
+      </LIntersection>
+    `,
+  }),
 };
 
 export const MultipleComponents: Story = {

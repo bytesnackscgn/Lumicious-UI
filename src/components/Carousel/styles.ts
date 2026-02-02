@@ -1,7 +1,7 @@
 import { cva } from 'class-variance-authority';
 
 export const carouselStyles = cva(
-  'l-carousel relative overflow-hidden transition-all duration-500',
+  'l-carousel relative overflow-hidden transition-all duration-500 w-full',
   {
     variants: {
       size: {
@@ -29,16 +29,33 @@ export const carouselStyles = cva(
 );
 
 export const carouselItemStyles = cva(
-  'l-carousel-item absolute inset-0 transition-transform duration-500 ease-in-out',
+  'l-carousel-item absolute inset-0 transition-all duration-500 ease-in-out',
   {
     variants: {
       active: {
-        true: 'translate-x-0 translate-y-0 opacity-100',
-        false: 'translate-x-full translate-y-full opacity-0',
+        true: 'translate-x-0 translate-y-0 opacity-100 z-10',
+        false: 'opacity-0 z-0',
       },
+      direction: {
+        horizontal: '',
+        vertical: '',
+      }
     },
+    compoundVariants: [
+      {
+        active: false,
+        direction: 'horizontal',
+        class: 'translate-x-full translate-y-0',
+      },
+      {
+        active: false,
+        direction: 'vertical',
+        class: 'translate-x-0 translate-y-full',
+      }
+    ],
     defaultVariants: {
       active: false,
+      direction: 'horizontal',
     },
   }
 );
@@ -48,8 +65,8 @@ export const carouselControlsStyles = cva(
   {
     variants: {
       direction: {
-        horizontal: 'bottom-4 left-1/2 transform -translate-x-1/2',
-        vertical: 'right-4 top-1/2 transform -translate-y-1/2',
+        horizontal: 'flex-row bottom-4 left-1/2 transform -translate-x-1/2',
+        vertical: 'flex-col right-4 top-1/2 transform -translate-y-1/2',
       },
     },
     defaultVariants: {

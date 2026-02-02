@@ -3,7 +3,7 @@ import { fn } from '@storybook/test';
 import LBtnDropdown from './LBtnDropdown.vue';
 import { LList, LItem } from '../List';
 
-const meta = {
+const meta: Meta<any> = {
   title: 'Lumodo/Actions/BtnDropdown',
   component: LBtnDropdown,
   tags: ['autodocs'],

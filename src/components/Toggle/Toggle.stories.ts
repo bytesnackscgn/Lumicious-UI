@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/vue3-vite';
 import { fn } from '@storybook/test';
 import LToggle from './LToggle.vue';
 
-const meta = {
+const meta: Meta<any> = {
   title: 'Lumodo/Form/Toggle',
   component: LToggle,
   tags: ['autodocs'],

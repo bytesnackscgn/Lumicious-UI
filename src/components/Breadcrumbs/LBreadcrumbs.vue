@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { withDefaults } from 'vue';
 import { cn } from '../../utils/cn';
 import { breadcrumbsStyles, breadcrumbItemStyles, separatorStyles } from './styles';
 import type { BreadcrumbsProps, BreadcrumbItem } from './types';

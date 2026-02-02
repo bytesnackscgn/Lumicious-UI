@@ -3,7 +3,7 @@ import { fn } from '@storybook/test';
 import LInput from './LInput.vue';
 import { LIcon } from '../Icon';
 
-const meta = {
+const meta: Meta<any> = {
   title: 'Lumodo/Form/Input',
   component: LInput,
   tags: ['autodocs'],

@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/vue3-vite';
 import { LTabs, LTab, LTabPanels, LTabPanel } from './index';
 
-const meta = {
+const meta: Meta<any> = {
   title: 'Lumodo/Layout/Tabs',
   component: LTabs,
   tags: ['autodocs'],

@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/vue3-vite';
 import { fn } from '@storybook/test';
 import LBreadcrumbs from './LBreadcrumbs.vue';
 
-const meta = {
+const meta: Meta<any> = {
   title: 'Lumodo/Breadcrumbs',
   component: LBreadcrumbs,
   tags: ['autodocs'],

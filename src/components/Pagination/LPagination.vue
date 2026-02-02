@@ -143,19 +143,12 @@ const getRangeText = () => {
     <!-- Page numbers -->
     <template v-for="page in getVisiblePages()" :key="page">
       <button
-        v-if="page === '...'"
-        :class="cn(paginationEllipsisStyles({ size }))"
-      >
-        ...
-      </button>
-      <button
-        v-else
-        :class="cn(paginationButtonStyles({ 
-          size, 
-          color, 
-          shape, 
-          active: page === current, 
-          disabled 
+        :class="cn(paginationButtonStyles({
+          size,
+          color,
+          shape,
+          active: page === current,
+          disabled
         }))"
         @click="handlePageChange(Number(page))"
         :disabled="disabled"

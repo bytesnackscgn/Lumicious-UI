@@ -35,7 +35,7 @@ const props = withDefaults(defineProps<DatePickerProps>(), {
 });
 
 const emit = defineEmits<{
-  'update:modelValue': [value: Date | Date[] | { start: Date; end: Date }];
+  'update:modelValue': [value: Date | Date[] | { start: Date; end: Date } | undefined];
 }>();
 
 const isOpen = ref(false);

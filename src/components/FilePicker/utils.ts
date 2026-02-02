@@ -1,5 +1,7 @@
 import { type ClassValue, clsx } from 'clsx';
 import { twMerge } from 'tailwind-merge';
+import { DEFAULT_FILE_ICONS } from './constants';
+import type { FileAccept, FileItem } from './types';
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
@@ -21,7 +23,7 @@ export function getFileIcon(fileType: string): string {
   for (const [prefix, icon] of Object.entries(DEFAULT_FILE_ICONS)) {
     if (prefix === 'default') continue;
     if (fileType.startsWith(prefix)) {
-      return icon;
+      return icon as string;
     }
   }
   return DEFAULT_FILE_ICONS.default;

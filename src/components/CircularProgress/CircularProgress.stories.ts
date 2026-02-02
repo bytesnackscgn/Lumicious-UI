@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/vue3-vite';
 import LCircularProgress from './LCircularProgress.vue';
 
-const meta = {
+const meta: Meta<any> = {
   title: 'Lumodo/Progress/CircularProgress',
   component: LCircularProgress,
   tags: ['autodocs'],

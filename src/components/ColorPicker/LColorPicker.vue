@@ -2,7 +2,7 @@
 import { ref, computed, watch } from 'vue';
 import { cn } from '../../utils/cn';
 import { colorPickerStyles, colorSwatchStyles, colorInputStyles } from './styles';
-import type { ColorPickerProps } from './types';
+import type { ColorPickerProps, ColorFormat } from './types';
 import { DEFAULT_PRESET_COLORS, COLOR_FORMATS } from './constants';
 import { LIcon } from '../Icon';
 
@@ -17,6 +17,7 @@ const props = withDefaults(defineProps<ColorPickerProps>(), {
 
 const emit = defineEmits<{
   'update:modelValue': [value: string];
+  'update:format': [value: ColorFormat];
 }>();
 
 const isOpen = ref(false);
@@ -130,11 +131,11 @@ watch(() => props.modelValue, (newValue) => {
               :key="key"
               :class="cn(
                 'px-3 py-1 rounded-lg text-sm font-medium transition-all duration-200',
-                format === props.format
+                key === props.format
                   ? 'bg-white/20 text-white'
                   : 'bg-transparent text-white/60 hover:bg-white/10'
               )"
-              @click="$emit('update:format', key)"
+              @click="$emit('update:format', key as ColorFormat)"
               :disabled="disabled"
             >
               {{ format.label }}

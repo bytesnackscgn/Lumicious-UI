@@ -3,10 +3,11 @@ import { LBtn } from './components/Btn'
 import { LCard } from './components/Card'
 import { LText } from './components/Text'
 import { LHeadline } from './components/Headline'
+import bgImage from './assets/bg.webp'
 </script>
 
 <template>
-  <div class="min-h-screen w-full flex flex-col items-center justify-center p-8 bg-cover bg-center" style="background-image: url('/src/assets/bg.webp')">
+  <div class="min-h-screen w-full flex flex-col items-center justify-center p-8 bg-cover bg-center" :style="{ backgroundImage: `url(${bgImage})` }">
     <div class="max-w-4xl w-full flex flex-col gap-8">
       <!-- Header -->
       <div class="text-center space-y-2">

@@ -34,7 +34,7 @@ const props = withDefaults(defineProps<FilePickerProps>(), {
 });
 
 const emit = defineEmits<{
-  'update:modelValue': [value: File | File[]];
+  'update:modelValue': [value: File | File[] | undefined];
 }>();
 
 const inputRef = ref<HTMLInputElement>();
@@ -111,14 +111,13 @@ const handleDragLeave = () => {
 
 const removeFile = (index: number) => {
   if (props.disabled || props.readonly) return;
-  
-  const removedItem = fileItems.value[index];
-  fileItems.value.splice(index, 1);
-  
-  if (removedItem.url) {
+
+  const removedItem = fileItems.value.splice(index, 1)[0];
+
+  if (removedItem?.url) {
     URL.revokeObjectURL(removedItem.url);
   }
-  
+
   emitFiles();
 };
 
@@ -163,7 +162,7 @@ watch(() => fileItems.value, (newItems, oldItems) => {
     <input
       ref="inputRef"
       type="file"
-      :accept="accept"
+      :accept="Array.isArray(accept) ? accept.join(',') : accept"
       :multiple="multiple"
       :disabled="disabled"
       @change="handleInputChange"

@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/vue3-vite';
 import { fn } from '@storybook/test';
 import LFilePicker from './LFilePicker.vue';
 
-const meta = {
+const meta: Meta<any> = {
   title: 'Lumodo/FilePicker',
   component: LFilePicker,
   tags: ['autodocs'],
@@ -32,7 +32,6 @@ const meta = {
     buttonText: 'Choose Files',
     dragDrop: true,
     clearable: true,
-    'update:modelValue': fn(),
   },
   decorators: [
     (story) => ({
@@ -143,29 +142,23 @@ export const DifferentFileTypes: Story = {
     template: `
       <div class="space-y-6">
         <div class="text-white text-sm mb-2">Images Only</div>
-        <LFilePicker 
-          v-model="args.modelValue"
+        <LFilePicker
           accept="image/*"
           placeholder="Select images"
         />
-        
+
         <div class="text-white text-sm mb-2 mt-4">Documents Only</div>
-        <LFilePicker 
-          v-model="args.modelValue"
+        <LFilePicker
           accept=".pdf,.doc,.docx"
           placeholder="Select documents"
         />
-        
+
         <div class="text-white text-sm mb-2 mt-4">Multiple Files</div>
-        <LFilePicker 
-          v-model="args.modelValue"
+        <LFilePicker
           multiple
           placeholder="Select multiple files"
         />
       </div>
     `,
   }),
-  args: {
-    modelValue: undefined,
-  },
 };

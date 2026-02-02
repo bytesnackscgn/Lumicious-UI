@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/vue3-vite';
 import LOptionGroup from './LOptionGroup.vue';
 
-const meta = {
+const meta: Meta<any> = {
   title: 'Lumodo/Form/OptionGroup',
   component: LOptionGroup,
   tags: ['autodocs'],

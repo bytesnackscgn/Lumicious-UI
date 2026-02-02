@@ -1,4 +1,4 @@
-import type { Meta, StoryObj } from '@storybook/vue3';
+import type { Meta, StoryObj } from '@storybook/vue3-vite';
 import Card from '../components/Card.vue';
 import Button from './Button.vue'; // Importing the default Button from stories folder
 

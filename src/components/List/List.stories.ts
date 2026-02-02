@@ -3,7 +3,7 @@ import { LList, LItem, LItemSection, LItemLabel } from './index';
 import { LIcon } from '../Icon';
 import { LAvatar } from '../Avatar';
 
-const meta = {
+const meta: Meta<any> = {
   title: 'Lumodo/Layout/List',
   component: LList,
   tags: ['autodocs'],

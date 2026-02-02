@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/vue3-vite';
 import { ref } from 'vue';
 import LBottomSheet from './LBottomSheet.vue';
 
-const meta = {
+const meta: Meta<any> = {
   title: 'Lumodo/BottomSheet',
   component: LBottomSheet,
   tags: ['autodocs'],

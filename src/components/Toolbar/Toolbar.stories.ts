@@ -3,7 +3,7 @@ import LToolbar from './LToolbar.vue';
 import { LBtn } from '../Btn';
 import { LHeadline } from '../Headline';
 
-const meta = {
+const meta: Meta<any> = {
   title: 'Lumodo/Layout/Toolbar',
   component: LToolbar,
   tags: ['autodocs'],

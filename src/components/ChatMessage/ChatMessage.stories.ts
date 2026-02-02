@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/vue3-vite';
 import { fn } from '@storybook/test';
 import LChatMessage from './LChatMessage.vue';
 
-const meta = {
+const meta: Meta<any> = {
   title: 'Lumodo/ChatMessage',
   component: LChatMessage,
   tags: ['autodocs'],

@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/vue3-vite';
 import { fn } from '@storybook/test';
 import LFab from './LFab.vue';
 
-const meta = {
+const meta: Meta<any> = {
   title: 'Lumodo/Fab',
   component: LFab,
   tags: ['autodocs'],
@@ -83,22 +83,19 @@ export const DifferentColors: Story = {
     template: `
       <div class="space-y-4">
         <div class="text-white text-sm mb-2">Primary</div>
-        <LFab v-model="args.modelValue" color="primary" icon="plus" />
-        
+        <LFab color="primary" icon="plus" />
+
         <div class="text-white text-sm mb-2 mt-4">Secondary</div>
-        <LFab v-model="args.modelValue" color="secondary" icon="edit" />
-        
+        <LFab color="secondary" icon="edit" />
+
         <div class="text-white text-sm mb-2 mt-4">Positive</div>
-        <LFab v-model="args.modelValue" color="positive" icon="check" />
-        
+        <LFab color="positive" icon="check" />
+
         <div class="text-white text-sm mb-2 mt-4">Negative</div>
-        <LFab v-model="args.modelValue" color="negative" icon="trash-2" />
+        <LFab color="negative" icon="trash-2" />
       </div>
     `,
   }),
-  args: {
-    modelValue: undefined,
-  },
 };
 
 export const DifferentPositions: Story = {
@@ -107,42 +104,34 @@ export const DifferentPositions: Story = {
     setup() { return { args }; },
     template: `
       <div class="relative h-96">
-        <LFab 
-          v-model="args.modelValue" 
-          position="top-left" 
-          icon="home" 
+        <LFab
+          position="top-left"
+          icon="home"
           label="Home"
         />
-        <LFab 
-          v-model="args.modelValue" 
-          position="top-right" 
-          icon="settings" 
+        <LFab
+          position="top-right"
+          icon="settings"
           label="Settings"
         />
-        <LFab 
-          v-model="args.modelValue" 
-          position="bottom-left" 
-          icon="user" 
+        <LFab
+          position="bottom-left"
+          icon="user"
           label="Profile"
         />
-        <LFab 
-          v-model="args.modelValue" 
-          position="bottom-right" 
-          icon="plus" 
+        <LFab
+          position="bottom-right"
+          icon="plus"
           label="Add"
         />
-        <LFab 
-          v-model="args.modelValue" 
-          position="center" 
-          icon="target" 
+        <LFab
+          position="center"
+          icon="target"
           label="Target"
         />
       </div>
     `,
   }),
-  args: {
-    modelValue: undefined,
-  },
 };
 
 export const Extended: Story = {
@@ -188,20 +177,17 @@ export const CustomIcons: Story = {
     template: `
       <div class="space-y-4">
         <div class="text-white text-sm mb-2">Add Item</div>
-        <LFab v-model="args.modelValue" icon="plus" label="Add" />
-        
+        <LFab icon="plus" label="Add" />
+
         <div class="text-white text-sm mb-2 mt-4">Edit Item</div>
-        <LFab v-model="args.modelValue" icon="edit" label="Edit" />
-        
+        <LFab icon="edit" label="Edit" />
+
         <div class="text-white text-sm mb-2 mt-4">Delete Item</div>
-        <LFab v-model="args.modelValue" icon="trash-2" label="Delete" color="negative" />
-        
+        <LFab icon="trash-2" label="Delete" color="negative" />
+
         <div class="text-white text-sm mb-2 mt-4">Save Changes</div>
-        <LFab v-model="args.modelValue" icon="save" label="Save" color="positive" />
+        <LFab icon="save" label="Save" color="positive" />
       </div>
     `,
   }),
-  args: {
-    modelValue: undefined,
-  },
 };

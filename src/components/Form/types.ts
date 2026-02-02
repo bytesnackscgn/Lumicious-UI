@@ -41,5 +41,3 @@ export interface FormState {
   isValid: boolean;
   isDirty: boolean;
 }
-
-export type FormProps = FormProps;

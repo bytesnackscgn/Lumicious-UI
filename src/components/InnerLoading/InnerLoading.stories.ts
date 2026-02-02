@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/vue3-vite';
 import LInnerLoading from './LInnerLoading.vue';
 import { LCard } from '../Card';
 
-const meta = {
+const meta: Meta<any> = {
   title: 'Lumodo/Progress/InnerLoading',
   component: LInnerLoading,
   tags: ['autodocs'],

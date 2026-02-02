@@ -71,12 +71,12 @@ export function getMonthName(month: number, locale: string = 'en'): string {
     'January', 'February', 'March', 'April', 'May', 'June',
     'July', 'August', 'September', 'October', 'November', 'December'
   ];
-  return months[month];
+  return months[month]!;
 }
 
 export function getWeekdayName(day: number, locale: string = 'en', short: boolean = false): string {
   const weekdays = short
     ? ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']
     : ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
-  return weekdays[day];
+  return weekdays[day]!;
 }

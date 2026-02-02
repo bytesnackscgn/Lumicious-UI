@@ -16,9 +16,9 @@ export interface CarouselProps {
   size?: CarouselSize;
   variant?: CarouselVariant;
   direction?: CarouselDirection;
-  autoplay?: CarouselAutoplay;
+  autoplay?: boolean;
   interval?: number;
-  showDots?: boolean;
+  enableIndicators?: boolean;
   showArrows?: boolean;
   loop?: boolean;
   currentIndex?: number;

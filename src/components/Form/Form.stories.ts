@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/vue3-vite';
 import { fn } from '@storybook/test';
 import LForm from './LForm.vue';
 
-const meta = {
+const meta: Meta<any> = {
   title: 'Lumodo/Form/Form',
   component: LForm,
   tags: ['autodocs'],
@@ -23,9 +23,6 @@ const meta = {
     validateOnChange: true,
     onSubmit: fn(),
     'onUpdate:modelValue': fn(),
-    onChange: fn(),
-    onError: fn(),
-    onValid: fn(),
   },
   decorators: [
     (story) => ({
@@ -52,13 +49,10 @@ export const Default: Story = {
       }; 
     },
     template: `
-      <LForm 
+      <LForm
         v-model="formData"
         v-bind="args"
         @submit="args.onSubmit"
-        @change="args.onChange"
-        @error="args.onError"
-        @valid="args.onValid"
       >
         <template #default="{ registerField, updateFieldValue, formErrors, formData }">
           <div class="space-y-4">
@@ -209,17 +203,17 @@ export const InlineLayout: Story = {
 export const WithValidation: Story = {
   render: (args) => ({
     components: { LForm },
-    setup() { 
-      return { 
+    setup() {
+      return {
         args,
         formData: {
           email: '',
           age: ''
         }
-      }; 
+      };
     },
     template: `
-      <LForm 
+      <LForm
         v-model="formData"
         v-bind="args"
       >
@@ -238,7 +232,7 @@ export const WithValidation: Story = {
                 {{ formErrors.email }}
               </div>
             </div>
-            
+
             <div>
               <label class="block text-white/90 mb-2">Age (18+)</label>
               <input
@@ -252,7 +246,7 @@ export const WithValidation: Story = {
                 {{ formErrors.age }}
               </div>
             </div>
-            
+
             <button
               type="submit"
               class="w-full px-4 py-2 rounded-lg bg-green-600/80 hover:bg-green-500 text-white font-medium transition-colors"
@@ -264,12 +258,7 @@ export const WithValidation: Story = {
       </LForm>
     `,
   }),
-  setup: () => ({
-    args: {
-      validateOnChange: true,
-      onSubmit: (data) => {
-        alert('Form submitted with data:', data);
-      }
-    }
-  }),
+  args: {
+    validateOnChange: true,
+  },
 };

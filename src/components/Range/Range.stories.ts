@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/vue3-vite';
 import LRange from './LRange.vue';
 
-const meta = {
+const meta: Meta<any> = {
   title: 'Lumodo/Form/Range',
   component: LRange,
   tags: ['autodocs'],
