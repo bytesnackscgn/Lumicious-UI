@@ -1,8 +1,10 @@
 import type { Meta, StoryObj } from '@storybook/vue3-vite';
 import { fn } from '@storybook/test';
+import { ref } from 'vue';
 import LColorPicker from './LColorPicker.vue';
+import type { ColorPickerProps } from './types';
 
-const meta: Meta<any> = {
+const meta = {
   title: 'Lumicious/ColorPicker',
   component: LColorPicker,
   tags: ['autodocs'],
@@ -32,6 +34,20 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 export const Basic: Story = {
+  render: (initialArgs: ColorPickerProps) => {
+    const { modelValue: initialModelValue, ...restArgs } = initialArgs;
+    const modelValue = ref(initialModelValue ?? '#3B82F6');
+    return {
+      components: { LColorPicker },
+      setup() {
+        return {
+          modelValue,
+          args: restArgs,
+        };
+      },
+      template: '<LColorPicker v-bind="args" v-model="modelValue" />',
+    };
+  },
   args: {
     modelValue: '#3B82F6',
   },
