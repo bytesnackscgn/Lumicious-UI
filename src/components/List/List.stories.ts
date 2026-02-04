@@ -1,7 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/vue3-vite';
 import { LList, LItem, LItemSection, LItemLabel } from './index';
 import { LIcon } from '../Icon';
-import { LAvatar } from '../Avatar';
 
 const meta: Meta<any> = {
   title: 'Lumicious/Layout/List',
@@ -59,44 +58,6 @@ export const Standard: Story = {
           <LItemSection>
             <LItemLabel>Billing</LItemLabel>
             <LItemLabel caption>Upgrade your plan (Locked)</LItemLabel>
-          </LItemSection>
-        </LItem>
-      </LList>
-    `,
-  }),
-};
-
-export const AvatarList: Story = {
-  render: (args) => ({
-    components: { LList, LItem, LItemSection, LItemLabel, LAvatar, LIcon },
-    setup() { return { args }; },
-    template: `
-      <LList bordered separator padding>
-        <LItemLabel header>Team Members</LItemLabel>
-        
-        <LItem clickable>
-          <LItemSection avatar>
-            <LAvatar name="GS" color="blue" />
-          </LItemSection>
-          <LItemSection>
-            <LItemLabel>Gordon Smith</LItemLabel>
-            <LItemLabel caption>Project Manager</LItemLabel>
-          </LItemSection>
-          <LItemSection side>
-            <LIcon name="mail" size="xs" />
-          </LItemSection>
-        </LItem>
-
-        <LItem clickable>
-          <LItemSection avatar>
-            <LAvatar name="AR" color="purple" />
-          </LItemSection>
-          <LItemSection>
-            <LItemLabel>Alice Rose</LItemLabel>
-            <LItemLabel caption>Lead Designer</LItemLabel>
-          </LItemSection>
-          <LItemSection side>
-             <LIcon name="mail" size="xs" />
           </LItemSection>
         </LItem>
       </LList>
