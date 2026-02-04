@@ -5,7 +5,7 @@ It is a kind of glassy/glasmorphism ui component library.
 Packagemanager: pnpm
 Use `nvm use` for setting up node
 
-Style Library: Taild 4
+Style Library: Tailwind 4
 
 Main Framework: Vue 3
 
