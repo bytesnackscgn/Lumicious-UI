@@ -1,14 +1,21 @@
 <script setup lang="ts">
-import { computed } from 'vue';
+import { computed, ref, watch } from 'vue';
 import { cn } from '../../utils/cn';
 import { avatarStyles } from './styles';
 import type { AvatarProps } from './types';
 import { LIcon } from '../Icon';
+import { LImg } from '../Img';
 
 const props = withDefaults(defineProps<AvatarProps>(), {
   size: 'md',
   rounded: true,
   bordered: false
+});
+
+const imageLoadFailed = ref(false);
+
+watch(() => props.src, () => {
+  imageLoadFailed.value = false;
 });
 
 const initials = computed(() => {
@@ -36,11 +43,13 @@ const inlineSize = computed(() => {
     }))"
     :style="inlineSize"
   >
-    <img
-      v-if="src"
+    <LImg
+      v-if="src && !imageLoadFailed"
       :src="src"
       :alt="name"
-      class="w-full h-full object-cover"
+      size="full"
+      variant="ghost"
+      @error="imageLoadFailed = true"
     />
     <div v-else-if="name" class="font-bold text-white opacity-80 select-none">
       {{ initials }}
