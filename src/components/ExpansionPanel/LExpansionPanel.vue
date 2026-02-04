@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ref, watch } from 'vue';
 import { cn } from '../../utils/cn';
-import { expansionStyles, expansionHeaderStyles, expansionContentStyles } from './styles';
+import { expansionStyles, expansionHeaderStyles, expansionContentStyles, expansionBodyStyles } from './styles';
 import type { ExpansionPanelProps } from './types';
 import { LIcon } from '../Icon';
 
@@ -14,6 +14,9 @@ const emit = defineEmits<{
 }>();
 
 const isOpen = ref(props.modelValue);
+const uniqueId = `expansion-${Math.random().toString(36).substring(2, 9)}`;
+const headerId = `${uniqueId}-header`;
+const contentId = `${uniqueId}-content`;
 
 watch(() => props.modelValue, (val) => {
     isOpen.value = val;
@@ -24,6 +27,45 @@ const toggle = () => {
     isOpen.value = !isOpen.value;
     emit('update:modelValue', isOpen.value);
 };
+
+const onKeydown = (e: KeyboardEvent) => {
+    if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        toggle();
+    }
+};
+
+const beforeEnter = (el: Element) => {
+    (el as HTMLElement).style.height = '0';
+    (el as HTMLElement).style.opacity = '0';
+};
+
+const enter = (el: Element) => {
+    const element = el as HTMLElement;
+    // Force reflow
+    element.offsetHeight; 
+    element.style.height = element.scrollHeight + 'px';
+    element.style.opacity = '1';
+};
+
+const afterEnter = (el: Element) => {
+    const element = el as HTMLElement;
+    element.style.height = 'auto';
+};
+
+const beforeLeave = (el: Element) => {
+    const element = el as HTMLElement;
+    element.style.height = element.scrollHeight + 'px';
+    element.style.opacity = '1';
+};
+
+const leave = (el: Element) => {
+    const element = el as HTMLElement;
+    // Force reflow
+    element.offsetHeight;
+    element.style.height = '0';
+    element.style.opacity = '0';
+};
 </script>
 
 <template>
@@ -31,6 +73,12 @@ const toggle = () => {
     <div 
         :class="cn(expansionHeaderStyles, headerClass)"
         @click="toggle"
+        @keydown="onKeydown"
+        role="button"
+        :aria-expanded="isOpen"
+        :aria-controls="contentId"
+        :id="headerId"
+        :tabindex="props.disable ? -1 : 0"
     >
         <div v-if="icon || $slots.icon" class="shrink-0">
             <slot name="icon">
@@ -53,15 +101,20 @@ const toggle = () => {
     </div>
 
     <Transition
-        enter-active-class="transition-[max-height,opacity] duration-300 ease-out"
-        leave-active-class="transition-[max-height,opacity] duration-200 ease-in"
-        enter-from-class="max-h-0 opacity-0"
-        enter-to-class="max-h-[1000px] opacity-100"
-        leave-from-class="max-h-[1000px] opacity-100"
-        leave-to-class="max-h-0 opacity-0"
+        @before-enter="beforeEnter"
+        @enter="enter"
+        @after-enter="afterEnter"
+        @before-leave="beforeLeave"
+        @leave="leave"
     >
-        <div v-if="isOpen" :class="cn(expansionContentStyles, contentClass)">
-            <div class="p-6 pt-0 border-t border-white/5">
+        <div 
+            v-show="isOpen" 
+            :id="contentId"
+            role="region"
+            :aria-labelledby="headerId"
+            :class="cn(expansionContentStyles, contentClass)"
+        >
+            <div :class="expansionBodyStyles">
                 <slot />
             </div>
         </div>
