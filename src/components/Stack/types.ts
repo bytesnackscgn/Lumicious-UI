@@ -50,4 +50,17 @@ export interface StackProps {
    * If not provided, assumes default slot contains elements (less control)
    */
   items?: any[];
+
+  /**
+   * Z-index stacking order.
+   * 'normal': later items are on top of earlier items (z-index increases with index)
+   * 'reverse': earlier items are on top of later items (z-index decreases with index)
+   * @default 'normal'
+   */
+  stackOrder?: 'normal' | 'reverse';
+
+  /**
+   * Additional classes to apply to each item wrapper
+   */
+  itemClass?: string;
 }

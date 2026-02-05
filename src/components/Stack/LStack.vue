@@ -12,7 +12,8 @@ const props = withDefaults(defineProps<StackProps>(), {
   interval: 2000,
   pauseOnHover: true,
   disableHover: false,
-  items: () => []
+  items: () => [],
+  stackOrder: 'normal'
 });
 
 const emit = defineEmits<{
@@ -107,6 +108,11 @@ const getZIndex = (index: number) => {
   if (props.playable) {
     return activeIndex.value === index ? 50 : 10;
   }
+  
+  if (props.stackOrder === 'reverse') {
+      return (props.items?.length || 50) - index;
+  }
+
   // Standard flex stack: usually regular DOM order. 
   // If overlap is used, usually we want later items on top? Or earlier items on top?
   // Common avatar stack: earlier items on top (z-index: items.length - index)
@@ -131,7 +137,7 @@ const getZIndex = (index: number) => {
         :class="cn(stackItemStyles({ 
           active: playable ? activeIndex === index : false,
           isPlayable: playable
-        }))"
+        }), props.itemClass)"
         :style="{ 
           ...getMargin(index), 
           zIndex: getZIndex(index)
