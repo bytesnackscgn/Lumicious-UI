@@ -1,9 +1,10 @@
 <script setup lang="ts">
 import { computed } from 'vue';
 import { cn } from '../../utils/cn';
-import { avatarStackStyles, avatarItemStyles } from './styles';
 import type { AvatarStackProps } from './types';
+import type { AvatarProps } from '../Avatar/types';
 import { LAvatar } from '../Avatar';
+import { LStack } from '../Stack';
 
 const props = withDefaults(defineProps<AvatarStackProps>(), {
   limit: 5,
@@ -15,9 +16,17 @@ const props = withDefaults(defineProps<AvatarStackProps>(), {
   items: () => []
 });
 
-const visibleItems = computed(() => {
-  if (!props.items) return [];
-  return props.items.slice(0, props.limit);
+const SIZE_MAP: Record<string, number> = {
+  xs: 24,
+  sm: 32,
+  md: 48,
+  lg: 64,
+  xl: 96
+};
+
+const overlap = computed(() => {
+  const sizeVal = typeof props.size === 'number' ? props.size : SIZE_MAP[props.size] || 48;
+  return sizeVal / 3;
 });
 
 const remainingCount = computed(() => {
@@ -25,67 +34,93 @@ const remainingCount = computed(() => {
   return Math.max(0, props.items.length - props.limit);
 });
 
-// Calculate z-index for stacking order
-const getZIndex = (index: number) => {
-  // If position is right, first item is bottom (or top depending on design).
-  // Usually in "right" stack (1 2 3), 1 is on top of 2? Or 3 on top of 2?
-  // Tailwind -space-x causes next element to overlap previous.
-  // So 2 overlaps 1.
-  // If we want 1 to overlap 2, we need z-index descending.
+const stackItems = computed(() => {
+  const items = props.items ? props.items.slice(0, props.limit) : [];
   
-  if (props.position === 'right') {
-     return 50 - index * 10;
+  type StackItem = 
+    | { type: 'avatar'; props: AvatarProps; id: number }
+    | { type: 'counter'; props: { count: number }; id: string };
+
+  const mappedItems: StackItem[] = items.map((item, index) => ({
+    type: 'avatar',
+    props: item,
+    id: index
+  }));
+  
+  if (remainingCount.value > 0) {
+    mappedItems.push({
+      type: 'counter',
+      props: { count: remainingCount.value },
+      id: 'counter'
+    });
   }
-  return index * 10;
-};
+  
+  return mappedItems;
+});
+
+const counterSizeClass = computed(() => {
+   if (typeof props.size === 'number') return '';
+   switch (props.size) {
+     case 'xs': return 'w-6 h-6 text-[10px]';
+     case 'sm': return 'w-8 h-8 text-xs';
+     case 'md': return 'w-12 h-12 text-sm';
+     case 'lg': return 'w-16 h-16 text-base';
+     case 'xl': return 'w-24 h-24 text-xl';
+     default: return 'w-12 h-12 text-sm';
+   }
+});
+
+const counterStyle = computed(() => {
+  if (typeof props.size === 'number') {
+    return { 
+      width: `${props.size}px`, 
+      height: `${props.size}px`, 
+      fontSize: `${props.size/3}px` 
+    };
+  }
+  return {};
+});
 
 </script>
 
 <template>
-  <div :class="cn(avatarStackStyles({ 
-      size: typeof size === 'string' && ['xs', 'sm', 'md', 'lg', 'xl'].includes(size) ? (size as any) : undefined, 
-      expandOnHover, 
-      position 
-    }))"
-    :style="typeof size === 'number' ? { gap: `-${size / 3}px` } : {}"
+  <LStack
+    :items="stackItems"
+    :overlap="overlap"
+    :gap="0"
+    :disable-hover="!expandOnHover"
+    :stack-order="position === 'right' ? 'reverse' : 'normal'"
+    :class="cn(
+      position === 'left' && 'flex-row-reverse'
+    )"
+    :item-class="cn(
+        'rounded-full', 
+        'hover:z-50 hover:scale-110 transition-all duration-300'
+    )"
   >
-    <div
-      v-for="(item, index) in visibleItems"
-      :key="index"
-      :class="cn(avatarItemStyles({ hover: true }), 'rounded-full')" 
-      :style="{ zIndex: getZIndex(index) }"
-    >
-        <LAvatar
-            v-bind="item"
+    <template #item="{ item }">
+       <template v-if="item.type === 'avatar'">
+          <LAvatar
+            v-bind="item.props"
             :size="size"
             :rounded="rounded"
             :bordered="false"
             class="ring-2 ring-slate-900"
-        />
-    </div>
-
-    <!-- Remaining Count Indicator -->
-    <div
-      v-if="remainingCount > 0"
-      :class="cn(avatarItemStyles({ hover: true }), 'rounded-full')"
-      :style="{ zIndex: getZIndex(visibleItems.length) }"
-    >
-      <div 
-        :class="cn(
-            'flex items-center justify-center bg-slate-800 text-white font-bold ring-2 ring-slate-900',
-            rounded ? 'rounded-full' : 'rounded-xl',
-             // Map sizes to dimensions
-             size === 'xs' ? 'w-6 h-6 text-[10px]' :
-             size === 'sm' ? 'w-8 h-8 text-xs' :
-             size === 'md' ? 'w-12 h-12 text-sm' :
-             size === 'lg' ? 'w-16 h-16 text-base' :
-             size === 'xl' ? 'w-24 h-24 text-xl' : '',
-             typeof size === 'number' ? '' : '' 
-        )"
-        :style="typeof size === 'number' ? { width: `${size}px`, height: `${size}px`, fontSize: `${size/3}px` } : {}"
-      >
-        +{{ remainingCount }}
-      </div>
-    </div>
-  </div>
+          />
+       </template>
+       
+       <template v-else-if="item.type === 'counter'">
+          <div 
+            :class="cn(
+                'flex items-center justify-center bg-slate-800 text-white font-bold ring-2 ring-slate-900',
+                rounded ? 'rounded-full' : 'rounded-xl',
+                counterSizeClass
+            )"
+            :style="counterStyle"
+          >
+            +{{ item.props.count }}
+          </div>
+       </template>
+    </template>
+  </LStack>
 </template>
