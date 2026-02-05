@@ -47,6 +47,24 @@ const cards = [
     { id: 3, text: 'Card 3', color: 'bg-green-500' },
 ];
 
+const users = [
+  { name: 'John Doe', src: 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=200&h=200&fit=crop' },
+  { name: 'Jane Smith', src: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=200&h=200&fit=crop' },
+  { name: 'Robert Johnson', src: 'https://images.unsplash.com/photo-1599566150163-29194dcaad36?w=200&h=200&fit=crop' },
+  { name: 'Emily Davis', src: 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=200&h=200&fit=crop' },
+  { name: 'Michael Wilson', src: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=200&h=200&fit=crop' },
+];
+
+const userItems = users.map(user => ({
+  component: LAvatar,
+  props: { 
+    name: user.name, 
+    src: user.src, 
+    size: 'lg',
+    class: 'border-2 border-slate-900' // Add border for better separation
+  }
+}));
+
 export const Default: Story = {
   args: {
     items: avatars,
@@ -87,6 +105,14 @@ export const Playable: Story = {
     overlap: 15,
     gap: 20,
     interval: 1000,
+  },
+};
+
+export const AvatarGroup: Story = {
+  args: {
+    items: userItems,
+    overlap: 15,
+    gap: 10,
   },
 };
 
