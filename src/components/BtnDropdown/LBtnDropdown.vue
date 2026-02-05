@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import { ref, watch } from 'vue';
+import { ref, watch, useId } from 'vue';
 import { cn } from '../../utils/cn';
-import { btnDropdownStyles } from './styles';
+import { btnDropdownStyles, btnDropdownMenuStyles, btnDropdownLabelContainerStyles, btnDropdownIconStyles } from './styles';
 import type { BtnDropdownProps } from './types';
 import { LBtn } from '../Btn';
 import { LBtnGroup } from '../BtnGroup';
@@ -11,8 +11,9 @@ import { LIcon } from '../Icon';
 const props = withDefaults(defineProps<BtnDropdownProps>(), {
   modelValue: false,
   split: false,
-  noCaret: false,
-  autoClose: true
+  hideIcon: false,
+  autoClose: true,
+  icon: 'chevron-down'
 });
 
 const emit = defineEmits<{
@@ -21,12 +22,17 @@ const emit = defineEmits<{
 }>();
 
 const isOpen = ref(props.modelValue);
+const menuId = useId();
 
 watch(() => props.modelValue, (val) => {
     isOpen.value = val;
 });
 
-const toggle = () => {
+const toggle = (event?: MouseEvent) => {
+    // If the event came from a click, stop propagation to prevent immediate closing by outside click handlers
+    if (event) {
+        event.stopPropagation();
+    }
     isOpen.value = !isOpen.value;
     emit('update:modelValue', isOpen.value);
 };
@@ -35,12 +41,12 @@ const handleButtonClick = (event: MouseEvent) => {
     if (props.split) {
         emit('click', event);
     } else {
-        toggle();
+        toggle(event);
     }
 };
 
-const handleCaretClick = () => {
-    if (props.split) toggle();
+const handleCaretClick = (event: MouseEvent) => {
+    if (props.split) toggle(event);
 };
 
 const handleMenuClick = (event: MouseEvent) => {
@@ -58,6 +64,7 @@ const handleMenuClick = (event: MouseEvent) => {
         <LBtn 
             v-bind="props" 
             :class="props.class"
+            :icon="undefined"
             @click="handleButtonClick"
         >
             <slot name="label">{{ label }}</slot>
@@ -65,8 +72,13 @@ const handleMenuClick = (event: MouseEvent) => {
         <LBtn 
             v-bind="props" 
             :class="props.class"
-            icon="chevron-down"
+            :icon="icon"
             @click="handleCaretClick"
+            @mousedown.stop
+            aria-haspopup="true"
+            :aria-expanded="isOpen"
+            :aria-controls="menuId"
+            :aria-label="label ? `${label} menu` : 'Menu'"
         />
     </LBtnGroup>
     
@@ -74,18 +86,25 @@ const handleMenuClick = (event: MouseEvent) => {
         v-else 
         v-bind="props"
         :class="props.class"
+        :icon="undefined"
         @click="handleButtonClick"
+        @mousedown.stop
+        aria-haspopup="true"
+        :aria-expanded="isOpen"
+        :aria-controls="menuId"
     >
-        <div class="flex items-center gap-2">
+        <div :class="btnDropdownLabelContainerStyles()">
             <slot name="label">{{ label }}</slot>
-            <LIcon v-if="!noCaret" name="chevron-down" size="xs" :class="{ 'rotate-180': isOpen }" class="transition-transform duration-300" />
+            <LIcon v-if="!hideIcon" :name="icon" size="xs" :class="btnDropdownIconStyles({ isOpen })" />
         </div>
     </LBtn>
 
     <LMenu
+        :id="menuId"
         v-model="isOpen"
         :persistent="persistent"
-        class="min-w-full mt-1"
+        :class="btnDropdownMenuStyles()"
+        role="menu"
         @update:model-value="val => emit('update:modelValue', val)"
     >
         <div

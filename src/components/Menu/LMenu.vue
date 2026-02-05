@@ -26,7 +26,7 @@ const close = () => {
 };
 
 const handleClickOutside = (event: MouseEvent) => {
-    if (props.persistent) return;
+    if (props.persistent || !isOpen.value) return;
     if (menuRef.value && !menuRef.value.contains(event.target as Node)) {
         // Delay closing slightly if it might be the trigger
         setTimeout(() => {
@@ -46,7 +46,7 @@ onUnmounted(() => {
 
 <template>
   <div 
-    v-if="isOpen"
+    v-show="isOpen"
     ref="menuRef" 
     :class="cn(menuStyles({ showing: true }), props.class)"
     @click.stop

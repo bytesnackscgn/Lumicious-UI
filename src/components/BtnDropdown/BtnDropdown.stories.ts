@@ -11,9 +11,12 @@ const meta: Meta<any> = {
     split: { control: 'boolean' },
     color: { control: 'select', options: ['primary', 'secondary', 'positive', 'negative', 'white'] },
     variant: { control: 'select', options: ['glass', 'solid', 'outline', 'ghost'] },
+    icon: { control: 'text' },
+    hideIcon: { control: 'boolean' },
   },
   args: {
     label: 'Actions',
+    icon: 'chevron-down',
   },
   decorators: [
     (story) => ({
@@ -72,5 +75,43 @@ export const WithCaption: Story = {
       </LBtnDropdown>
     `,
   }),
+};
+
+export const CustomIcon: Story = {
+  render: (args) => ({
+    components: { LBtnDropdown, LList, LItem },
+    setup() { return { args }; },
+    template: `
+      <LBtnDropdown v-bind="args">
+        <LList dense padding class="w-40">
+            <LItem clickable label="View" icon="eye" />
+            <LItem clickable label="Download" icon="download" />
+        </LList>
+      </LBtnDropdown>
+    `,
+  }),
+  args: {
+    label: 'More Options',
+    icon: 'more-vertical',
+  },
+};
+
+export const HiddenIcon: Story = {
+  render: (args) => ({
+    components: { LBtnDropdown, LList, LItem },
+    setup() { return { args }; },
+    template: `
+      <LBtnDropdown v-bind="args">
+        <LList dense padding class="w-40">
+            <LItem clickable label="Profile" icon="user" />
+            <LItem clickable label="Logout" icon="log-out" class="text-red-400" />
+        </LList>
+      </LBtnDropdown>
+    `,
+  }),
+  args: {
+    label: 'User Menu',
+    hideIcon: true,
+  },
 };
 
