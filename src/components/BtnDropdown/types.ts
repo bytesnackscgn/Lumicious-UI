@@ -8,6 +8,6 @@ export interface BtnDropdownProps extends BtnProps {
   autoClose?: boolean;
   menuAnchor?: any;
   menuSelf?: any;
-  noCaret?: boolean;
+  hideIcon?: boolean;
   class?: string;
 }
