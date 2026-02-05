@@ -4,12 +4,13 @@ A button with a built-in dropdown menu. Can be configured as a single button or 
 
 ## Props
 
-| Name         | Type      | Default     | Description                                      |
-| :----------- | :-------- | :---------- | :----------------------------------------------- |
-| `label`      | `string`  | `undefined` | The button text.                                 |
-| `split`      | `boolean` | `false`     | If true, separates the action from the dropdown. |
-| `noCaret`    | `boolean` | `false`     | Hides the dropdown arrow icon.                   |
-| `persistent` | `boolean` | `false`     | If true, clicking outside/inside won't close.    |
+| Name         | Type      | Default          | Description                                      |
+| :----------- | :-------- | :--------------- | :----------------------------------------------- |
+| `label`      | `string`  | `undefined`      | The button text.                                 |
+| `split`      | `boolean` | `false`          | If true, separates the action from the dropdown. |
+| `hideIcon`   | `boolean` | `false`          | Hides the dropdown arrow icon.                   |
+| `icon`       | `string`  | `'chevron-down'` | The dropdown arrow icon.                         |
+| `persistent` | `boolean` | `false`          | If true, clicking outside/inside won't close.    |
 
 ## Usage
 
