@@ -19,7 +19,7 @@ This document outlines the phased implementation strategy for the Lumicious UI G
 - [x] **Badge/Chip**: Small status indicators.
 - [x] **Toolbar/Bar**: Headers and toolbars with fixed positioning.
 - [x] **List/ListItem**: Basic data display.
-- [x] **Banner**: Top-level alerts.
+- [x] **Alert**: Top-level alerts.
 
 ## 📝 Phase 2: Form & Input Components
 
@@ -42,7 +42,7 @@ This document outlines the phased implementation strategy for the Lumicious UI G
 - [x] **Spinner**: Loading indicators.
 - [x] **Skeleton**: Content placeholders.
 - [x] **InnerLoading**: Wrapper for state-based overlays.
-- [x] **Banner**: Top-level alerts.
+- [x] **Alert**: Top-level alerts.
 - [ ] **Notify (Plugin)**: Global toast notification system.
 
 ## 🧭 Phase 4: Navigation & Overlays
