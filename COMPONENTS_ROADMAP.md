@@ -10,7 +10,7 @@ This file tracks the implementation status of all requested components in the Lu
 | **LCard**             | ✅ Done    | Containers  |
 | **LAvatar**           | ✅ Done    | Media       |
 | **LBadge**            | ✅ Done    | Indicators  |
-| **LBanner**           | ✅ Done    | Feedback    |
+| **LAlert**            | ✅ Done    | Feedback    |
 | **LBar**              | ✅ Done    | Layout      |
 | **LBreadcrumbs**      | 📅 Planned | Navigation  |
 | **LBtnDropdown**      | ✅ Done    | Actions     |

@@ -4,7 +4,7 @@ export * from './Text';
 export * from './Headline';
 export * from './Avatar';
 export * from './Badge';
-export * from './Banner';
+export * from './Alert';
 export * from './Bar';
 export * from './Breadcrumbs';
 export * from './Btn';
