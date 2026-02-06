@@ -1,10 +1,33 @@
 <script setup lang="ts">
-import { ref, provide, computed } from 'vue';
+import { ref, provide, reactive } from 'vue';
 import { ToastInjectionKey, type Toast, type ToastOptions, type ToastPosition } from './types';
 import LAlert from '../Banner/LAlert.vue';
 import { LBtn } from '../Btn';
 
+interface Props {
+  variant?: 'list' | 'stack';
+  stackOverlap?: number;
+  stackGap?: number;
+  expandOnHover?: boolean;
+}
+
+const props = withDefaults(defineProps<Props>(), {
+  variant: 'list',
+  stackOverlap: 40,
+  stackGap: 8,
+  expandOnHover: true,
+});
+
 const toasts = ref<Toast[]>([]);
+
+const hoverStates = reactive<Record<ToastPosition, boolean>>({
+  'top-left': false,
+  'top-center': false,
+  'top-right': false,
+  'bottom-left': false,
+  'bottom-center': false,
+  'bottom-right': false,
+});
 
 const add = (options: ToastOptions): string => {
   const id = options.id || crypto.randomUUID();
@@ -65,6 +88,25 @@ const positionClasses: Record<ToastPosition, string> = {
   'bottom-center': 'bottom-0 left-1/2 -translate-x-1/2 items-center',
   'bottom-right': 'bottom-0 right-0 items-end',
 };
+
+const getToastStyle = (index: number, position: ToastPosition) => {
+  if (props.variant !== 'stack' || index === 0) return {};
+
+  const isHovered = hoverStates[position];
+  const isBottom = position.includes('bottom');
+  
+  // If expanded (hovered), use gap. Otherwise use negative overlap.
+  const spacing = isHovered && props.expandOnHover ? props.stackGap : -props.stackOverlap;
+  
+  return {
+    [isBottom ? 'marginBottom' : 'marginTop']: `${spacing}px`,
+    zIndex: index, // Ensure newer items are on top
+  };
+};
+
+const setHover = (position: ToastPosition, isHovered: boolean) => {
+  hoverStates[position] = isHovered;
+};
 </script>
 
 <template>
@@ -74,25 +116,29 @@ const positionClasses: Record<ToastPosition, string> = {
     <template v-for="position in positions" :key="position">
       <div
         v-if="getToastsByPosition(position).length > 0"
-        class="fixed z-50 p-4 flex flex-col gap-2 w-full max-w-sm pointer-events-none"
+        class="fixed z-50 p-4 flex w-full max-w-sm pointer-events-none transition-all duration-300"
         :class="[
           positionClasses[position],
-          position.includes('bottom') ? 'flex-col-reverse' : 'flex-col'
+          position.includes('bottom') ? 'flex-col-reverse' : 'flex-col',
+          variant === 'list' ? 'gap-2' : ''
         ]"
+        @mouseenter="setHover(position, true)"
+        @mouseleave="setHover(position, false)"
       >
         <TransitionGroup
-          enter-active-class="transition duration-300 ease-out"
+          enter-active-class="transition-all duration-300 ease-out"
           enter-from-class="transform translate-y-2 opacity-0"
           enter-to-class="transform translate-y-0 opacity-100"
-          leave-active-class="transition duration-200 ease-in"
+          leave-active-class="transition-all duration-200 ease-in"
           leave-from-class="transform translate-y-0 opacity-100"
           leave-to-class="transform translate-y-2 opacity-0"
-          move-class="transition duration-300 ease-in-out"
+          move-class="transition-all duration-300 ease-in-out"
         >
           <div
-            v-for="toast in getToastsByPosition(position)"
+            v-for="(toast, index) in getToastsByPosition(position)"
             :key="toast.id"
-            class="pointer-events-auto w-full"
+            class="pointer-events-auto w-full transition-all duration-300 ease-in-out"
+            :style="getToastStyle(index, position)"
           >
             <LAlert
               :variant="toast.variant"

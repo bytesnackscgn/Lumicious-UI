@@ -64,26 +64,56 @@ const meta: Meta<typeof LToastProvider> = {
   title: 'Lumicious/Feedback/Toast',
   component: LToastProvider,
   tags: ['autodocs'],
-  decorators: [
-    (story) => ({
-      components: { LToastProvider, story },
-      template: `
-        <LToastProvider>
-          <div class="p-8 bg-slate-900 min-h-[400px] w-full flex items-center justify-center">
-            <story />
-          </div>
-        </LToastProvider>
-      `,
-    }),
-  ],
+  argTypes: {
+    variant: { 
+      control: 'select', 
+      options: ['list', 'stack'],
+      description: 'Controls the display mode of toasts'
+    },
+    stackOverlap: {
+      control: { type: 'range', min: 0, max: 100 },
+      description: 'Overlap amount in pixels for stack mode'
+    },
+    stackGap: {
+      control: { type: 'range', min: 0, max: 50 },
+      description: 'Gap between expanded items in pixels'
+    },
+    expandOnHover: {
+      control: 'boolean',
+      description: 'Whether to expand the stack on hover'
+    }
+  }
 };
 
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-export const Interactive: Story = {
-  render: () => ({
-    components: { ToastDemo },
-    template: '<ToastDemo />',
+export const Default: Story = {
+  render: (args) => ({
+    components: { ToastDemo, LToastProvider },
+    setup() {
+      return { args };
+    },
+    template: `
+      <LToastProvider v-bind="args">
+        <div class="p-8 bg-slate-900 min-h-[400px] w-full flex items-center justify-center">
+          <ToastDemo />
+        </div>
+      </LToastProvider>
+    `,
   }),
+  args: {
+    variant: 'list',
+    stackOverlap: 40,
+    stackGap: 8,
+    expandOnHover: true,
+  }
+};
+
+export const Stacked: Story = {
+  ...Default,
+  args: {
+    ...Default.args,
+    variant: 'stack',
+  }
 };
