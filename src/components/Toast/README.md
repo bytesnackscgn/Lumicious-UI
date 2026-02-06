@@ -6,7 +6,9 @@ A flexible toast notification system built on top of `LAlert`, supporting multip
 
 - 🚀 **Positioning**: Supports 6 positions (top/bottom left/center/right).
 - 🎨 **Variants**: Supports all `LAlert` variants (`glass`, `solid`, `outline`) and colors.
-- 🥞 **Stacking**: Automatically stacks notifications based on position.
+- 🥞 **Stacking**: 
+  - **List Mode**: Standard vertical stacking of notifications.
+  - **Stack Mode**: Modern overlapping stack effect (like cards).
 - ⚡ **Dense by default**: All toasts use the dense alert style for compactness.
 - 🔧 **Composable**: Easy to use `useToast` API.
 
@@ -20,6 +22,8 @@ The Toast component is part of the Lumicious UI library. Ensure you have the lib
 
 Wrap your application (or the part of it where you want toasts to appear) with `LToastProvider`. This component acts as the context provider and the rendering target for the toast notifications.
 
+You can configure the global display mode here.
+
 ```vue
 <script setup lang="ts">
 import { LToastProvider } from './components/Toast';
@@ -27,7 +31,18 @@ import { LToastProvider } from './components/Toast';
 </script>
 
 <template>
+  <!-- Default List Mode -->
   <LToastProvider>
+    <App />
+  </LToastProvider>
+
+  <!-- OR: Stack Mode -->
+  <LToastProvider 
+    variant="stack" 
+    :stack-overlap="40" 
+    :stack-gap="8"
+    :expand-on-hover="true"
+  >
     <App />
   </LToastProvider>
 </template>
@@ -76,6 +91,15 @@ Returns the `ToastContext` object:
 
 - `add(options: ToastOptions): string` - Adds a new toast and returns its unique ID.
 - `remove(id: string): void` - Manually removes a toast by its ID.
+
+### `LToastProvider` Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `variant` | `'list' \| 'stack'` | `'list'` | Display mode for the toast notifications. |
+| `stackOverlap` | `number` | `40` | Amount of pixel overlap between toasts in stack mode. |
+| `stackGap` | `number` | `8` | Gap in pixels between toasts when stack is expanded (hovered). |
+| `expandOnHover` | `boolean` | `true` | Whether to expand the stack when hovered. |
 
 ### `ToastOptions` Interface
 
