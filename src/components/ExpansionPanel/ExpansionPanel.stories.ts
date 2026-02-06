@@ -1,10 +1,9 @@
 import type { Meta, StoryObj } from '@storybook/vue3-vite';
-import { fn } from '@storybook/test';
 import LExpansionPanel from './LExpansionPanel.vue';
 import { LText } from '../Text';
 
 const meta: Meta<any> = {
-  title: 'Lumicious/Layout/ExpansionPanel',
+  title: 'Lumicious/ExpansionPanel',
   component: LExpansionPanel,
   tags: ['autodocs'],
   argTypes: {

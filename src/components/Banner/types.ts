@@ -1,10 +1,10 @@
-export type BannerVariant = 'glass' | 'solid' | 'outline';
-export type BannerColor = 'primary' | 'positive' | 'negative' | 'warning' | 'info';
+export type AlertVariant = 'glass' | 'solid' | 'outline';
+export type AlertColor = 'primary' | 'positive' | 'negative' | 'warning' | 'info';
 
-export interface BannerProps {
+export interface AlertProps {
   label?: string;
-  variant?: BannerVariant;
-  color?: BannerColor;
+  variant?: AlertVariant;
+  color?: AlertColor;
   icon?: string;
   dense?: boolean;
   inline?: boolean;
