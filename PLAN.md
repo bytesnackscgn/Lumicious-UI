@@ -20,6 +20,7 @@ This document outlines the phased implementation strategy for the Lumicious UI G
 - [x] **Toolbar/Bar**: Headers and toolbars with fixed positioning.
 - [x] **List/ListItem**: Basic data display.
 - [x] **Alert**: Top-level alerts.
+- [x] **ToastProvider**: Global toast notification system.
 
 ## 📝 Phase 2: Form & Input Components
 

@@ -11,6 +11,7 @@ This file tracks the implementation status of all requested components in the Lu
 | **LAvatar**           | ✅ Done    | Media       |
 | **LBadge**            | ✅ Done    | Indicators  |
 | **LAlert**            | ✅ Done    | Feedback    |
+| **LToastProvider**    | ✅ Done    | Feedback    |
 | **LBar**              | ✅ Done    | Layout      |
 | **LBreadcrumbs**      | 📅 Planned | Navigation  |
 | **LBtnDropdown**      | ✅ Done    | Actions     |
