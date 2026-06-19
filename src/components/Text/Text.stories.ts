@@ -67,3 +67,78 @@ export const Sizes: Story = {
     `,
   }),
 };
+
+
+export const Colors: Story = {
+  render: (args: any) => ({
+    components: { LText },
+    setup() { return { args }; },
+    template: `
+      <div class="flex flex-col gap-4">
+        <LText color="white">{{ args.content }} White</LText>
+        <LText color="blue">{{ args.content }} Blue</LText>
+        <LText color="purple">{{ args.content }} Purple</LText>
+        <LText color="pink">{{ args.content }} Pink</LText>
+        <LText color="green">{{ args.content }} Green</LText>
+        <LText color="yellow">{{ args.content }} Yellow</LText>
+        <LText color="red">{{ args.content }} Red</LText>
+        <LText color="indigo">{{ args.content }} Indigo</LText>
+      </div>
+    `,
+  }),
+};
+
+export const GradientColors: Story = {
+  render: (args: any) => ({
+    components: { LText },
+    setup() { return { args }; },
+    template: `
+      <div class="flex flex-col gap-4">
+        <LText color="white" :gradient="true">{{ args.content }} White</LText>
+        <LText color="blue" :gradient="true">{{ args.content }} Blue</LText>
+        <LText color="purple" :gradient="true">{{ args.content }} Purple</LText>
+        <LText color="pink" :gradient="true">{{ args.content }} Pink</LText>
+        <LText color="green" :gradient="true">{{ args.content }} Green</LText>
+        <LText color="yellow" :gradient="true">{{ args.content }} Yellow</LText>
+        <LText color="red" :gradient="true">{{ args.content }} Red</LText>
+        <LText color="indigo" :gradient="true">{{ args.content }} Indigo</LText>
+      </div>
+    `,
+  }),
+};
+
+export const GradientDirections: Story = {
+  render: (args: any) => ({
+    components: { LText },
+    setup() { return { args }; },
+    template: `
+      <div class="flex flex-col gap-6">
+        <div class="text-center">
+          <LText color="purple" :gradient="true" gradient-direction="to-r">{{ args.content }} Right</LText>
+        </div>
+        <div class="text-center">
+          <LText color="purple" :gradient="true" gradient-direction="to-l">{{ args.content }} Left</LText>
+        </div>
+        <div class="text-center">
+          <LText color="purple" :gradient="true" gradient-direction="to-t">{{ args.content }} Top</LText>
+        </div>
+        <div class="text-center">
+          <LText color="purple" :gradient="true" gradient-direction="to-b">{{ args.content }} Bottom</LText>
+        </div>
+        <div class="text-center">
+          <LText color="purple" :gradient="true" gradient-direction="to-tr">{{ args.content }} Top-Right</LText>
+        </div>
+        <div class="text-center">
+          <LText color="purple" :gradient="true" gradient-direction="to-tl">{{ args.content }} Top-Left</LText>
+        </div>
+        <div class="text-center">
+          <LText color="purple" :gradient="true" gradient-direction="to-br">{{ args.content }} Bottom-Right</LText>
+        </div>
+        <div class="text-center">
+          <LText color="purple" :gradient="true" gradient-direction="to-bl">{{ args.content }} Bottom-Left</LText>
+        </div>
+      </div>
+    `,
+  }),
+};
+
