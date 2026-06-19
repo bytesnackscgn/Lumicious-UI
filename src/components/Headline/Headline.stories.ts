@@ -11,25 +11,34 @@ const meta: Meta<any> = {
     color: { control: 'select', options: ['white', 'blue', 'purple', 'pink', 'green', 'yellow', 'red', 'indigo'] },
     gradient: { control: 'boolean' },
     gradientDirection: { control: 'select', options: ['to-r', 'to-l', 'to-t', 'to-b', 'to-tr', 'to-tl', 'to-br', 'to-bl'] },
+    content: { control: 'text' },
   },
   args: {
     level: 2,
     gradient: false,
     color: 'white',
     gradientDirection: 'to-r',
+    content: 'Lumicious UI Headline',
   },
   decorators: [
     (story) => ({
       components: { story },
-      template: '<div class="p-8 bg-slate-900 flex flex-col items-center justify-center text-white"><story>Lumicious UI Headline</story></div>',
+      template: '<div class="p-8 bg-slate-900 flex flex-col items-center justify-center"><story /></div>',
     }),
   ],
-} satisfies Meta<typeof LHeadline>;
+};
 
 export default meta;
-type Story = StoryObj<typeof meta>;
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+type Story = StoryObj<any>;
 
-export const Default: Story = {};
+export const Default: Story = {
+  render: (args: any) => ({
+    components: { LHeadline },
+    setup() { return { args }; },
+    template: `<LHeadline v-bind="args">{{ args.content }}</LHeadline>`,
+  }),
+};
 
 export const Gradient: Story = {
   args: {
@@ -37,92 +46,97 @@ export const Gradient: Story = {
     level: 1,
     size: '5xl',
   },
+  render: (args: any) => ({
+    components: { LHeadline },
+    setup() { return { args }; },
+    template: `<LHeadline v-bind="args">{{ args.content }}</LHeadline>`,
+  }),
 };
 
 export const Levels: Story = {
-  render: (args) => ({
+  render: (args: any) => ({
     components: { LHeadline },
     setup() { return { args }; },
     template: `
       <div class="flex flex-col gap-4">
-        <LHeadline :level="1">Headline Level 1</LHeadline>
-        <LHeadline :level="2">Headline Level 2</LHeadline>
-        <LHeadline :level="3">Headline Level 3</LHeadline>
-        <LHeadline :level="4">Headline Level 4</LHeadline>
-        <LHeadline :level="5">Headline Level 5</LHeadline>
-        <LHeadline :level="6">Headline Level 6</LHeadline>
+        <LHeadline :level="1" v-bind="args">{{ args.content }} 1</LHeadline>
+        <LHeadline :level="2" v-bind="args">{{ args.content }} 2</LHeadline>
+        <LHeadline :level="3" v-bind="args">{{ args.content }} 3</LHeadline>
+        <LHeadline :level="4" v-bind="args">{{ args.content }} 4</LHeadline>
+        <LHeadline :level="5" v-bind="args">{{ args.content }} 5</LHeadline>
+        <LHeadline :level="6" v-bind="args">{{ args.content }} 6</LHeadline>
       </div>
     `,
   }),
 };
 
 export const Colors: Story = {
-  render: (args) => ({
+  render: (args: any) => ({
     components: { LHeadline },
     setup() { return { args }; },
     template: `
       <div class="flex flex-col gap-4">
-        <LHeadline color="white">White Headline</LHeadline>
-        <LHeadline color="blue">Blue Headline</LHeadline>
-        <LHeadline color="purple">Purple Headline</LHeadline>
-        <LHeadline color="pink">Pink Headline</LHeadline>
-        <LHeadline color="green">Green Headline</LHeadline>
-        <LHeadline color="yellow">Yellow Headline</LHeadline>
-        <LHeadline color="red">Red Headline</LHeadline>
-        <LHeadline color="indigo">Indigo Headline</LHeadline>
+        <LHeadline color="white">{{ args.content }} White</LHeadline>
+        <LHeadline color="blue">{{ args.content }} Blue</LHeadline>
+        <LHeadline color="purple">{{ args.content }} Purple</LHeadline>
+        <LHeadline color="pink">{{ args.content }} Pink</LHeadline>
+        <LHeadline color="green">{{ args.content }} Green</LHeadline>
+        <LHeadline color="yellow">{{ args.content }} Yellow</LHeadline>
+        <LHeadline color="red">{{ args.content }} Red</LHeadline>
+        <LHeadline color="indigo">{{ args.content }} Indigo</LHeadline>
       </div>
     `,
   }),
 };
 
 export const GradientColors: Story = {
-  render: (args) => ({
+  render: (args: any) => ({
     components: { LHeadline },
     setup() { return { args }; },
     template: `
       <div class="flex flex-col gap-4">
-        <LHeadline color="white" :gradient="true">White Gradient</LHeadline>
-        <LHeadline color="blue" :gradient="true">Blue Gradient</LHeadline>
-        <LHeadline color="purple" :gradient="true">Purple Gradient</LHeadline>
-        <LHeadline color="pink" :gradient="true">Pink Gradient</LHeadline>
-        <LHeadline color="green" :gradient="true">Green Gradient</LHeadline>
-        <LHeadline color="yellow" :gradient="true">Yellow Gradient</LHeadline>
-        <LHeadline color="red" :gradient="true">Red Gradient</LHeadline>
-        <LHeadline color="indigo" :gradient="true">Indigo Gradient</LHeadline>
+        <LHeadline color="white" :gradient="true">{{ args.content }} White</LHeadline>
+        <LHeadline color="blue" :gradient="true">{{ args.content }} Blue</LHeadline>
+        <LHeadline color="purple" :gradient="true">{{ args.content }} Purple</LHeadline>
+        <LHeadline color="pink" :gradient="true">{{ args.content }} Pink</LHeadline>
+        <LHeadline color="green" :gradient="true">{{ args.content }} Green</LHeadline>
+        <LHeadline color="yellow" :gradient="true">{{ args.content }} Yellow</LHeadline>
+        <LHeadline color="red" :gradient="true">{{ args.content }} Red</LHeadline>
+        <LHeadline color="indigo" :gradient="true">{{ args.content }} Indigo</LHeadline>
       </div>
     `,
   }),
 };
 
 export const GradientDirections: Story = {
-  render: (args) => ({
+  render: (args: any) => ({
     components: { LHeadline },
     setup() { return { args }; },
     template: `
       <div class="flex flex-col gap-6">
         <div class="text-center">
-          <LHeadline color="purple" :gradient="true" gradient-direction="to-r">Right Gradient</LHeadline>
+          <LHeadline color="purple" :gradient="true" gradient-direction="to-r">{{ args.content }} Right</LHeadline>
         </div>
         <div class="text-center">
-          <LHeadline color="purple" :gradient="true" gradient-direction="to-l">Left Gradient</LHeadline>
+          <LHeadline color="purple" :gradient="true" gradient-direction="to-l">{{ args.content }} Left</LHeadline>
         </div>
         <div class="text-center">
-          <LHeadline color="purple" :gradient="true" gradient-direction="to-t">Top Gradient</LHeadline>
+          <LHeadline color="purple" :gradient="true" gradient-direction="to-t">{{ args.content }} Top</LHeadline>
         </div>
         <div class="text-center">
-          <LHeadline color="purple" :gradient="true" gradient-direction="to-b">Bottom Gradient</LHeadline>
+          <LHeadline color="purple" :gradient="true" gradient-direction="to-b">{{ args.content }} Bottom</LHeadline>
         </div>
         <div class="text-center">
-          <LHeadline color="purple" :gradient="true" gradient-direction="to-tr">Top-Right Gradient</LHeadline>
+          <LHeadline color="purple" :gradient="true" gradient-direction="to-tr">{{ args.content }} Top-Right</LHeadline>
         </div>
         <div class="text-center">
-          <LHeadline color="purple" :gradient="true" gradient-direction="to-tl">Top-Left Gradient</LHeadline>
+          <LHeadline color="purple" :gradient="true" gradient-direction="to-tl">{{ args.content }} Top-Left</LHeadline>
         </div>
         <div class="text-center">
-          <LHeadline color="purple" :gradient="true" gradient-direction="to-br">Bottom-Right Gradient</LHeadline>
+          <LHeadline color="purple" :gradient="true" gradient-direction="to-br">{{ args.content }} Bottom-Right</LHeadline>
         </div>
         <div class="text-center">
-          <LHeadline color="purple" :gradient="true" gradient-direction="to-bl">Bottom-Left Gradient</LHeadline>
+          <LHeadline color="purple" :gradient="true" gradient-direction="to-bl">{{ args.content }} Bottom-Left</LHeadline>
         </div>
       </div>
     `,

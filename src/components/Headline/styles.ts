@@ -12,6 +12,14 @@ const gradientColors = {
   indigo: 'from-indigo-600 via-purple-500 to-pink-500',
 };
 
+// Explicit reference for Tailwind's static scanner — these class names are constructed
+// dynamically in getGradientClass() via template strings, so they need to appear as
+// complete literals somewhere in source code for Tailwind to detect and generate them.
+const _gradientDirectionClasses = [
+  'bg-gradient-to-r', 'bg-gradient-to-l', 'bg-gradient-to-t', 'bg-gradient-to-b',
+  'bg-gradient-to-tr', 'bg-gradient-to-tl', 'bg-gradient-to-br', 'bg-gradient-to-bl',
+];
+
 const solidColors = {
   white: 'text-white',
   blue: 'text-blue-400',
