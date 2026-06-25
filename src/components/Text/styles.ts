@@ -1,4 +1,6 @@
-import { cva } from 'class-variance-authority';
+import { cva, type VariantProps } from 'class-variance-authority';
+import { defaultCvaGradientOptions, gradientOptions } from '@/constants/ui/gradients';
+import { defaultCvaColorOptions } from '@/constants/ui/color';
 
 export const textStyles = cva(
   'l-text transition-all duration-300',
@@ -20,15 +22,23 @@ export const textStyles = cva(
         bold: 'font-bold',
         black: 'font-black',
       },
+      color: defaultCvaColorOptions,
       gradient: {
-        true: 'bg-gradient-to-r from-white to-white/60 bg-clip-text text-transparent',
-        false: 'text-white/90',
+        true: '',
+        false: '',
       },
+      gradientDirection: defaultCvaGradientOptions,
     },
+    // @ts-ignore
+    compoundVariants: gradientOptions,
     defaultVariants: {
       size: 'md',
       weight: 'normal',
+      color: 'white',
       gradient: false,
+      gradientDirection: 'to-r',
     },
   }
 );
+
+export type TextVariants = VariantProps<typeof textStyles>;

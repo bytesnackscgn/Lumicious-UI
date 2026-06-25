@@ -1,164 +1,42 @@
-import { cva, type VariantProps } from 'class-variance-authority';
-import type { HeadlineColor, GradientDirection } from './types';
-
-const gradientColors = {
-  white: 'from-white via-gray-200 to-white/80',
-  blue: 'from-blue-500 via-blue-400 to-cyan-400',
-  purple: 'from-purple-600 via-purple-500 to-pink-500',
-  pink: 'from-pink-500 via-rose-400 to-red-400',
-  green: 'from-green-500 via-emerald-400 to-teal-400',
-  yellow: 'from-yellow-500 via-amber-400 to-orange-400',
-  red: 'from-red-500 via-rose-400 to-pink-400',
-  indigo: 'from-indigo-600 via-purple-500 to-pink-500',
-};
-
-// Explicit reference for Tailwind's static scanner — these class names are constructed
-// dynamically in getGradientClass() via template strings, so they need to appear as
-// complete literals somewhere in source code for Tailwind to detect and generate them.
-const _gradientDirectionClasses = [
-  'bg-gradient-to-r', 'bg-gradient-to-l', 'bg-gradient-to-t', 'bg-gradient-to-b',
-  'bg-gradient-to-tr', 'bg-gradient-to-tl', 'bg-gradient-to-br', 'bg-gradient-to-bl',
-];
-
-const solidColors = {
-  white: 'text-white',
-  blue: 'text-blue-400',
-  purple: 'text-purple-400',
-  pink: 'text-pink-400',
-  green: 'text-green-400',
-  yellow: 'text-yellow-400',
-  red: 'text-red-400',
-  indigo: 'text-indigo-400',
-};
-
-export const getGradientClass = (color: HeadlineColor = 'white', direction: GradientDirection = 'to-r') => {
-  return `bg-gradient-${direction} ${gradientColors[color]} bg-clip-text text-transparent`;
-};
+import { cva, type VariantProps } from "class-variance-authority";
+import {
+  defaultCvaGradientOptions,
+  gradientOptions,
+} from "@/constants/ui/gradients";
+import { defaultCvaColorOptions } from "@/constants/ui/color";
 
 export const headlineStyles = cva(
-  'l-headline font-black tracking-tight transition-all duration-300',
+  "l-headline font-black tracking-tight transition-all duration-300",
   {
     variants: {
       size: {
-        xs: 'text-sm',
-        sm: 'text-base',
-        md: 'text-lg',
-        lg: 'text-xl',
-        xl: 'text-2xl',
-        '2xl': 'text-3xl',
-        '3xl': 'text-4xl',
-        '4xl': 'text-5xl',
-        '5xl': 'text-6xl',
-        '6xl': 'text-7xl',
+        xs: "text-sm",
+        sm: "text-base",
+        md: "text-lg",
+        lg: "text-xl",
+        xl: "text-2xl",
+        "2xl": "text-3xl",
+        "3xl": "text-4xl",
+        "4xl": "text-5xl",
+        "5xl": "text-6xl",
+        "6xl": "text-7xl",
       },
-      color: {
-        white: '',
-        blue: '',
-        purple: '',
-        pink: '',
-        green: '',
-        yellow: '',
-        red: '',
-        indigo: '',
-      },
+      color: defaultCvaColorOptions,
       gradient: {
-        true: '',
-        false: '',
+        true: "",
+        false: "",
       },
-      gradientDirection: {
-        'to-r': '',
-        'to-l': '',
-        'to-t': '',
-        'to-b': '',
-        'to-tr': '',
-        'to-tl': '',
-        'to-br': '',
-        'to-bl': '',
-      },
+      gradientDirection: defaultCvaGradientOptions,
     },
-    compoundVariants: [
-      // Solid colors when gradient is false
-      { gradient: false, color: 'white', class: solidColors.white },
-      { gradient: false, color: 'blue', class: solidColors.blue },
-      { gradient: false, color: 'purple', class: solidColors.purple },
-      { gradient: false, color: 'pink', class: solidColors.pink },
-      { gradient: false, color: 'green', class: solidColors.green },
-      { gradient: false, color: 'yellow', class: solidColors.yellow },
-      { gradient: false, color: 'red', class: solidColors.red },
-      { gradient: false, color: 'indigo', class: solidColors.indigo },
-      // Gradients when gradient is true
-      { gradient: true, color: 'white', gradientDirection: 'to-r', class: getGradientClass('white', 'to-r') },
-      { gradient: true, color: 'white', gradientDirection: 'to-l', class: getGradientClass('white', 'to-l') },
-      { gradient: true, color: 'white', gradientDirection: 'to-t', class: getGradientClass('white', 'to-t') },
-      { gradient: true, color: 'white', gradientDirection: 'to-b', class: getGradientClass('white', 'to-b') },
-      { gradient: true, color: 'white', gradientDirection: 'to-tr', class: getGradientClass('white', 'to-tr') },
-      { gradient: true, color: 'white', gradientDirection: 'to-tl', class: getGradientClass('white', 'to-tl') },
-      { gradient: true, color: 'white', gradientDirection: 'to-br', class: getGradientClass('white', 'to-br') },
-      { gradient: true, color: 'white', gradientDirection: 'to-bl', class: getGradientClass('white', 'to-bl') },
-      { gradient: true, color: 'blue', gradientDirection: 'to-r', class: getGradientClass('blue', 'to-r') },
-      { gradient: true, color: 'blue', gradientDirection: 'to-l', class: getGradientClass('blue', 'to-l') },
-      { gradient: true, color: 'blue', gradientDirection: 'to-t', class: getGradientClass('blue', 'to-t') },
-      { gradient: true, color: 'blue', gradientDirection: 'to-b', class: getGradientClass('blue', 'to-b') },
-      { gradient: true, color: 'blue', gradientDirection: 'to-tr', class: getGradientClass('blue', 'to-tr') },
-      { gradient: true, color: 'blue', gradientDirection: 'to-tl', class: getGradientClass('blue', 'to-tl') },
-      { gradient: true, color: 'blue', gradientDirection: 'to-br', class: getGradientClass('blue', 'to-br') },
-      { gradient: true, color: 'blue', gradientDirection: 'to-bl', class: getGradientClass('blue', 'to-bl') },
-      { gradient: true, color: 'purple', gradientDirection: 'to-r', class: getGradientClass('purple', 'to-r') },
-      { gradient: true, color: 'purple', gradientDirection: 'to-l', class: getGradientClass('purple', 'to-l') },
-      { gradient: true, color: 'purple', gradientDirection: 'to-t', class: getGradientClass('purple', 'to-t') },
-      { gradient: true, color: 'purple', gradientDirection: 'to-b', class: getGradientClass('purple', 'to-b') },
-      { gradient: true, color: 'purple', gradientDirection: 'to-tr', class: getGradientClass('purple', 'to-tr') },
-      { gradient: true, color: 'purple', gradientDirection: 'to-tl', class: getGradientClass('purple', 'to-tl') },
-      { gradient: true, color: 'purple', gradientDirection: 'to-br', class: getGradientClass('purple', 'to-br') },
-      { gradient: true, color: 'purple', gradientDirection: 'to-bl', class: getGradientClass('purple', 'to-bl') },
-      { gradient: true, color: 'pink', gradientDirection: 'to-r', class: getGradientClass('pink', 'to-r') },
-      { gradient: true, color: 'pink', gradientDirection: 'to-l', class: getGradientClass('pink', 'to-l') },
-      { gradient: true, color: 'pink', gradientDirection: 'to-t', class: getGradientClass('pink', 'to-t') },
-      { gradient: true, color: 'pink', gradientDirection: 'to-b', class: getGradientClass('pink', 'to-b') },
-      { gradient: true, color: 'pink', gradientDirection: 'to-tr', class: getGradientClass('pink', 'to-tr') },
-      { gradient: true, color: 'pink', gradientDirection: 'to-tl', class: getGradientClass('pink', 'to-tl') },
-      { gradient: true, color: 'pink', gradientDirection: 'to-br', class: getGradientClass('pink', 'to-br') },
-      { gradient: true, color: 'pink', gradientDirection: 'to-bl', class: getGradientClass('pink', 'to-bl') },
-      { gradient: true, color: 'green', gradientDirection: 'to-r', class: getGradientClass('green', 'to-r') },
-      { gradient: true, color: 'green', gradientDirection: 'to-l', class: getGradientClass('green', 'to-l') },
-      { gradient: true, color: 'green', gradientDirection: 'to-t', class: getGradientClass('green', 'to-t') },
-      { gradient: true, color: 'green', gradientDirection: 'to-b', class: getGradientClass('green', 'to-b') },
-      { gradient: true, color: 'green', gradientDirection: 'to-tr', class: getGradientClass('green', 'to-tr') },
-      { gradient: true, color: 'green', gradientDirection: 'to-tl', class: getGradientClass('green', 'to-tl') },
-      { gradient: true, color: 'green', gradientDirection: 'to-br', class: getGradientClass('green', 'to-br') },
-      { gradient: true, color: 'green', gradientDirection: 'to-bl', class: getGradientClass('green', 'to-bl') },
-      { gradient: true, color: 'yellow', gradientDirection: 'to-r', class: getGradientClass('yellow', 'to-r') },
-      { gradient: true, color: 'yellow', gradientDirection: 'to-l', class: getGradientClass('yellow', 'to-l') },
-      { gradient: true, color: 'yellow', gradientDirection: 'to-t', class: getGradientClass('yellow', 'to-t') },
-      { gradient: true, color: 'yellow', gradientDirection: 'to-b', class: getGradientClass('yellow', 'to-b') },
-      { gradient: true, color: 'yellow', gradientDirection: 'to-tr', class: getGradientClass('yellow', 'to-tr') },
-      { gradient: true, color: 'yellow', gradientDirection: 'to-tl', class: getGradientClass('yellow', 'to-tl') },
-      { gradient: true, color: 'yellow', gradientDirection: 'to-br', class: getGradientClass('yellow', 'to-br') },
-      { gradient: true, color: 'yellow', gradientDirection: 'to-bl', class: getGradientClass('yellow', 'to-bl') },
-      { gradient: true, color: 'red', gradientDirection: 'to-r', class: getGradientClass('red', 'to-r') },
-      { gradient: true, color: 'red', gradientDirection: 'to-l', class: getGradientClass('red', 'to-l') },
-      { gradient: true, color: 'red', gradientDirection: 'to-t', class: getGradientClass('red', 'to-t') },
-      { gradient: true, color: 'red', gradientDirection: 'to-b', class: getGradientClass('red', 'to-b') },
-      { gradient: true, color: 'red', gradientDirection: 'to-tr', class: getGradientClass('red', 'to-tr') },
-      { gradient: true, color: 'red', gradientDirection: 'to-tl', class: getGradientClass('red', 'to-tl') },
-      { gradient: true, color: 'red', gradientDirection: 'to-br', class: getGradientClass('red', 'to-br') },
-      { gradient: true, color: 'red', gradientDirection: 'to-bl', class: getGradientClass('red', 'to-bl') },
-      { gradient: true, color: 'indigo', gradientDirection: 'to-r', class: getGradientClass('indigo', 'to-r') },
-      { gradient: true, color: 'indigo', gradientDirection: 'to-l', class: getGradientClass('indigo', 'to-l') },
-      { gradient: true, color: 'indigo', gradientDirection: 'to-t', class: getGradientClass('indigo', 'to-t') },
-      { gradient: true, color: 'indigo', gradientDirection: 'to-b', class: getGradientClass('indigo', 'to-b') },
-      { gradient: true, color: 'indigo', gradientDirection: 'to-tr', class: getGradientClass('indigo', 'to-tr') },
-      { gradient: true, color: 'indigo', gradientDirection: 'to-tl', class: getGradientClass('indigo', 'to-tl') },
-      { gradient: true, color: 'indigo', gradientDirection: 'to-br', class: getGradientClass('indigo', 'to-br') },
-      { gradient: true, color: 'indigo', gradientDirection: 'to-bl', class: getGradientClass('indigo', 'to-bl') },
-    ],
+    // @ts-ignore
+    compoundVariants: gradientOptions,
     defaultVariants: {
-      size: '3xl',
-      color: 'white',
+      size: "3xl",
+      color: "white",
       gradient: false,
-      gradientDirection: 'to-r',
+      gradientDirection: "to-r",
     },
-  }
+  },
 );
 
 export type HeadlineVariants = VariantProps<typeof headlineStyles>;
