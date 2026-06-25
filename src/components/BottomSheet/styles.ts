@@ -1,22 +1,11 @@
 import { cva } from 'class-variance-authority';
 
 export const bottomSheetOverlayStyles = cva(
-  'fixed inset-0 z-50 transition-all duration-300',
-  {
-    variants: {
-      show: {
-        true: 'bg-black/50 backdrop-blur-sm',
-        false: 'bg-transparent backdrop-blur-none pointer-events-none',
-      },
-    },
-    defaultVariants: {
-      show: false,
-    },
-  }
+  'fixed inset-0 z-40 bg-black/50 backdrop-blur-sm pointer-events-auto'
 );
 
 export const bottomSheetContainerStyles = cva(
-  'fixed z-50 transition-all duration-300 transform',
+  'fixed z-50 overflow-y-auto transition-all duration-300 transform',
   {
     variants: {
       position: {
@@ -26,9 +15,7 @@ export const bottomSheetContainerStyles = cva(
         right: 'right-0 top-0 bottom-0',
       },
       size: {
-        sm: 'h-48',
-        md: 'h-64',
-        lg: 'h-96',
+        auto: '',
         full: 'h-full',
       },
       variant: {
@@ -37,12 +24,12 @@ export const bottomSheetContainerStyles = cva(
         outline: 'bg-transparent border-2 border-white/20',
       },
       rounded: {
-        true: 'rounded-t-2xl',
+        true: '',
         false: '',
       },
       show: {
-        true: '',
-        false: 'translate-y-full opacity-0 pointer-events-none',
+        true: 'opacity-100',
+        false: 'opacity-0 pointer-events-none',
       },
     },
     compoundVariants: [
@@ -66,10 +53,50 @@ export const bottomSheetContainerStyles = cva(
         rounded: true,
         className: 'rounded-l-2xl',
       },
+      {
+        position: 'bottom',
+        show: false,
+        className: 'translate-y-full',
+      },
+      {
+        position: 'bottom',
+        show: true,
+        className: 'translate-y-0',
+      },
+      {
+        position: 'top',
+        show: false,
+        className: '-translate-y-full',
+      },
+      {
+        position: 'top',
+        show: true,
+        className: 'translate-y-0',
+      },
+      {
+        position: 'left',
+        show: false,
+        className: '-translate-x-full',
+      },
+      {
+        position: 'left',
+        show: true,
+        className: 'translate-x-0',
+      },
+      {
+        position: 'right',
+        show: false,
+        className: 'translate-x-full',
+      },
+      {
+        position: 'right',
+        show: true,
+        className: 'translate-x-0',
+      },
     ],
     defaultVariants: {
       position: 'bottom',
-      size: 'md',
+      size: 'auto',
       variant: 'glass',
       rounded: true,
       show: false,
@@ -78,18 +105,10 @@ export const bottomSheetContainerStyles = cva(
 );
 
 export const bottomSheetHeaderStyles = cva(
-  'flex items-center justify-between p-4 border-b border-white/20',
+  'flex items-center justify-between p-4',
   {
-    variants: {
-      variant: {
-        glass: 'glass border-white/20',
-        solid: 'bg-white/20 border-white/20',
-        outline: 'bg-transparent border-white/20',
-      },
-    },
-    defaultVariants: {
-      variant: 'glass',
-    },
+    variants: {},
+    defaultVariants: {},
   }
 );
 
@@ -101,49 +120,18 @@ export const bottomSheetTitleStyles = cva(
   }
 );
 
-export const bottomSheetCloseButtonStyles = cva(
-  'p-2 rounded-lg hover:bg-white/10 transition-colors',
-  {
-    variants: {
-      variant: {
-        glass: 'glass border-white/20',
-        solid: 'bg-white/20',
-        outline: 'bg-transparent border border-white/20',
-      },
-    },
-    defaultVariants: {
-      variant: 'glass',
-    },
-  }
-);
-
 export const bottomSheetContentStyles = cva(
-  'p-4 overflow-y-auto',
+  'overflow-y-auto max-h-[80vh] p-4',
   {
-    variants: {
-      maxHeight: {
-        true: '',
-        false: '',
-      },
-    },
-    defaultVariants: {
-      maxHeight: false,
-    },
+    variants: {},
+    defaultVariants: {},
   }
 );
 
 export const bottomSheetFooterStyles = cva(
-  'flex items-center justify-end p-4 border-t border-white/20 gap-2',
+  'flex items-center justify-end p-4 gap-2',
   {
-    variants: {
-      variant: {
-        glass: 'glass border-white/20',
-        solid: 'bg-white/20 border-white/20',
-        outline: 'bg-transparent border-white/20',
-      },
-    },
-    defaultVariants: {
-      variant: 'glass',
-    },
+    variants: {},
+    defaultVariants: {},
   }
 );
