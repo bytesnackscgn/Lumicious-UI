@@ -1,4 +1,4 @@
-export type BottomSheetSize = 'sm' | 'md' | 'lg' | 'full';
+export type BottomSheetSize = 'auto' | 'full';
 export type BottomSheetVariant = 'glass' | 'solid' | 'outline';
 export type BottomSheetPosition = 'bottom' | 'top' | 'left' | 'right';
 
