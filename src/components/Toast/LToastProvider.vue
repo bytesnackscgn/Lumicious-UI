@@ -1,18 +1,23 @@
 <script setup lang="ts">
-import { ref, provide, reactive } from 'vue';
-import { ToastInjectionKey, type Toast, type ToastOptions, type ToastPosition } from './types';
-import LAlert from '../Banner/LAlert.vue';
-import { LBtn } from '../Btn';
+import { ref, provide, reactive } from "vue";
+import {
+  ToastInjectionKey,
+  type Toast,
+  type ToastOptions,
+  type ToastPosition,
+} from "./types";
+import LAlert from "../Banner/LAlert.vue";
+import { LBtn } from "../Btn";
 
 interface Props {
-  variant?: 'list' | 'stack';
+  variant?: "list" | "stack";
   stackOverlap?: number;
   stackGap?: number;
   expandOnHover?: boolean;
 }
 
 const props = withDefaults(defineProps<Props>(), {
-  variant: 'list',
+  variant: "list",
   stackOverlap: 40,
   stackGap: 8,
   expandOnHover: true,
@@ -21,12 +26,12 @@ const props = withDefaults(defineProps<Props>(), {
 const toasts = ref<Toast[]>([]);
 
 const hoverStates = reactive<Record<ToastPosition, boolean>>({
-  'top-left': false,
-  'top-center': false,
-  'top-right': false,
-  'bottom-left': false,
-  'bottom-center': false,
-  'bottom-right': false,
+  "top-left": false,
+  "top-center": false,
+  "top-right": false,
+  "bottom-left": false,
+  "bottom-center": false,
+  "bottom-right": false,
 });
 
 const add = (options: ToastOptions): string => {
@@ -34,11 +39,11 @@ const add = (options: ToastOptions): string => {
   const toast: Toast = {
     id,
     message: options.message,
-    variant: options.variant || 'glass',
-    color: options.color || 'primary',
+    variant: options.variant || "glass",
+    color: options.color || "primary",
     icon: options.icon,
     duration: options.duration ?? 5000,
-    position: options.position || 'top-right',
+    position: options.position || "top-right",
     dismissible: options.dismissible ?? true,
     dense: true, // Toasts should always be dense
   };
@@ -72,34 +77,35 @@ const getToastsByPosition = (position: ToastPosition) => {
 };
 
 const positions: ToastPosition[] = [
-  'top-left',
-  'top-center',
-  'top-right',
-  'bottom-left',
-  'bottom-center',
-  'bottom-right',
+  "top-left",
+  "top-center",
+  "top-right",
+  "bottom-left",
+  "bottom-center",
+  "bottom-right",
 ];
 
 const positionClasses: Record<ToastPosition, string> = {
-  'top-left': 'top-0 left-0 items-start',
-  'top-center': 'top-0 left-1/2 -translate-x-1/2 items-center',
-  'top-right': 'top-0 right-0 items-end',
-  'bottom-left': 'bottom-0 left-0 items-start',
-  'bottom-center': 'bottom-0 left-1/2 -translate-x-1/2 items-center',
-  'bottom-right': 'bottom-0 right-0 items-end',
+  "top-left": "top-0 left-0 items-start",
+  "top-center": "top-0 left-1/2 -translate-x-1/2 items-center",
+  "top-right": "top-0 right-0 items-end",
+  "bottom-left": "bottom-0 left-0 items-start",
+  "bottom-center": "bottom-0 left-1/2 -translate-x-1/2 items-center",
+  "bottom-right": "bottom-0 right-0 items-end",
 };
 
 const getToastStyle = (index: number, position: ToastPosition) => {
-  if (props.variant !== 'stack' || index === 0) return {};
+  if (props.variant !== "stack" || index === 0) return {};
 
   const isHovered = hoverStates[position];
-  const isBottom = position.includes('bottom');
-  
+  const isBottom = position.includes("bottom");
+
   // If expanded (hovered), use gap. Otherwise use negative overlap.
-  const spacing = isHovered && props.expandOnHover ? props.stackGap : -props.stackOverlap;
-  
+  const spacing =
+    isHovered && props.expandOnHover ? props.stackGap : -props.stackOverlap;
+
   return {
-    [isBottom ? 'marginBottom' : 'marginTop']: `${spacing}px`,
+    [isBottom ? "marginBottom" : "marginTop"]: `${spacing}px`,
     zIndex: index, // Ensure newer items are on top
   };
 };
@@ -120,7 +126,7 @@ const setHover = (position: ToastPosition, isHovered: boolean) => {
         :class="[
           positionClasses[position],
           position.includes('bottom') ? 'flex-col-reverse' : 'flex-col',
-          variant === 'list' ? 'gap-2' : ''
+          variant === 'list' ? 'gap-2' : '',
         ]"
         @mouseenter="setHover(position, true)"
         @mouseleave="setHover(position, false)"
@@ -147,7 +153,10 @@ const setHover = (position: ToastPosition, isHovered: boolean) => {
               :dense="toast.dense"
               class="shadow-lg backdrop-blur-md"
             >
-              {{ toast.message }}
+              <slot name="content" :toast="toast">
+                {{ toast.message }}
+              </slot>
+
               <template #actions v-if="toast.dismissible">
                 <LBtn
                   icon="x"
