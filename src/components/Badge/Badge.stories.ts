@@ -75,3 +75,25 @@ export const Floating: Story = {
     color: 'negative'
   },
 };
+
+export const FloatingSolid: Story = {
+  decorators: [
+    (story) => ({
+      components: { story },
+      template: `
+        <div class="p-12 bg-slate-900 flex items-center justify-center gap-8">
+          <div class="w-12 h-12 bg-white/10 glass rounded-lg relative">
+            <story />
+          </div>
+        </div>
+      `,
+    }),
+  ],
+  args: {
+    floating: true,
+    label: '3',
+    pill: true,
+    color: 'primary',
+    variant: 'solid',
+  },
+};
