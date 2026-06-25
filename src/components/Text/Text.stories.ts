@@ -80,6 +80,50 @@ export const Sizes: Story = {
   }),
 };
 
+export const TextTagVariants: Story = {
+  render: (args: any) => ({
+    components: { LText },
+    setup() {
+      return { args };
+    },
+    template: `
+      <div class="flex flex-col gap-4">
+        <LText tag="h1">This is h1</LText>
+        <LText tag="h2">This is h2</LText>
+        <LText tag="h3">This is h3</LText>
+        <LText tag="h4">This is h4</LText>
+        <LText tag="h5">This is h5</LText>
+        <LText tag="h6">This is h6</LText>
+        <LText tag="p">{{ args.content }} Paragraph</LText>
+        <LText tag="b">{{ args.content }} Bold</LText>
+        <LText tag="strong">{{ args.content }} Strong</LText>
+        <LText tag="span">{{ args.content }} Span</LText>
+        <LText tag="em">{{ args.content }} Emphasized</LText>
+        <LText tag="i">{{ args.content }} Italic</LText>
+        <LText tag="u">{{ args.content }} Underlined</LText>
+        <LText tag="mark">{{ args.content }} Marked</LText>
+        <LText tag="small">{{ args.content }} Small</LText>
+        <LText tag="del">{{ args.content }} Deleted</LText>
+        <LText tag="s">{{ args.content }} Strikethrough</LText>
+        <LText tag="ins">{{ args.content }} Inserted</LText>
+        <LText tag="sub">{{ args.content }} Subscript</LText>
+        <LText tag="sup">{{ args.content }} Superscript</LText>
+        <LText tag="code">{{ args.content }} Code</LText>
+        <LText tag="kbd">{{ args.content }} Keyboard</LText>
+        <LText tag="cite">{{ args.content }} Citation</LText>
+        <LText tag="q">{{ args.content }} Inline Quote</LText>
+        <LText tag="blockquote">{{ args.content }} Blockquote</LText>
+        <LText tag="pre">{{ args.content }} Preformatted</LText>
+        <ul>
+          <LText tag="li">List Item 1</LText>
+          <LText tag="li">List Item 2</LText>
+          <LText tag="li">List Item 3</LText>
+        </ul>
+      </div>
+    `,
+  }),
+};
+
 export const Colors: Story = {
   render: (args: any) => ({
     components: { LText },
