@@ -7,14 +7,16 @@ const props = withDefaults(defineProps<TextProps>(), {
   tag: 'p',
   size: 'md',
   weight: 'normal',
-  gradient: false
+  color: 'white',
+  gradient: false,
+  gradientDirection: 'to-r'
 });
 </script>
 
 <template>
   <component
     :is="tag"
-    :class="cn(textStyles({ size, weight, gradient }))"
+    :class="cn(textStyles({ size, weight, color, gradient }))"
   >
     <slot />
   </component>
