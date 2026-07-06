@@ -31,6 +31,9 @@ export const gradientColors: Record<string, string> = {
 
 export const gradientOptions = [
   // Solid colors when gradient is false
+  { gradient: false, color: "primary", class: solidColors.primary },
+  { gradient: false, color: "secondary", class: solidColors.secondary },
+  { gradient: false, color: "tertiary", class: solidColors.tertiary },
   { gradient: false, color: "white", class: solidColors.white },
   { gradient: false, color: "blue", class: solidColors.blue },
   { gradient: false, color: "purple", class: solidColors.purple },
