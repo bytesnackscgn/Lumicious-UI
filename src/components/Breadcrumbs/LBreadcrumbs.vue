@@ -1,30 +1,37 @@
 <script setup lang="ts">
-import { cn } from '../../utils/cn';
-import { breadcrumbsStyles, breadcrumbItemStyles, separatorStyles } from './styles';
-import type { BreadcrumbsProps, BreadcrumbItem } from './types';
+import { cn } from "../../utils/cn";
+import {
+  breadcrumbsStyles,
+  breadcrumbItemStyles,
+  separatorStyles,
+} from "./styles";
+import type { BreadcrumbsProps, BreadcrumbItem } from "./types";
+import LIcon from "../Icon/LIcon.vue";
 
 const props = withDefaults(defineProps<BreadcrumbsProps>(), {
-  size: 'md',
-  color: 'primary',
-  separator: '/',
+  size: "md",
+  color: "primary",
+  separator: "/",
   maxItems: 0,
   ellipsis: true,
 });
 
 const emit = defineEmits<{
-  (e: 'click', item: BreadcrumbItem, index: number): void;
+  (e: "click", item: BreadcrumbItem, index: number): void;
 }>();
 
 const handleClick = (item: BreadcrumbItem, index: number) => {
-  if (!item.disabled && item.href) {
-    emit('click', item, index);
+  if (!item.disabled) {
+    item.onClick?.(item);
+    props.onClick?.(item);
+    emit("click", item, index);
   }
 };
 
 const getVisibleItems = () => {
   const items = props.items;
   const maxItems = props.maxItems;
-  
+
   if (!maxItems || items.length <= maxItems) {
     return items;
   }
@@ -34,7 +41,7 @@ const getVisibleItems = () => {
     const lastItems = items.slice(-(maxItems - Math.floor(maxItems / 2) - 1));
     return [
       ...firstItems,
-      { label: '...', href: undefined, disabled: true },
+      { label: "...", href: undefined, disabled: true },
       ...lastItems,
     ];
   }
@@ -58,19 +65,44 @@ const getVisibleItems = () => {
         >
           {{ props.separator }}
         </span>
-        
-        <button
-          v-if="item.href && !item.disabled"
-          :class="cn(breadcrumbItemStyles({ size, color, disabled: item.disabled }))"
+
+        <component
+          v-if="!item.disabled && linkComponent"
+          :is="linkComponent"
+          v-bind="item.args"
+          :class="cn(breadcrumbItemStyles({ size, color, disabled: false }))"
           @click="handleClick(item, index)"
         >
+          <LIcon v-if="item.icon" :name="item.icon" size="sm" />
+          {{ item.label }}
+        </component>
+
+        <a
+          v-else-if="!item.disabled && item.href"
+          :href="item.href"
+          :title="item.label"
+          :rel="item.rel"
+          :class="cn(breadcrumbItemStyles({ size, color, disabled: false }))"
+          @click="handleClick(item, index)"
+        >
+          <LIcon v-if="item.icon" :name="item.icon" size="sm" />
+          {{ item.label }}
+        </a>
+
+        <button
+          v-else-if="!item.disabled"
+          :class="cn(breadcrumbItemStyles({ size, color, disabled: false }))"
+          @click="handleClick(item, index)"
+        >
+          <LIcon v-if="item.icon" :name="item.icon" size="sm" />
           {{ item.label }}
         </button>
-        
+
         <span
           v-else
-          :class="cn(breadcrumbItemStyles({ size, color, disabled: item.disabled }))"
+          :class="cn(breadcrumbItemStyles({ size, color, disabled: true }))"
         >
+          <LIcon v-if="item.icon" :name="item.icon" size="sm" />
           {{ item.label }}
         </span>
       </li>
@@ -92,7 +124,7 @@ const getVisibleItems = () => {
 }
 
 .l-breadcrumb-item::after {
-  content: '';
+  content: "";
   position: absolute;
   bottom: -2px;
   left: 0;

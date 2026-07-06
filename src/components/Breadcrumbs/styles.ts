@@ -1,3 +1,4 @@
+import { solidColors } from '@/constants/ui/color';
 import { cva } from 'class-variance-authority';
 
 export const breadcrumbsStyles = cva(
@@ -9,15 +10,10 @@ export const breadcrumbsStyles = cva(
         md: 'text-sm',
         lg: 'text-base',
       },
-      color: {
-        primary: 'text-blue-400',
-        secondary: 'text-gray-400',
-        white: 'text-white',
-      },
+      color: solidColors,
     },
     defaultVariants: {
       size: 'md',
-      color: 'primary',
     },
   }
 );
@@ -31,11 +27,7 @@ export const breadcrumbItemStyles = cva(
         md: 'text-sm',
         lg: 'text-base',
       },
-      color: {
-        primary: 'text-blue-400',
-        secondary: 'text-gray-400',
-        white: 'text-white',
-      },
+      color: solidColors,
       disabled: {
         true: 'opacity-50 cursor-not-allowed',
         false: '',
