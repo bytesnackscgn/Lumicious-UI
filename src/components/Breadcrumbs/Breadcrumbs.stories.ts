@@ -1,27 +1,27 @@
-import type { Meta, StoryObj } from '@storybook/vue3-vite';
-import { fn } from '@storybook/test';
-import LBreadcrumbs from './LBreadcrumbs.vue';
+import type { Meta, StoryObj } from "@storybook/vue3-vite";
+import { fn } from "@storybook/test";
+import LBreadcrumbs from "./LBreadcrumbs.vue";
 
 const meta: Meta<any> = {
-  title: 'Lumicious/Breadcrumbs',
+  title: "Lumicious/Breadcrumbs",
   component: LBreadcrumbs,
-  tags: ['autodocs'],
+  tags: ["autodocs"],
   argTypes: {
-    size: { control: 'select', options: ['sm', 'md', 'lg'] },
-    color: { control: 'select', options: ['primary', 'secondary', 'white'] },
-    separator: { control: 'text' },
-    maxItems: { control: 'number' },
-    ellipsis: { control: 'boolean' },
+    size: { control: "select", options: ["sm", "md", "lg"] },
+    color: { control: "select", options: ["primary", "secondary", "white", "blue", "purple", "pink", "green", "yellow", "red", "indigo"] },
+    separator: { control: "text" },
+    maxItems: { control: "number" },
+    ellipsis: { control: "boolean" },
   },
   args: {
     items: [
-      { label: 'Home', href: '/' },
-      { label: 'Components', href: '/components' },
-      { label: 'Breadcrumbs', href: '/components/breadcrumbs' },
+      { label: "Home", href: "/" },
+      { label: "Components", href: "/components" },
+      { label: "Breadcrumbs", href: "/components/breadcrumbs" },
     ],
-    size: 'md',
-    color: 'primary',
-    separator: '/',
+    size: "md",
+    color: "primary",
+    separator: "/",
     maxItems: 0,
     ellipsis: true,
     onClick: fn(),
@@ -29,7 +29,8 @@ const meta: Meta<any> = {
   decorators: [
     (story) => ({
       components: { story },
-      template: '<div class="p-8 bg-slate-900 flex items-center justify-center"><story /></div>',
+      template:
+        '<div class="p-8 bg-slate-900 flex items-center justify-center"><story /></div>',
     }),
   ],
 } satisfies Meta<typeof LBreadcrumbs>;
@@ -40,9 +41,12 @@ type Story = StoryObj<typeof meta>;
 export const Basic: Story = {
   args: {
     items: [
-      { label: 'Home', href: '/' },
-      { label: 'Components', href: '/components' },
-      { label: 'Breadcrumbs', href: '/components/breadcrumbs' },
+      { label: "Home", href: "/" },
+      { label: "Avatar Stories", href: "/?path=/docs/lumicious-avatar--docs" },
+      {
+        label: "Avatar Image Story",
+        href: "/?path=/story/lumicious-avatar--image",
+      },
     ],
   },
 };
@@ -50,62 +54,53 @@ export const Basic: Story = {
 export const WithIcons: Story = {
   args: {
     items: [
-      { label: 'Dashboard', href: '/dashboard' },
-      { label: 'Analytics', href: '/dashboard/analytics' },
-      { label: 'Reports', href: '/dashboard/analytics/reports' },
+      { label: "Home", icon: "home" },
+      { label: "Profile", icon: "user" },
+      { label: "Edit", icon: "pencil" },
     ],
   },
 };
 
 export const Small: Story = {
   args: {
-    size: 'sm',
-    items: [
-      { label: 'Home', href: '/' },
-      { label: 'Settings', href: '/settings' },
-    ],
+    size: "sm",
+    items: [{ label: "Home" }, { label: "Profile" }, { label: "Edit" }],
   },
 };
 
 export const Large: Story = {
   args: {
-    size: 'lg',
-    items: [
-      { label: 'Home', href: '/' },
-      { label: 'Profile', href: '/profile' },
-      { label: 'Edit', href: '/profile/edit' },
-    ],
+    size: "lg",
+    items: [{ label: "Home" }, { label: "Profile" }, { label: "Edit" }],
   },
 };
 
-export const SecondaryColor: Story = {
-  args: {
-    color: 'secondary',
-    items: [
-      { label: 'Home', href: '/' },
-      { label: 'Documentation', href: '/docs' },
-    ],
-  },
-};
-
-export const WhiteColor: Story = {
-  args: {
-    color: 'white',
-    items: [
-      { label: 'Home', href: '/' },
-      { label: 'About', href: '/about' },
-    ],
-  },
+export const Colors: Story = {
+  render: () => ({
+    components: { LBreadcrumbs },
+    setup() {
+      const colors = ["primary", "secondary", "tertiary", "white", "blue", "purple", "pink", "green", "yellow", "red", "indigo"];
+      const items = [
+        { label: "Home", href: "/" },
+        { label: "Profile", href: "/profile" },
+        { label: "Settings", href: "/settings" }
+      ];
+      return { colors, items };
+    },
+    template: `
+      <div class="flex flex-col gap-6">
+        <div v-for="color in colors" :key="color" class="flex items-center">
+          <LBreadcrumbs :items="items" :color="color" />
+        </div>
+      </div>
+    `,
+  }),
 };
 
 export const CustomSeparator: Story = {
   args: {
-    separator: '→',
-    items: [
-      { label: 'Home', href: '/' },
-      { label: 'Products', href: '/products' },
-      { label: 'Details', href: '/products/details' },
-    ],
+    separator: "→",
+    items: [{ label: "Home" }, { label: "Profile" }, { label: "Edit" }],
   },
 };
 
@@ -115,7 +110,6 @@ export const WithEllipsis: Story = {
     ellipsis: true,
     items: Array.from({ length: 8 }, (_, i) => ({
       label: `Page ${i + 1}`,
-      href: `/page/${i + 1}`,
     })),
   },
 };
@@ -123,19 +117,9 @@ export const WithEllipsis: Story = {
 export const DisabledItems: Story = {
   args: {
     items: [
-      { label: 'Home', href: '/' },
-      { label: 'Disabled', href: '/disabled', disabled: true },
-      { label: 'Active', href: '/active' },
-    ],
-  },
-};
-
-export const NoLinks: Story = {
-  args: {
-    items: [
-      { label: 'Step 1' },
-      { label: 'Step 2' },
-      { label: 'Step 3' },
+      { label: 'Home',  },
+      { label: 'Profile', disabled: true },
+      { label: 'Edit',  },
     ],
   },
 };

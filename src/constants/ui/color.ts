@@ -1,4 +1,9 @@
+import { Primary, Secondary } from "@/stories/Button.stories";
+
 export const solidColors: Record<string, string> = {
+  primary: "text-primray",
+  secondary: "text-secondary",
+  tertiary: "text-tertiary",
   white: "text-white",
   blue: "text-blue-400",
   purple: "text-purple-400",
@@ -10,6 +15,9 @@ export const solidColors: Record<string, string> = {
 };
 
 export const defaultCvaColorOptions = {
+  primary: "",
+  secondary: "",
+  tertiary: "",
   white: "",
   blue: "",
   purple: "",

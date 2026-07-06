@@ -76,6 +76,9 @@ export const Colors: Story = {
     setup() { return { args }; },
     template: `
       <div class="flex flex-col gap-4">
+        <LHeadline color="primary">{{ args.content }} Primary</LHeadline>
+        <LHeadline color="secondary">{{ args.content }} Secondary</LHeadline>
+        <LHeadline color="tertiary">{{ args.content }} Tertiary</LHeadline>
         <LHeadline color="white">{{ args.content }} White</LHeadline>
         <LHeadline color="blue">{{ args.content }} Blue</LHeadline>
         <LHeadline color="purple">{{ args.content }} Purple</LHeadline>
