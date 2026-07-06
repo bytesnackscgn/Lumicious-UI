@@ -10,7 +10,6 @@ import { LIcon } from '../Icon';
 
 const props = withDefaults(defineProps<BtnDropdownProps>(), {
   modelValue: false,
-  split: false,
   hideIcon: false,
   autoClose: true,
   icon: 'chevron-down'
@@ -38,15 +37,8 @@ const toggle = (event?: MouseEvent) => {
 };
 
 const handleButtonClick = (event: MouseEvent) => {
-    if (props.split) {
-        emit('click', event);
-    } else {
+   
         toggle(event);
-    }
-};
-
-const handleCaretClick = (event: MouseEvent) => {
-    if (props.split) toggle(event);
 };
 
 const handleMenuClick = (event: MouseEvent) => {
@@ -59,31 +51,8 @@ const handleMenuClick = (event: MouseEvent) => {
 </script>
 
 <template>
-  <div :class="cn(btnDropdownStyles({ split }), props.class)">
-    <LBtnGroup v-if="split" class="w-full">
-        <LBtn 
-            v-bind="props" 
-            :class="props.class"
-            :icon="undefined"
-            @click="handleButtonClick"
-        >
-            <slot name="label">{{ label }}</slot>
-        </LBtn>
-        <LBtn 
-            v-bind="props" 
-            :class="props.class"
-            :icon="icon"
-            @click="handleCaretClick"
-            @mousedown.stop
-            aria-haspopup="true"
-            :aria-expanded="isOpen"
-            :aria-controls="menuId"
-            :aria-label="label ? `${label} menu` : 'Menu'"
-        />
-    </LBtnGroup>
-    
+  <div :class="cn(btnDropdownStyles(), props.class)">    
     <LBtn 
-        v-else 
         v-bind="props"
         :class="props.class"
         :icon="undefined"
