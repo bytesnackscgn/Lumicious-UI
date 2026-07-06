@@ -8,7 +8,6 @@ const meta: Meta<any> = {
   component: LBtnDropdown,
   tags: ['autodocs'],
   argTypes: {
-    split: { control: 'boolean' },
     color: { control: 'select', options: ['primary', 'secondary', 'positive', 'negative', 'white'] },
     variant: { control: 'select', options: ['glass', 'solid', 'outline', 'ghost'] },
     icon: { control: 'text' },
@@ -114,4 +113,3 @@ export const HiddenIcon: Story = {
     hideIcon: true,
   },
 };
-
