@@ -4,7 +4,7 @@ import LBottomSheet from './LBottomSheet.vue';
 import LBtn from '../Btn/LBtn.vue';
 
 const meta: Meta<any> = {
-  title: 'Lumicious/BottomSheet',
+  title: 'Lumicious/Overlays/BottomSheet',
   component: LBottomSheet,
   tags: ['autodocs'],
   argTypes: {

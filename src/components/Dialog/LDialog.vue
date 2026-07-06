@@ -1,5 +1,6 @@
 <script setup lang="ts">
-import { ref, watch, onMounted, onUnmounted } from 'vue';
+// TODO: make accessible html5 dialog
+import { ref, watch, onUnmounted } from 'vue';
 import { cn } from '../../utils/cn';
 import { dialogBackdropStyles, dialogContentStyles } from './styles';
 import type { DialogProps } from './types';
@@ -57,7 +58,7 @@ onUnmounted(() => {
                 :enter-from-class="props.position === 'center' ? 'opacity-0 scale-95' : 'translate-y-full opacity-0'"
                 :leave-to-class="props.position === 'center' ? 'opacity-0 scale-95' : 'translate-y-full opacity-0'"
             >
-                <div :class="cn(dialogContentStyles({ maximized, fullWidth }), props.class)">
+                <div :class="cn(dialogContentStyles({ fullWidth, fullHeight }))">
                     <slot />
                 </div>
             </Transition>
