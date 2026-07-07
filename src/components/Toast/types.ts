@@ -1,5 +1,5 @@
 import type { InjectionKey } from 'vue';
-import type { AlertColor, AlertVariant } from '../Banner/types';
+import type { AlertColor, AlertVariant } from '../Alert/types';
 
 export type ToastPosition = 
   | 'top-left' 

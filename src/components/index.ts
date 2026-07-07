@@ -39,7 +39,6 @@ export * from './Slider';
 export * from './Spinner';
 export * from './Tabs';
 export * from './Toggle';
-export * from './Toolbar';
 export * from './Tooltip';
 export * from './Carousel';
 export * from './ChatMessage';

@@ -7,6 +7,7 @@ import type { IconProps } from './types';
 
 const props = withDefaults(defineProps<IconProps>(), {
   size: 'md',
+  color: 'white',
   strokeWidth: 2,
   tag: 'i'
 });
@@ -36,15 +37,14 @@ const computedSize = computed(() => {
 <template>
   <component
     :is="tag"
-    :class="cn(iconStyles({ size: typeof size === 'string' ? (size as any) : undefined }), 'not-italic')"
+    :class="cn(iconStyles({ size: typeof size === 'string' ? (size as any) : undefined, color }), 'not-italic')"
     class="flex items-center justify-center"
   >
-    <component 
+    <component
       :is="IconComponent"
       v-if="IconComponent"
       :size="computedSize"
       :stroke-width="strokeWidth"
-      :color="color"
     />
     <slot v-else />
   </component>
