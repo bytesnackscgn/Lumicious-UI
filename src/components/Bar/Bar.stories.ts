@@ -1,20 +1,34 @@
-import type { Meta, StoryObj } from '@storybook/vue3-vite';
-import LBar from './LBar.vue';
-import { LToolbar } from '../Toolbar';
-import { LBtn } from '../Btn';
-import { LHeadline } from '../Headline';
+import type { Meta, StoryObj } from "@storybook/vue3-vite";
+import LBar from "./LBar.vue";
+import { LBtn } from "../Btn";
+import { LHeadline } from "../Headline";
 
 const meta: Meta<any> = {
-  title: 'Lumicious/Layout/Bar',
+  title: "Lumicious/Layout/Bar",
   component: LBar,
-  tags: ['autodocs'],
+  tags: ["autodocs"],
   argTypes: {
-    position: { control: 'select', options: ['top', 'bottom'] },
-    fixed: { control: 'boolean' },
+    position: {
+      control: "select",
+      options: ["top", "bottom", "left", "right"],
+    },
+    fixed: { control: "boolean" },
+    blur: { control: "boolean" },
+    width: { control: "number" },
+    height: { control: "number" },
+    padding: { control: "text" },
+    rounded: { control: "boolean" },
+    dense: { control: "boolean" },
   },
   args: {
-    position: 'top',
+    position: "top",
     fixed: false,
+    blur: true,
+    width: 80,
+    height: 60,
+    padding: "p-2",
+    rounded: true,
+    dense: false,
   },
 } satisfies Meta<typeof LBar>;
 
@@ -23,17 +37,21 @@ type Story = StoryObj<typeof meta>;
 
 export const TopBar: Story = {
   render: (args) => ({
-    components: { LBar, LToolbar, LBtn, LHeadline },
-    setup() { return { args }; },
+    components: { LBar, LBtn, LHeadline },
+    setup() {
+      return { args };
+    },
     template: `
-      <div class="h-[200px] w-full bg-slate-900 overflow-hidden relative border border-white/10 rounded-xl">
+      <div class="h-[600px] w-full bg-slate-900 overflow-hidden relative border border-white/10 rounded-xl">
         <LBar v-bind="args">
-            <LToolbar>
-                <LBtn icon="menu" variant="ghost" />
-                <LHeadline :level="6">Header</LHeadline>
-            </LToolbar>
+          <div class="flex flex-row gap-4 justify-center">
+            <LHeadline color="white" :level="6">Menu</LHeadline>
+            <LBtn icon="home" variant="ghost" />
+            <LBtn icon="search" variant="ghost" />
+            <LBtn icon="bell" variant="ghost" />
+            <LBtn icon="settings" variant="ghost" />
+            </div>
         </LBar>
-        <div class="p-8 text-white/40">Page Content scrolls under here...</div>
       </div>
     `,
   }),
@@ -41,21 +59,72 @@ export const TopBar: Story = {
 
 export const BottomBar: Story = {
   args: {
-    position: 'bottom',
+    position: "bottom",
   },
   render: (args) => ({
-    components: { LBar, LToolbar, LBtn },
-    setup() { return { args }; },
+    components: { LBar, LBtn, LHeadline },
+    setup() {
+      return { args };
+    },
     template: `
-      <div class="h-[200px] w-full bg-slate-900 overflow-hidden relative border border-white/10 rounded-xl">
-        <div class="p-8 text-white/40">Page Content...</div>
+      <div class="h-[600px] w-full bg-slate-900 overflow-hidden relative rounded-xl">
         <LBar v-bind="args">
-            <LToolbar class="justify-around p-2">
+          <div class="flex flex-row gap-4 justify-center">
+            <LHeadline color="white" :level="6">Menu</LHeadline>
+            <LBtn icon="menu" variant="ghost" />
+            <LBtn icon="home" variant="ghost" />
+            <LBtn icon="search" variant="ghost" />
+            <LBtn icon="bell" variant="ghost" />
+            <LBtn icon="settings" variant="ghost" />
+          </div>
+        </LBar>
+      </div>
+    `,
+  }),
+};
+
+export const LeftBar: Story = {
+  args: {
+    position: "left",
+    width: 80,
+  },
+  render: (args) => ({
+    components: { LBar, LBtn },
+    setup() {
+      return { args };
+    },
+    template: `
+      <div class="h-[600px] w-full bg-slate-900 overflow-hidden relative border border-white/10 rounded-xl">
+        <LBar v-bind="args">
+            <div class="flex flex-col gap-4 items-center">
+                <LBtn icon="menu" variant="ghost" />
                 <LBtn icon="home" variant="ghost" />
-                <LBtn icon="search" variant="ghost" />
-                <LBtn icon="bell" variant="ghost" />
                 <LBtn icon="settings" variant="ghost" />
-            </LToolbar>
+            </div>
+        </LBar>
+      </div>
+    `,
+  }),
+};
+
+export const RightBar: Story = {
+  args: {
+    position: "right",
+    width: 80,
+  },
+  render: (args) => ({
+    components: { LBar, LBtn },
+    setup() {
+      return { args };
+    },
+    template: `
+      <div class="h-[600px] w-full bg-slate-900 overflow-hidden relative border border-white/10 rounded-xl">
+        <LBar v-bind="args">
+            <div class="flex flex-col gap-4 items-center">
+                <LBtn icon="menu" variant="ghost" />
+                <LBtn icon="home" variant="ghost" />
+                <LBtn icon="settings" variant="ghost" />
+            </div>
         </LBar>
       </div>
     `,

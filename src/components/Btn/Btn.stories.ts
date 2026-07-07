@@ -63,6 +63,22 @@ export const Loading: Story = {
   },
 };
 
+export const Colors: Story = {
+  render: (args) => ({
+    components: { LBtn },
+    setup() { return { args }; },
+    template: `
+      <div class="flex flex-wrap gap-4">
+        <LBtn label="Primary" color="primary" />
+        <LBtn label="Secondary" color="secondary" />
+        <LBtn label="Positive" color="positive" />
+        <LBtn label="Negative" color="negative" />
+        <LBtn label="White" color="white" />
+      </div>
+    `,
+  }),
+};
+
 export const Sizes: Story = {
   render: (args) => ({
     components: { LBtn },

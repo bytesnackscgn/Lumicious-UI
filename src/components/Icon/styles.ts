@@ -1,4 +1,5 @@
 import { cva } from 'class-variance-authority';
+import { solidColors } from '@/constants/ui/color';
 
 export const iconStyles = cva(
   'l-icon transition-colors duration-300 pointer-events-none display-inline flex items-center justify-center',
@@ -11,9 +12,11 @@ export const iconStyles = cva(
         lg: 'w-8 h-8',
         xl: 'w-12 h-12',
       },
+      color: solidColors,
     },
     defaultVariants: {
       size: 'md',
+      color: 'white',
     },
   }
 );
