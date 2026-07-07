@@ -1,5 +1,3 @@
-import { Primary, Secondary } from "@/stories/Button.stories";
-
 export const solidColors: Record<string, string> = {
   primary: "text-primray",
   secondary: "text-secondary",

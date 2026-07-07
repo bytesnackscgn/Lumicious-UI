@@ -6,7 +6,7 @@ import {
   type ToastOptions,
   type ToastPosition,
 } from "./types";
-import LAlert from "../Banner/LAlert.vue";
+import LAlert from "../Alert/LAlert.vue";
 import { LBtn } from "../Btn";
 
 interface Props {

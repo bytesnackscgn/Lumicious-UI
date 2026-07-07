@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/vue3-vite';
 import LAlert from './LAlert.vue';
-import { LBtn } from '../Btn';
+import { LBtn } from '../Btn/index.ts';
 
 const meta: Meta<any> = {
   title: 'Lumicious/Feedback/Alert',
