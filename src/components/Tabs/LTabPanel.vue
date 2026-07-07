@@ -13,17 +13,10 @@ const isActive = computed(() => context?.currentPanel.value === props.name);
 </script>
 
 <template>
-  <Transition
-    enter-active-class="transition-opacity duration-300 ease-out"
-    leave-active-class="transition-opacity duration-200 ease-in absolute inset-0"
-    enter-from-class="opacity-0"
-    leave-to-class="opacity-0"
+  <div 
+    v-show="isActive"
+    :class="cn('l-tab-panel', props.class)"
   >
-    <div 
-        v-if="isActive"
-        :class="cn('l-tab-panel', props.class)"
-    >
-        <slot />
-    </div>
-  </Transition>
+    <slot />
+  </div>
 </template>
