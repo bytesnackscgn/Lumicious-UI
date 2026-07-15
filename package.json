@@ -11,13 +11,25 @@
   "types": "./dist/index.d.ts",
   "exports": {
     ".": {
-      "import": "./dist/index.js",
-      "require": "./dist/index.cjs"
+      "import": {
+        "types": "./dist/index.d.ts",
+        "default": "./dist/index.js"
+      },
+      "require": {
+        "types": "./dist/index.d.ts",
+        "default": "./dist/index.cjs"
+      }
     },
     "./style.css": "./dist/lumicious-ui.css",
     "./components/*": {
-      "import": "./dist/components/*.js",
-      "require": "./dist/components/*.cjs"
+      "import": {
+        "types": "./dist/components/*.d.ts",
+        "default": "./dist/components/*.js"
+      },
+      "require": {
+        "types": "./dist/components/*.d.ts",
+        "default": "./dist/components/*.cjs"
+      }
     }
   },
   "engines": {
@@ -28,7 +40,7 @@
     "dev": "vite",
     "prepare": "pnpm build",
     "compile": "vue-tsc -b",
-    "build": "vue-tsc -p tsconfig.json && vite build",
+    "build": "vue-tsc --noEmit -p tsconfig.json && vite build",
     "type-check": "vue-tsc --noEmit",
     "preview": "vite preview",
     "test": "vitest",
@@ -76,6 +88,7 @@
     "tailwindcss": "^4.1.18",
     "typescript": "5.9.3",
     "vite": "^8.0.0-beta.9",
+    "vite-plugin-dts": "^5.0.3",
     "vitest": "^4.0.18",
     "vue-tsc": "^3.2.3"
   }

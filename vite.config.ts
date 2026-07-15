@@ -4,6 +4,7 @@ import tailwindcss from "@tailwindcss/vite";
 import { fileURLToPath, URL } from "node:url";
 import { glob } from "glob";
 import path from "path";
+import dts from "vite-plugin-dts";
 
 // Generate entry points for each component
 const componentEntries = glob.sync("src/components/*/index.ts").reduce<Record<string, string>>((acc, file) => {
@@ -13,7 +14,14 @@ const componentEntries = glob.sync("src/components/*/index.ts").reduce<Record<st
 }, {});
 
 export default defineConfig({
-  plugins: [vue(), tailwindcss()],
+  plugins: [
+    vue(),
+    tailwindcss(),
+    dts({
+      tsconfigPath: "./tsconfig.app.json",
+      include: ["src/**/*.ts", "src/**/*.vue"],
+    })
+  ],
   resolve: {
     alias: {
       "@": fileURLToPath(new URL("./src", import.meta.url))

@@ -1,0 +1,1 @@
+export { default as LIntersection } from './LIntersection.vue';
