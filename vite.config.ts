@@ -1,21 +1,57 @@
-/// <reference types="vitest/config" />
 import { defineConfig } from "vite";
 import vue from "@vitejs/plugin-vue";
 import tailwindcss from "@tailwindcss/vite";
 import { fileURLToPath, URL } from "node:url";
+import { glob } from "glob";
+import path from "path";
+import dts from "vite-plugin-dts";
 
-// https://vitejs.dev/config/
-import path from 'node:path';
-import { storybookTest } from '@storybook/addon-vitest/vitest-plugin';
-import { playwright } from '@vitest/browser-playwright';
-const dirname = typeof __dirname !== 'undefined' ? __dirname : path.dirname(fileURLToPath(import.meta.url));
+// Generate entry points for each component
+const componentEntries = glob.sync("src/components/*/index.ts").reduce<Record<string, string>>((acc, file) => {
+  const name = path.basename(path.dirname(file));
+  acc[`components/${name}/index`] = file;
+  return acc;
+}, {});
 
-// More info at: https://storybook.js.org/docs/next/writing-tests/integrations/vitest-addon
+// Add barrel entry for components/index
+componentEntries["components/index"] = fileURLToPath(new URL("./src/components/index.ts", import.meta.url));
+
 export default defineConfig({
-  plugins: [vue(), tailwindcss()],
+  plugins: [
+    vue(),
+    tailwindcss(),
+    dts({
+      tsconfigPath: "./tsconfig.app.json",
+      include: ["src/**/*.ts", "src/**/*.vue"],
+    })
+  ],
   resolve: {
     alias: {
       "@": fileURLToPath(new URL("./src", import.meta.url))
+    }
+  },
+  build: {
+    lib: {
+      entry: {
+        index: fileURLToPath(new URL("./src/index.ts", import.meta.url)),
+        ...componentEntries
+      },
+      formats: ["es", "cjs"],
+      name: "LumiciousUI"
+    },
+    rollupOptions: {
+      external: ["vue"],
+      output: {
+        globals: {
+          vue: "Vue"
+        },
+        assetFileNames: (assetInfo) => {
+          if (assetInfo.names?.includes("style.css")) {
+            return "lumicious-ui.css";
+          }
+          return "[name]-[hash][extname]";
+        }
+      }
     }
   }
 });

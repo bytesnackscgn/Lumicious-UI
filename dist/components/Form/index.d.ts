@@ -1,0 +1,1 @@
+export { default as LForm } from './LForm.vue';

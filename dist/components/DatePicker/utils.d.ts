@@ -1,0 +1,10 @@
+import { ClassValue } from 'clsx';
+export declare function cn(...inputs: ClassValue[]): string;
+export declare function formatDate(date: Date, format?: string): string;
+export declare function parseDate(dateString: string): Date | null;
+export declare function isDateInRange(date: Date, minDate?: Date, maxDate?: Date): boolean;
+export declare function getDaysInMonth(year: number, month: number): number;
+export declare function getFirstDayOfMonth(year: number, month: number, weekStartsOn?: number): number;
+export declare function generateMonthDays(year: number, month: number, weekStartsOn?: number): Date[];
+export declare function getMonthName(month: number, locale?: string): string;
+export declare function getWeekdayName(day: number, locale?: string, short?: boolean): string;
