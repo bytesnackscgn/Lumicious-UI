@@ -1,0 +1,1 @@
+export { default as LPagination } from './LPagination.vue';
