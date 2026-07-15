@@ -1,4 +1,5 @@
 import type { App } from 'vue';
+import './index.css';
 import * as components from './components';
 import * as directives from './directives';
 import * as plugins from './plugins';
