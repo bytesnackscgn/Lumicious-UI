@@ -1,1 +1,0 @@
-Object.defineProperty(exports,Symbol.toStringTag,{value:`Module`}),require(`../LIcon-DysO3icX.cjs`),require(`../Icon-DG8S-Zoa.cjs`);const e=require(`../Form-DtSqFNWG.cjs`);exports.LForm=e.t;

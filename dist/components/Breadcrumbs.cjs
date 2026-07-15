@@ -1,1 +1,0 @@
-Object.defineProperty(exports,Symbol.toStringTag,{value:`Module`}),require(`../LIcon-DysO3icX.cjs`);const e=require(`../Breadcrumbs-C5KWpNss.cjs`);exports.LBreadcrumbs=e.t;

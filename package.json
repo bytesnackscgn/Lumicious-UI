@@ -21,14 +21,24 @@
       }
     },
     "./style.css": "./dist/lumicious-ui.css",
-    "./components/*": {
+    "./components": {
       "import": {
-        "types": "./dist/components/*.d.ts",
-        "default": "./dist/components/*.js"
+        "types": "./dist/components/index.d.ts",
+        "default": "./dist/components/index.js"
       },
       "require": {
-        "types": "./dist/components/*.d.ts",
-        "default": "./dist/components/*.cjs"
+        "types": "./dist/components/index.d.ts",
+        "default": "./dist/components/index.cjs"
+      }
+    },
+    "./components/*": {
+      "import": {
+        "types": "./dist/components/*/index.d.ts",
+        "default": "./dist/components/*/index.js"
+      },
+      "require": {
+        "types": "./dist/components/*/index.d.ts",
+        "default": "./dist/components/*/index.cjs"
       }
     }
   },

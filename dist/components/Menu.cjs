@@ -1,1 +1,0 @@
-Object.defineProperty(exports,Symbol.toStringTag,{value:`Module`});const e=require(`../Menu-BUFFMCVZ.cjs`);exports.LMenu=e.t,exports.menuStyles=e.n;

@@ -1,1 +1,0 @@
-Object.defineProperty(exports,Symbol.toStringTag,{value:`Module`});const e=require(`../Skeleton-B-4UqT9g.cjs`);exports.LSkeleton=e.t,exports.skeletonStyles=e.n;

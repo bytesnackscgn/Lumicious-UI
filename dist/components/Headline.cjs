@@ -1,1 +1,0 @@
-Object.defineProperty(exports,Symbol.toStringTag,{value:`Module`}),require(`../gradients-OZ0ZPXux.cjs`);const e=require(`../Headline-BklvlY7f.cjs`);exports.LHeadline=e.t,exports.headlineStyles=e.n;

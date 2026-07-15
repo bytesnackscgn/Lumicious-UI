@@ -1,1 +1,0 @@
-Object.defineProperty(exports,Symbol.toStringTag,{value:`Module`});const e=require(`../LIcon-DysO3icX.cjs`);require(`../Icon-DG8S-Zoa.cjs`),exports.LIcon=e.t,exports.iconStyles=e.n;

@@ -9,9 +9,12 @@ import dts from "vite-plugin-dts";
 // Generate entry points for each component
 const componentEntries = glob.sync("src/components/*/index.ts").reduce<Record<string, string>>((acc, file) => {
   const name = path.basename(path.dirname(file));
-  acc[`components/${name}`] = file;
+  acc[`components/${name}/index`] = file;
   return acc;
 }, {});
+
+// Add barrel entry for components/index
+componentEntries["components/index"] = fileURLToPath(new URL("./src/components/index.ts", import.meta.url));
 
 export default defineConfig({
   plugins: [

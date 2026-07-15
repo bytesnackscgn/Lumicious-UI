@@ -1,1 +1,0 @@
-Object.defineProperty(exports,Symbol.toStringTag,{value:`Module`});const e=require(`../Badge-CDT-7Ppk.cjs`);exports.LBadge=e.t,exports.badgeStyles=e.n;

@@ -1,1 +1,0 @@
-Object.defineProperty(exports,Symbol.toStringTag,{value:`Module`});const e=require(`../Dialog-BH8Z9jpk.cjs`);exports.LDialog=e.t,exports.dialogBackdropStyles=e.n,exports.dialogContentStyles=e.r;

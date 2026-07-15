@@ -1,1 +1,0 @@
-Object.defineProperty(exports,Symbol.toStringTag,{value:`Module`}),require(`../LIcon-DysO3icX.cjs`),require(`../Icon-DG8S-Zoa.cjs`);const e=require(`../Carousel-9RCyc3lb.cjs`);exports.LCarousel=e.t,exports.carouselArrowStyles=e.n,exports.carouselControlsStyles=e.r,exports.carouselItemStyles=e.i,exports.carouselStyles=e.a;

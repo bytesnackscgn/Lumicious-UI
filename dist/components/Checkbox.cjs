@@ -1,1 +1,0 @@
-Object.defineProperty(exports,Symbol.toStringTag,{value:`Module`});const e=require(`../Checkbox-vfSef_uA.cjs`);exports.LCheckbox=e.t,exports.checkboxBoxStyles=e.n,exports.checkboxStyles=e.r;
