@@ -1,9 +1,25 @@
 {
-  "name": "Lumicious-ui",
+  "name": "lumicious-ui",
   "version": "0.0.1",
   "type": "module",
-  "private": true,
   "description": "Solid, testable, high-scalable UI component framework",
+  "files": [
+    "dist"
+  ],
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs"
+    },
+    "./style.css": "./dist/lumicious-ui.css",
+    "./components/*": {
+      "import": "./dist/components/*.js",
+      "require": "./dist/components/*.cjs"
+    }
+  },
   "engines": {
     "node": ">=24.0.0",
     "pnpm": ">=10.0.0"
@@ -11,7 +27,7 @@
   "scripts": {
     "dev": "vite",
     "compile": "vue-tsc -b",
-    "build": "vue-tsc -b && vite build",
+    "build": "vue-tsc -p tsconfig.build.json && vite build",
     "type-check": "vue-tsc --noEmit",
     "preview": "vite preview",
     "test": "vitest",
@@ -24,6 +40,7 @@
     "kill:storybook": "lsof -ti:6006 | xargs kill -9"
   },
   "dependencies": {
+    "glob": "^13.0.6",
     "lucide-vue-next": "^0.563.0",
     "vue": "3.5.27"
   },
