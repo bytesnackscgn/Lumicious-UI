@@ -25,7 +25,7 @@ export default defineConfig({
         index: fileURLToPath(new URL("./src/index.ts", import.meta.url)),
         ...componentEntries
       },
-      formats: ["es", "umd"],
+      formats: ["es", "cjs"],
       name: "LumiciousUI"
     },
     rollupOptions: {

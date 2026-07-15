@@ -1,0 +1,1 @@
+Object.defineProperty(exports,Symbol.toStringTag,{value:`Module`});const e=require(`../Spinner-Dm3BT1Ye.cjs`);exports.LSpinner=e.t,exports.spinnerStyles=e.n;

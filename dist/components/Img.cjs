@@ -1,0 +1,1 @@
+Object.defineProperty(exports,Symbol.toStringTag,{value:`Module`});const e=require(`../Img-CT-lNAtR.cjs`);exports.LImg=e.t;

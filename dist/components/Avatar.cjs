@@ -1,0 +1,1 @@
+Object.defineProperty(exports,Symbol.toStringTag,{value:`Module`}),require(`../LIcon-DysO3icX.cjs`),require(`../Icon-DG8S-Zoa.cjs`);const e=require(`../Avatar-CfLdhAcB.cjs`);require(`../Img-CT-lNAtR.cjs`),exports.LAvatar=e.t,exports.avatarStyles=e.n;

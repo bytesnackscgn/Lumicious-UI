@@ -1,0 +1,1 @@
+Object.defineProperty(exports,Symbol.toStringTag,{value:`Module`}),require(`../gradients-OZ0ZPXux.cjs`);const e=require(`../Text-CL8mNoSJ.cjs`);exports.LText=e.t,exports.textStyles=e.n;

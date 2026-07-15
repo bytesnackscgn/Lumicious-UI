@@ -26,8 +26,9 @@
   },
   "scripts": {
     "dev": "vite",
+    "prepare": "pnpm build",
     "compile": "vue-tsc -b",
-    "build": "vue-tsc -p tsconfig.build.json && vite build",
+    "build": "vue-tsc -p tsconfig.json && vite build",
     "type-check": "vue-tsc --noEmit",
     "preview": "vite preview",
     "test": "vitest",
@@ -40,8 +41,11 @@
     "kill:storybook": "lsof -ti:6006 | xargs kill -9"
   },
   "dependencies": {
+    "class-variance-authority": "^0.7.1",
+    "clsx": "^2.1.1",
     "glob": "^13.0.6",
     "lucide-vue-next": "^0.563.0",
+    "tailwind-merge": "^3.6.0",
     "vue": "3.5.27"
   },
   "devDependencies": {

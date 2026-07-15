@@ -1,0 +1,1 @@
+Object.defineProperty(exports,Symbol.toStringTag,{value:`Module`});const e=require(`../Separator-BAVkXkSI.cjs`);exports.LSeparator=e.t,exports.separatorStyles=e.n;

@@ -1,0 +1,1 @@
+Object.defineProperty(exports,Symbol.toStringTag,{value:`Module`}),require(`../LIcon-DysO3icX.cjs`),require(`../Icon-DG8S-Zoa.cjs`);const e=require(`../Tabs-BPJFopHr.cjs`);exports.LTab=e.r,exports.LTabPanel=e.t,exports.LTabPanels=e.n,exports.LTabs=e.i,exports.tabStyles=e.a,exports.tabsStyles=e.o;
