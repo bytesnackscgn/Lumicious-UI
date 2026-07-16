@@ -24,7 +24,7 @@ importers:
         specifier: ^3.6.0
         version: 3.6.0
       vue:
-        specifier: 3.5.35
+        specifier: ^3.5.0
         version: 3.5.35(typescript@5.9.3)
     devDependencies:
       '@chromatic-com/storybook':
