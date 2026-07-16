@@ -23,9 +23,6 @@ importers:
       tailwind-merge:
         specifier: ^3.6.0
         version: 3.6.0
-      vue:
-        specifier: ^3.5.0
-        version: 3.5.35(typescript@5.9.3)
     devDependencies:
       '@chromatic-com/storybook':
         specifier: ^5.0.0
@@ -114,6 +111,9 @@ importers:
       vitest:
         specifier: ^4.0.18
         version: 4.0.18(@types/node@22.19.7)(@vitest/browser-playwright@4.0.18)(jiti@2.6.1)(jsdom@25.0.1)(lightningcss@1.31.1)
+      vue:
+        specifier: ^3.5.35
+        version: 3.5.35(typescript@5.9.3)
       vue-tsc:
         specifier: ^3.2.3
         version: 3.2.3(typescript@5.9.3)
